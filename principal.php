@@ -1,10 +1,20 @@
 <?php
 session_start();
+
 if (!isset($_SESSION["usuario_id"])) {
-    header("Location: index.php"); // Redirige a la página de inicio de sesión si no hay sesión activa
+    header("Location: index.php");
     exit;
 }
+
+// Cabeceras para evitar caché
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+header("Expires: Sat, 1 Jan 2000 00:00:00 GMT");
+
+$nombre = $_SESSION["usuario_nombre"];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -13,6 +23,17 @@ if (!isset($_SESSION["usuario_id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comercio Principal</title>
     <link rel="stylesheet" href="styles/principal.css">
+
+        <script>
+    // Si el usuario vuelve con "Atrás" después de cerrar sesión,
+    // forzamos recarga de la página para que PHP verifique la sesión
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+            window.location.reload();
+        }
+    });
+    </script>
+
 </head>
 <body>
 
@@ -25,7 +46,8 @@ if (!isset($_SESSION["usuario_id"])) {
                     <li><a href="#">Productos</a></li>
                     <li><a href="#">Servicios</a></li>
                     <li><a href="#">Contacto</a></li>
-                    <li><a href="index.php">Cerrar Sesión</a></li>
+                    <li><a href="logout.php">Cerrar Sesión</a></li>
+ 
                 </ul>
             </nav>
         </div>
