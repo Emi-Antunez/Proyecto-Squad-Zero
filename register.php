@@ -1,5 +1,6 @@
 <?php
-require "/config/database.php";
+require "backend/config/database.php";
+
 
 
 $mensaje = "";
