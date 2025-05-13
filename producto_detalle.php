@@ -2,44 +2,61 @@
 session_start();
 require "backend/config/database.php";
 
-// Proteger con sesión
-if (!isset($_SESSION["usuario_id"])) {
-    header("Location: http://localhost/Proyecto-Squad-Zero/backend/controllers/login.php");
+// Verificar si hay ID en la URL
+if (!isset($_GET["id"])) {
+    header("Location: producto.php");
     exit;
 }
 
-// Obtener productos
-$stmt = $pdo->query("SELECT * FROM productos ORDER BY fecha_creacion DESC");
-$productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$id = $_GET["id"];
+
+// Obtener el producto desde la base de datos
+$stmt = $pdo->prepare("SELECT * FROM productos WHERE id = ?");
+$stmt->execute([$id]);
+$producto = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Si no se encontró el producto
+if (!$producto) {
+    echo "<h2>Producto no encontrado</h2>";
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Productos</title>
-    <link rel="stylesheet" href="styles/producto.css">
+    <title><?= htmlspecialchars($producto["nombre"]) ?> - Detalle</title>
+    <link rel="stylesheet" href="styles/producto_detalle.css"> <!-- Podés usar uno nuevo o el mismo -->
 </head>
 <body>
 
-<h1>Productos</h1>
-
-<?php if (isset($_SESSION["usuario_rol"]) && $_SESSION["usuario_rol"] === "admin"): ?>
-    <div class="add-product-btn">
-        <a href="agregar_producto.php">Agregar Producto</a>
-    </div>
-<?php endif; ?>
-
-<div class="productos-container">
-    <?php foreach ($productos as $producto): ?>
-        <div class="producto-card" onclick="window.location.href='producto_detalle.php?id=<?= $producto["id"] ?>'">
-            <img src="images/<?= htmlspecialchars($producto["imagen"]) ?>" alt="<?= htmlspecialchars($producto["nombre"]) ?>">
-            <h3><?= htmlspecialchars($producto["nombre"]) ?></h3>
-            <p><?= htmlspecialchars($producto["descripcion"]) ?></p>
-            <p class="precio">$<?= number_format($producto["precio"], 2) ?></p>
+    <header>
+        <div class="container">
+            <h1>Mi Comercio</h1>
+            <nav>
+                <ul>
+                    <li><a href="principal.php">Inicio</a></li>
+                    <li><a href="producto.php">Productos</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="logout.php">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
         </div>
-    <?php endforeach; ?>
-</div>
+    </header>
+
+<main>
+    <div class="detalle-container">
+        <img src="images/<?= htmlspecialchars($producto["imagen"]) ?>" alt="<?= htmlspecialchars($producto["nombre"]) ?>">
+        <div class="detalle-info">
+            <h2><?= htmlspecialchars($producto["nombre"]) ?></h2>
+            <p><?= htmlspecialchars($producto["descripcion"]) ?></p>
+            <p><strong>Precio:</strong> $<?= number_format($producto["precio"], 2) ?></p>
+            <p><strong>Stock:</strong> <?= $producto["stock"] ?></p>
+        </div>
+    </div>
+</main>
 
 <footer>
     <p>&copy; 2025 Mi Comercio. Todos los derechos reservados.</p>

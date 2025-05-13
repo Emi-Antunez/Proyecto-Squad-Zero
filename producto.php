@@ -21,7 +21,7 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Productos</title>
-    <link rel="stylesheet" href="styles/principal.css">
+    <link rel="stylesheet" href="styles/producto.css">
 </head>
 <body>
 

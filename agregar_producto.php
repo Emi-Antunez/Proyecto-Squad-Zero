@@ -21,17 +21,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Subir la imagen
     if ($imagen) {
-        $targetDir = "images/";
-        $targetFile = $targetDir . basename($imagen);
-        move_uploaded_file($_FILES["imagen"]["tmp_name"], $targetFile);
+        $targetDir = __DIR__ . "/images/"; // Ruta absoluta
+        if (!file_exists($targetDir)) {
+            mkdir($targetDir, 0777, true); // Crear carpeta si no existe
+        }
+
+        // Generar nombre único
+        $extension = pathinfo($imagen, PATHINFO_EXTENSION);
+        $nombreUnico = md5(uniqid(rand(), true)) . "." . $extension;
+
+        $targetFile = $targetDir . $nombreUnico;
+
+        if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $targetFile)) {
+            // Guardar el nombre generado en la base
+            $stmt = $pdo->prepare("INSERT INTO productos (nombre, descripcion, precio, stock, imagen) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$nombre, $descripcion, $precio, $stock, $nombreUnico]);
+            $mensaje = "✅ Producto agregado exitosamente.";
+        } else {
+            $mensaje = "❌ Error al subir la imagen.";
+        }
+    } else {
+        $mensaje = "❌ Debes seleccionar una imagen.";
     }
-
-    // Insertar producto en la base de datos
-    $stmt = $pdo->prepare("INSERT INTO productos (nombre, descripcion, precio, stock, imagen) VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([$nombre, $descripcion, $precio, $stock, $imagen]);
-
-    // Mensaje de éxito
-    $mensaje = "Producto agregado exitosamente!";
 }
 ?>
 
@@ -40,10 +51,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Agregar Producto</title>
-    <link rel="stylesheet" href="styles/producto.css">
+    <link rel="stylesheet" href="styles/agregar_producto.css">
 </head>
 <body>
 
+    <header>
+        <div class="container">
+            <h1>Mi Comercio</h1>
+            <nav>
+                <ul>
+                    <li><a href="principal.php">Inicio</a></li>
+                    <li><a href="producto.php">Productos</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="logout.php">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
 <h1>Agregar Producto</h1>
 
 <?php if ($mensaje): ?>
@@ -68,6 +95,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <button type="submit">Agregar Producto</button>
 </form>
+</main>
 
+    <footer>
+        <p>&copy; 2025 Mi Comercio. Todos los derechos reservados.</p>
+    </footer>
+    
 </body>
 </html>
