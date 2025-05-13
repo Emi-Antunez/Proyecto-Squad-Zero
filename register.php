@@ -4,14 +4,21 @@ require "backend/config/database.php";
 $mensaje = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $nombre = trim($_POST["nombre"]);
-    $apellido = trim($_POST["apellido"]);
-    $gmail = trim($_POST["email"]);
-    $usuario = trim($_POST["usuario"]);
+    $nombre = $_POST["nombre"];
+    $apellido = $_POST["apellido"];
+    $gmail = $_POST["email"];
+    $usuario = $_POST["usuario"];
     $contrasena = $_POST["contrasena"];
     $confirmar = $_POST["confirmar"];
 
-    if ($contrasena !== $confirmar) {
+    // Validaciones
+    if (!filter_var($gmail, FILTER_VALIDATE_EMAIL)) {
+        $mensaje = "❌ El correo no tiene un formato válido.";
+    } elseif (strtolower(substr(strrchr($gmail, "@"), 1)) !== 'gmail.com') {
+        $mensaje = "❌ Solo se permiten correos @gmail.com.";
+    } elseif (strlen($contrasena) < 8) {
+        $mensaje = "⚠️ La contraseña debe tener al menos 8 caracteres.";
+    } elseif ($contrasena !== $confirmar) {
         $mensaje = "⚠️ Las contraseñas no coinciden.";
     } else {
         $hash = password_hash($contrasena, PASSWORD_DEFAULT);
@@ -21,16 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $stmt->execute([$nombre, $apellido, $gmail, $usuario, $hash]);
             $mensaje = "✅ Usuario registrado con éxito.";
         } catch (PDOException $e) {
-            if ($e->getCode() == 23000) { // Error por clave duplicada
-                if (str_contains($e->getMessage(), 'gmail')) {
-                    $mensaje = "❌ El correo electrónico ya está registrado.";
-                } elseif (str_contains($e->getMessage(), 'usuario')) {
-                    $mensaje = "❌ El nombre de usuario ya está en uso.";
-                } else {
-                    $mensaje = "❌ Ya existe un usuario con los datos ingresados.";
-                }
+            // Si el usuario ya existe o hay otro error
+            if (str_contains($e->getMessage(), 'Duplicate')) {
+                $mensaje = "❌ Ese usuario o correo ya está registrado.";
             } else {
-                $mensaje = "❌ Error inesperado al registrar: " . $e->getMessage();
+                $mensaje = "❌ Error en el registro: " . $e->getMessage();
             }
         }
     }
