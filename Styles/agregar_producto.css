@@ -1,4 +1,3 @@
-/* Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -47,6 +46,9 @@ nav ul li a {
     transition: color 0.3s;
 }
 
+nav ul li a:hover {
+    text-decoration: underline;
+}
 
 /* Título principal */
 .titulo {

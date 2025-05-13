@@ -47,6 +47,9 @@ nav ul li a {
     transition: color 0.3s;
 }
 
+nav ul li a:hover {
+    text-decoration: underline;
+}
 
 /* Título principal */
 .titulo {
