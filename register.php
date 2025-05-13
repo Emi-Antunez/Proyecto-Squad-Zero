@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <input type="password" id="confirmar" name="confirmar" required>
 
         <input type="submit" value="Registrarse">
-        <a href="index.php">¿Ya tienes una cuenta? Inicia sesión</a>
+        <a href="http://localhost/Proyecto-Squad-Zero/backend/controllers/login.php">¿Ya tienes una cuenta? Inicia sesión</a>
     </form>
 </body>
 </html>

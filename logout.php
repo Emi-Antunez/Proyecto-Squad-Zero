@@ -8,5 +8,5 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Pragma: no-cache");
 header("Expires: 0");
 
-header("Location: index.php");
+header("Location: http://localhost/Proyecto-Squad-Zero/backend/controllers/login.php");
 exit();
