@@ -8,14 +8,14 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #2c502e;
+    color: #333333; /* Texto en color oscuro */
 }
 
 /* Header */
 header {
-    background-color: #2c502e;
+    background-color: #388E3C; /* Verde brillante */
     padding: 20px 0;
-    color: #fff;
+    color: #FFFFFF; /* Blanco para el texto */
 }
 
 .container {
@@ -31,6 +31,7 @@ header {
 
 header h1 {
     font-size: 24px;
+    color: #FFEB3B; /* Amarillo para el título */
 }
 
 nav ul {
@@ -41,19 +42,20 @@ nav ul {
 }
 
 nav ul li a {
-    color: #fff;
+    color: #FFEB3B; /* Amarillo para enlaces */
     text-decoration: none;
     font-weight: bold;
 }
 
 nav ul li a:hover {
-    text-decoration: underline;
+    color: #F1C40F; /* Amarillo más brillante al pasar el cursor */
 }
 
 /* Hero */
 .hero {
     background: url('https://images.unsplash.com/photo-1556742049-90832c8f5a3c') no-repeat center center/cover;
-    color: rgb(0, 0, 0);
+    background-size: cover;
+    color: #FFFFFF; /* Texto blanco */
     height: 400px;
     display: flex;
     align-items: center;
@@ -65,35 +67,39 @@ nav ul li a:hover {
 .hero-content h2 {
     font-size: 2.5rem;
     margin-bottom: 10px;
+    color: #388E3C; /* Verde */
 }
 
 .hero-content p {
     font-size: 1.2rem;
     margin-bottom: 20px;
+    color: #388E3C; /* Verde */
 }
 
 .btn {
-    background-color: #e67e22;
-    color: white;
+    background-color: #FFEB3B; /* Amarillo */
+    color: #388E3C; /* Verde oscuro */
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
 }
 
 .btn:hover {
-    background-color: #d35400;
+    background-color: #388E3C; /* Verde al pasar el cursor */
+    color: #FFEB3B; /* Amarillo al pasar el cursor */
 }
 
 /* Features */
 .features {
     padding: 40px 20px;
-    background-color: #f4f4f4;
+    background-color: #ffffff; /* Fondo blanco brillante */
     text-align: center;
 }
 
 .features h2 {
     margin-bottom: 30px;
     font-size: 2rem;
+    color: #388E3C; /* Verde */
 }
 
 .cards {
@@ -104,27 +110,34 @@ nav ul li a:hover {
 }
 
 .card {
-    background: white;
+    background: #ffffff; /* Fondo blanco brillante */
     padding: 20px;
     width: 300px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    border: 1px solid #388E3C; /* Verde para el borde */
 }
 
 .card h3 {
     margin-bottom: 10px;
-    color: #2c502e;
+    color: #388E3C; /* Verde para los títulos */
 }
 
 /* Footer */
 footer {
-    background-color: #2c502e;
-    color: white;
+    background-color: #388E3C; /* Verde */
+    color: #FFFFFF; /* Blanco */
     text-align: center;
     padding: 15px 0;
     margin-top: 40px;
 }
 
+footer p {
+    font-size: 16px;
+    color: #FFEB3B; /* Amarillo para el texto del pie de página */
+}
+
+/* Responsive */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
