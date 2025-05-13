@@ -11,7 +11,6 @@ header("Expires: 0");
 // Si ya está logueado, redirigir
 if (isset($_SESSION["usuario_id"])) {
     header("Location: ../../principal.php");
-
     exit;
 }
 
@@ -27,11 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $usuarioData = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($usuarioData && password_verify($contrasena, $usuarioData["contrasena"])) {
-        // Guardamos en sesión
         $_SESSION["usuario_id"] = $usuarioData["id"];
         $_SESSION["usuario_nombre"] = $usuarioData["usuario"];
-        $_SESSION["usuario_rol"] = $usuarioData["rol"]; // Guardamos el rol
-        // Redirigimos
+        $_SESSION["usuario_rol"] = $usuarioData["rol"];
         header("Location: ../../principal.php");
         exit;
     } else {
@@ -39,11 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 ?>
-
-<!-- Formulario HTML -->
-<?php if ($mensaje): ?>
-    <p style="color:red;"><?= $mensaje ?></p>
-<?php endif; ?>
 
 <!-- Formulario de login -->
 <!DOCTYPE html>
