@@ -4,7 +4,7 @@ require "backend/config/database.php";
 
 // Proteger acceso
 if (!isset($_SESSION["usuario_id"])) {
-    header("Location: index.php");
+    header("Location: http://localhost/Proyecto-Squad-Zero/backend/controllers/login.php");
     exit;
 }
 
@@ -40,7 +40,7 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </header>
 
-<h1>Productos</h1>
+<h1 class="titulo">Productos</h1>
 
 <?php if ($rol === 'admin'): ?>
     <a href="agregar_producto.php" class="agregar-link">➕ Agregar Producto</a>

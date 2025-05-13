@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["usuario"])) {
-    header("Location: index.php");
+    header("Location: http://localhost/Proyecto-Squad-Zero/backend/controllers/login.php");
     exit();
 }
 ?>

@@ -3,7 +3,7 @@ session_start();
 
 // Verificar que esté logueado
 if (!isset($_SESSION["usuario_id"])) {
-    header("Location: index.php");
+    header("Location: http://localhost/Proyecto-Squad-Zero/backend/controllers/login.php");
     exit;
 }
 

@@ -4,7 +4,7 @@ require "backend/config/database.php";
 
 // Verificar si el usuario está logueado y es admin
 if (!isset($_SESSION["usuario_id"]) || $_SESSION["usuario_rol"] !== 'admin') {
-    header("Location: index.php");
+    header("Location: http://localhost/Proyecto-Squad-Zero/backend/controllers/login.php");
     exit;
 }
 
@@ -40,15 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Agregar Producto</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
-        h1 { text-align: center; }
-        form { max-width: 600px; margin: auto; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
-        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
-        button { padding: 10px 20px; background-color: #28a745; color: white; border: none; cursor: pointer; border-radius: 5px; }
-        button:hover { background-color: #218838; }
-        .mensaje { text-align: center; margin-bottom: 20px; color: green; font-weight: bold; }
-    </style>
+    <link rel="stylesheet" href="styles/producto.css">
 </head>
 <body>
 
