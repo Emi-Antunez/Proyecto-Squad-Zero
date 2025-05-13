@@ -21,71 +21,24 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Productos</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
-        h1 { text-align: center; }
-
-        .productos-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .producto-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .producto-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .producto-card h3 {
-            margin: 10px;
-            font-size: 18px;
-        }
-
-        .producto-card p {
-            margin: 0 10px;
-            font-size: 16px;
-            color: #777;
-        }
-
-        .producto-card .precio {
-            font-size: 20px;
-            font-weight: bold;
-            color: #28a745;
-            margin: 10px 0;
-        }
-
-        .agregar-link {
-            display: block;
-            width: fit-content;
-            margin: 20px auto;
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 8px;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            background-color: #333;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/principal.css">
 </head>
 <body>
+
+    <header>
+        <div class="container">
+            <h1>Mi Comercio</h1>
+            <nav>
+                <ul>
+                    <li><a href="principal.php">Inicio</a></li>
+                    <li><a href="producto.php">Productos</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="logout.php">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
 <h1>Productos</h1>
 

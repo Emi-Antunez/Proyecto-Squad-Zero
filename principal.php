@@ -10,12 +10,6 @@ if (!isset($_SESSION["usuario_id"])) {
 // Obtener rol
 $rol = $_SESSION["usuario_rol"] ?? null;
 
-if (strtolower($rol) === 'admin') {
-    echo "¡Eres un admin!";
-} else {
-    echo "¡Eres un usuario normal!";
-}
-
 // Evitar caché
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
@@ -25,14 +19,6 @@ header("Expires: Sat, 1 Jan 2000 00:00:00 GMT");
 // Obtener datos de sesión
 $nombre = $_SESSION["usuario_nombre"] ?? "";
 $rol = $_SESSION["usuario_rol"] ?? ""; // Obtiene el rol de la sesión
-
-if ($rol === 'admin') {
-    // Código específico para admin
-    echo "¡Hola Admin!";
-} else {
-    // Código para usuarios normales
-    echo "¡Hola Usuario!";
-}
 
 ?>
 
