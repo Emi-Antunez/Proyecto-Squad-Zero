@@ -1,15 +1,13 @@
 <?php
 require "backend/config/database.php";
 
-
-
 $mensaje = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $nombre = $_POST["nombre"];
-    $apellido = $_POST["apellido"];
-    $gmail = $_POST["email"];
-    $usuario = $_POST["usuario"];
+    $nombre = trim($_POST["nombre"]);
+    $apellido = trim($_POST["apellido"]);
+    $gmail = trim($_POST["email"]);
+    $usuario = trim($_POST["usuario"]);
     $contrasena = $_POST["contrasena"];
     $confirmar = $_POST["confirmar"];
 
@@ -23,11 +21,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $stmt->execute([$nombre, $apellido, $gmail, $usuario, $hash]);
             $mensaje = "✅ Usuario registrado con éxito.";
         } catch (PDOException $e) {
-            $mensaje = "❌ Error: " . $e->getMessage();
+            if ($e->getCode() == 23000) { // Error por clave duplicada
+                if (str_contains($e->getMessage(), 'gmail')) {
+                    $mensaje = "❌ El correo electrónico ya está registrado.";
+                } elseif (str_contains($e->getMessage(), 'usuario')) {
+                    $mensaje = "❌ El nombre de usuario ya está en uso.";
+                } else {
+                    $mensaje = "❌ Ya existe un usuario con los datos ingresados.";
+                }
+            } else {
+                $mensaje = "❌ Error inesperado al registrar: " . $e->getMessage();
+            }
         }
     }
 }
 ?>
+
 
 <!-- Tu formulario HTML -->
 <!DOCTYPE html>
