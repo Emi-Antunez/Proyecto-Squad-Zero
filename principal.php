@@ -44,7 +44,7 @@ if (!isset($_SESSION["usuario_id"])) {
             <div class="cards">
                 <div class="card">
                     <h3>Envíos Rápidos</h3>
-                    <p>Entregamos en menos de 48 horas en todo el país.</p>
+                    <p>Entregamos en menos de 12 horas en todo colonia.</p>
                 </div>
                 <div class="card">
                     <h3>Pagos Seguros</h3>

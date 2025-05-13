@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Registro</title>
-    <link rel="stylesheet" href="Styles/RegisterStyle.css">
+    <link rel="stylesheet" href="Styles/indexStyle.css">
 </head>
 <body>
     <form method="post" action="register.php">
