@@ -26,12 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->execute([$usuario]);
     $usuarioData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Mostrar información temporalmente en la página
-    echo "<pre>";
-    var_dump($usuarioData);
-    var_dump($_SESSION["usuario_rol"]);
-    echo "</pre>";
-
     if ($usuarioData && password_verify($contrasena, $usuarioData["contrasena"])) {
         // Guardamos en sesión
         $_SESSION["usuario_id"] = $usuarioData["id"];
