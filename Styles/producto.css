@@ -173,14 +173,26 @@ footer {
 }
 
 /* Contenedor de productos */
+/* Contenedor de productos */
 .productos-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
-    padding: 30px 20px;
+    padding: 0 20px;
     max-width: 1200px;
     margin: auto;
+    justify-items: center; /* Alineación horizontal de las tarjetas */
+    align-items: center;   /* Alineación vertical de las tarjetas */
+    transition: all 0.5s ease; /* Suaviza la transición */
 }
+
+/* Si el contenedor tiene menos de 1200px de ancho, centramos de manera fluida */
+@media (max-width: 1200px) {
+    .productos-container {
+        justify-items: center;
+    }
+}
+
 
 /* Tarjeta de producto */
 .producto-card {
@@ -223,4 +235,91 @@ footer {
     color: #e67e22;
     font-weight: bold;
     margin-top: 10px;
+}
+
+.admin-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-editar,
+.btn-eliminar {
+    padding: 8px 14px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn-editar {
+    background-color: #388e3c;
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #2e7030;
+}
+
+.btn-eliminar {
+    background-color: #e53935;
+    color: white;
+}
+
+.btn-eliminar:hover {
+    background-color: #c62828;
+}
+
+.mensaje-exito {
+    background-color: #dff0d8;
+    color: #3c763d;
+    padding: 12px;
+    margin: 20px auto;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.buscador-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px auto;
+    flex-wrap: wrap;
+}
+
+.buscador-form input,
+.buscador-form select,
+.buscador-form button {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+/* Animación fade suave para productos */
+/* Animación fade-in y slide-in suave para productos */
+.producto-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Cuando el producto esté visible */
+.producto-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animación para fade-out al filtrar */
+.producto-card.fade-out {
+    opacity: 0;
+    transform: translateY(20px);
 }

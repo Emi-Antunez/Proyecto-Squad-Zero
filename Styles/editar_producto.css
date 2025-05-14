@@ -1,0 +1,93 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9f7;
+    color: #2c502e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* Título */
+h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+/* Formulario */
+form {
+    background-color: white;
+    max-width: 500px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: #2c502e;
+    margin-top: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"],
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 100%;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #388E3C;
+    outline: none;
+    box-shadow: 0 0 5px rgba(56, 142, 60, 0.3);
+}
+
+/* Imagen actual */
+img {
+    border-radius: 8px;
+    margin: 10px 0;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Botón guardar */
+button[type="submit"] {
+    background-color: #2c502e;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #254427;
+}
