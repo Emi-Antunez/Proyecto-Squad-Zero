@@ -51,6 +51,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['cantidad'])) {
 </head>
 <body>
 
+<header>
+    <div class="container">
+        <h1>Mi Comercio</h1>
+        <nav>
+            <ul>
+                <li><a href="principal.php">Inicio</a></li>
+                <li><a href="producto.php">Productos</a></li>
+                <li><a href="servicios.php">Servicios</a></li>
+                <li><a href="contacto.php">Contacto</a></li>
+                <li><a href="carrito.php">Carrito 🛒</a></li>
+                <li><a href="logout.php">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
 <h1>Carrito de Compras</h1>
 
 <?php if (empty($carrito)): ?>
@@ -85,6 +101,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['cantidad'])) {
     <a href="producto.php">⬅ Seguir comprando</a>
     <button onclick="alert('Compra finalizada')">Finalizar compra 🛒</button>
 </div>
+
+<footer>
+    <p>&copy; 2025 Mi Comercio. Todos los derechos reservados.</p>
+</footer>
 
 <script>
 // Hacer que la cantidad se actualice automáticamente cuando el usuario cambie el valor
