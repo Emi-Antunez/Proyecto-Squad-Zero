@@ -128,10 +128,15 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php if (isset($_SESSION["usuario_rol"]) && $_SESSION["usuario_rol"] === "admin"): ?>
             <div class="admin-actions">
                 <a href="editar_producto.php?id=<?= $producto["id"] ?>" class="btn-editar">Editar</a>
-                <form action="agregar_al_carrito.php" method="POST">
+               <form method="POST" action="agregar_al_carrito.php" class="form-carrito">
     <input type="hidden" name="producto_id" value="<?= $producto['id'] ?>">
-    <button type="submit" class="btn-agregar-carrito">🛒 Agregar al carrito</button>
+    
+    <label for="cantidad_<?= $producto['id'] ?>">Cantidad:</label>
+    <input type="number" id="cantidad_<?= $producto['id'] ?>" name="cantidad" min="1" value="1" required>
+
+    <button type="submit">Agregar al carrito</button>
 </form>
+
 
                 <form method="POST" action="eliminar_producto.php" onsubmit="return confirm('¿Seguro que querés eliminar este producto?');">
                     <input type="hidden" name="id" value="<?= $producto["id"] ?>">
@@ -146,7 +151,6 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <footer>
     <p>&copy; 2025 Mi Comercio. Todos los derechos reservados.</p>
 </footer>
-
 
 <script>
     const form = document.querySelector('.buscador-orden');
