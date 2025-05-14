@@ -71,6 +71,7 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <li><a href="producto.php">Productos</a></li>
         <li><a href="servicios.php">Servicios</a></li>
         <li><a href="contacto.php">Contacto</a></li> 
+        <li><a href="carrito.php">Carrito 🛒</a></li>
         <li><a href="logout.php">Cerrar Sesión</a></li>
                 </ul>
             </nav>
@@ -127,6 +128,11 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php if (isset($_SESSION["usuario_rol"]) && $_SESSION["usuario_rol"] === "admin"): ?>
             <div class="admin-actions">
                 <a href="editar_producto.php?id=<?= $producto["id"] ?>" class="btn-editar">Editar</a>
+                <form action="agregar_al_carrito.php" method="POST">
+    <input type="hidden" name="producto_id" value="<?= $producto['id'] ?>">
+    <button type="submit" class="btn-agregar-carrito">🛒 Agregar al carrito</button>
+</form>
+
                 <form method="POST" action="eliminar_producto.php" onsubmit="return confirm('¿Seguro que querés eliminar este producto?');">
                     <input type="hidden" name="id" value="<?= $producto["id"] ?>">
                     <button type="submit" class="btn-eliminar">Eliminar</button>

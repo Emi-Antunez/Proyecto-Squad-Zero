@@ -20,6 +20,7 @@ session_start();
         <li><a href="producto.php">Productos</a></li>
         <li><a href="servicios.php">Servicios</a></li>
         <li><a href="contacto.php">Contacto</a></li> 
+        <li><a href="carrito.php">Carrito 🛒</a></li>
         <li><a href="logout.php">Cerrar Sesión</a></li>
             </ul>
         </nav>
