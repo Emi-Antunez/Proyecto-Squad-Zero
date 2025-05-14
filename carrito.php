@@ -28,8 +28,9 @@ if (isset($_GET['eliminar'])) {
 }
 
 // Actualizar las cantidades de productos en el carrito
-if (isset($_POST['actualizar'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['cantidad'])) {
     foreach ($_POST['cantidad'] as $producto_id => $cantidad) {
+        $cantidad = max(1, intval($cantidad)); // Asegurar que la cantidad no sea menor a 1
         if ($cantidad > 0) {
             $_SESSION['carrito'][$producto_id]['cantidad'] = $cantidad; // Actualizar cantidad
         } else {
@@ -66,7 +67,7 @@ if (isset($_POST['actualizar'])) {
                         <h3><?= htmlspecialchars($producto["nombre"]) ?></h3>
                         <p>Precio: $<?= number_format($producto["precio"], 2) ?></p>
                         <p>Cantidad: 
-                            <input type="number" name="cantidad[<?= $producto['id'] ?>]" value="<?= $carrito[$producto['id']]['cantidad'] ?>" min="1" data-product-id="<?= $producto['id'] ?>" class="cantidad-input" required>
+                            <input type="number" name="cantidad[<?= $producto['id'] ?>]" value="<?= $carrito[$producto['id']]['cantidad'] ?>" min="1" class="cantidad-input" required>
                         </p>
                     </div>
                     <a href="carrito.php?eliminar=<?= $producto['id'] ?>" class="btn-eliminar">Eliminar</a>
