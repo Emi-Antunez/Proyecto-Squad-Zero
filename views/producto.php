@@ -113,7 +113,7 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php endif; ?>
 
 <?php if ($rol === 'admin'): ?>
-    <a href="agregar_producto.php" class="agregar-link">➕ Agregar Producto</a>
+    <a href="../public/agregar_producto.php" class="agregar-link">➕ Agregar Producto</a>
 <?php endif; ?>
 
 <div class="productos-container">
@@ -124,7 +124,7 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <p><?= htmlspecialchars($producto["descripcion"]) ?></p>
             <p class="precio">$<?= number_format($producto["precio"], 2) ?></p>
 
-            <form method="POST" action="agregar_al_carrito.php" class="form-carrito" onclick="event.stopPropagation();">
+            <form method="POST" action="../public/agregar_al_carrito.php" class="form-carrito" onclick="event.stopPropagation();">
                 <input type="hidden" name="producto_id" value="<?= $producto['id'] ?>">
                 <label for="cantidad_<?= $producto['id'] ?>">Cantidad:</label>
                 <input type="number" id="cantidad_<?= $producto['id'] ?>" name="cantidad" min="1" value="1" required>

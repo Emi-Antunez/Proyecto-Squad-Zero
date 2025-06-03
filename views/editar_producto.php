@@ -39,7 +39,7 @@ if (!$producto) {
 
     <h1>Editar Producto</h1>
 
-    <form action="actualizar_producto.php" method="POST" enctype="multipart/form-data">
+    <form action="../public/actualizar_producto.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= $producto['id'] ?>">
 
         <label>Nombre:</label>
