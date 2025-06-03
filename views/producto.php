@@ -119,7 +119,7 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="productos-container">
     <?php foreach ($productos as $producto): ?>
         <div class="producto-card" onclick="window.location.href='producto_detalle.php?id=<?= $producto["id"] ?>'">
-            <img src="images/<?= htmlspecialchars($producto["imagen"]) ?>" alt="<?= htmlspecialchars($producto["nombre"]) ?>">
+            <img src="../images/<?= htmlspecialchars($producto["imagen"]) ?>" alt="<?= htmlspecialchars($producto["nombre"]) ?>">
             <h3><?= htmlspecialchars($producto["nombre"]) ?></h3>
             <p><?= htmlspecialchars($producto["descripcion"]) ?></p>
             <p class="precio">$<?= number_format($producto["precio"], 2) ?></p>
