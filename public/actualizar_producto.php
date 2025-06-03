@@ -1,10 +1,10 @@
 <?php
 session_start();
-require "backend/config/database.php";
+require "../backend/config/database.php";
 
 // Verificar si el usuario está logueado y es admin
 if (!isset($_SESSION["usuario_id"]) || $_SESSION["usuario_rol"] !== "admin") {
-    header("Location: producto.php");
+  header("Location: /Proyecto-Squad-Zero/views/producto.php");
     exit;
 }
 
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->execute([$nombre, $descripcion, $precio, $imagen, $id]);
 
 $_SESSION['mensaje_exito'] = "Producto actualizado correctamente.";
-header("Location: producto.php");
+header("Location: /Proyecto-Squad-Zero/views/producto.php");
 exit;
 } else {
     echo "Acceso no válido.";

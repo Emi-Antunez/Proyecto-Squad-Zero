@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION["usuario_id"] = $usuarioData["id"];
         $_SESSION["usuario_nombre"] = $usuarioData["usuario"];
         $_SESSION["usuario_rol"] = $usuarioData["rol"];
-        header("Location: ../../principal.php");
+        header("Location: ../../views/principal.php");
         exit;
     } else {
         $mensaje = "❌ Usuario o contraseña incorrectos.";
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <input type="password" id="password" name="password" required>
 
         <input type="submit" value="Iniciar Sesión">
-        <a href="../../register.php">¿No tienes una cuenta? Regístrate</a>
+        <a href="../../views/register.php">¿No tienes una cuenta? Regístrate</a>
     </form>
 
 </body>

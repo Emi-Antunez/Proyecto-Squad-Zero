@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "backend/config/database.php";
+require "../backend/config/database.php";
 
 if (!isset($_SESSION["usuario_id"])) {
     header("Location: http://localhost/Proyecto-Squad-Zero/backend/controllers/login.php");
@@ -58,7 +58,7 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Productos</title>
-    <link rel="stylesheet" href="styles/producto.css">
+    <link rel="stylesheet" href="../styles/producto.css">
 </head>
 <body>
 
@@ -72,7 +72,7 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <li><a href="servicios.php">Servicios</a></li>
         <li><a href="contacto.php">Contacto</a></li> 
         <li><a href="carrito.php">Carrito 🛒</a></li>
-        <li><a href="logout.php">Cerrar Sesión</a></li>
+        <li><a href="../public/logout.php">Cerrar Sesión</a></li>
                 </ul>
             </nav>
         </div>
@@ -138,7 +138,7 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </form>
 
 
-                <form method="POST" action="eliminar_producto.php" onsubmit="return confirm('¿Seguro que querés eliminar este producto?');">
+               <form method="POST" action="../public/eliminar_producto.php" onsubmit="return confirm('¿Seguro que querés eliminar este producto?');">
                     <input type="hidden" name="id" value="<?= $producto["id"] ?>">
                     <button type="submit" class="btn-eliminar">Eliminar</button>
                 </form>

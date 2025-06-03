@@ -1,5 +1,5 @@
 <?php
-require "backend/config/database.php";
+require "../backend/config/database.php";
 
 $mensaje = "";
 
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Registro</title>
-    <link rel="stylesheet" href="Styles/indexStyle.css">
+    <link rel="stylesheet" href="../styles/indexStyle.css">
 </head>
 <body>
     <form method="post" action="register.php">

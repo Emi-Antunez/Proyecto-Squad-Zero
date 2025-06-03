@@ -1,5 +1,5 @@
 <?php
-require "backend/config/database.php";
+require "../backend/config/database.php";
 session_start();
 
 // Solo admins pueden editar
@@ -32,7 +32,7 @@ if (!$producto) {
 <head>
     <meta charset="UTF-8">
     <title>Editar Producto</title>
-    <link rel="stylesheet" href="styles/editar_producto.css">
+    <link rel="stylesheet" href="../styles/editar_producto.css">
 
 </head>
 <body>

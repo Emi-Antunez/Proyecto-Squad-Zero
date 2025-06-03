@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Servicios</title>
-    <link rel="stylesheet" href="styles/servicios.css">
+    <link rel="stylesheet" href="../styles/servicios.css">
 </head>
 <body>
 
@@ -21,7 +21,7 @@ session_start();
         <li><a href="servicios.php">Servicios</a></li>
         <li><a href="contacto.php">Contacto</a></li> 
         <li><a href="carrito.php">Carrito 🛒</a></li>
-        <li><a href="logout.php">Cerrar Sesión</a></li>
+        <li><a href="../public/logout.php">Cerrar Sesión</a></li>
             </ul>
         </nav>
     </div>

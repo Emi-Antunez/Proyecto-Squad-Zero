@@ -27,7 +27,7 @@ $rol = $_SESSION["usuario_rol"] ?? ""; // Obtiene el rol de la sesión
 <head>
     <meta charset="UTF-8">
     <title>Comercio Principal</title>
-    <link rel="stylesheet" href="styles/principal.css">
+    <link rel="stylesheet" href="../styles/principal.css">
     <script>
         window.addEventListener('pageshow', function(event) {
             if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
@@ -47,8 +47,7 @@ $rol = $_SESSION["usuario_rol"] ?? ""; // Obtiene el rol de la sesión
         <li><a href="servicios.php">Servicios</a></li>
         <li><a href="contacto.php">Contacto</a></li> 
         <li><a href="carrito.php">Carrito 🛒</a></li>
-
-        <li><a href="logout.php">Cerrar Sesión</a></li>
+        <li><a href="../public/logout.php">Cerrar Sesión</a></li>
                 </ul>
             </nav>
         </div>

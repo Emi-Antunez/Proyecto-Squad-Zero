@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "backend/config/database.php";
+require "../backend/config/database.php";
 
 // Verificar si el usuario está logueado y es admin
 if (!isset($_SESSION["usuario_id"]) || $_SESSION["usuario_rol"] !== 'admin') {
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Agregar Producto</title>
-    <link rel="stylesheet" href="styles/agregar_producto.css">
+    <link rel="stylesheet" href="../styles/agregar_producto.css">
 </head>
 <body>
 
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <li><a href="producto.php">Productos</a></li>
         <li><a href="servicios.php">Servicios</a></li>
         <li><a href="contacto.php">Contacto</a></li> 
-        <li><a href="logout.php">Cerrar Sesión</a></li>
+        <li><a href="../public/logout.php">Cerrar Sesión</a></li>
                 </ul>
             </nav>
         </div>

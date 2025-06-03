@@ -4,7 +4,7 @@ session_start();
 // Verificamos que llegaron los datos
 if (!isset($_POST['producto_id'], $_POST['cantidad'])) {
     // Redirigir si faltan datos
-    header("Location: producto.php");
+header("Location: /Proyecto-Squad-Zero/views/producto.php");
     exit;
 }
 
@@ -13,7 +13,7 @@ $producto_id = intval($_POST['producto_id']);
 $cantidad = max(1, intval($_POST['cantidad'])); // Siempre al menos 1
 
 // Obtener los datos del producto desde la base de datos
-require 'backend/config/database.php'; // Asegúrate de incluir la conexión
+require '../backend/config/database.php'; // Asegúrate de incluir la conexión
 
 $stmt = $pdo->prepare("SELECT id, nombre, precio FROM productos WHERE id = :id");
 $stmt->execute(['id' => $producto_id]);
@@ -38,5 +38,5 @@ if ($producto) {
     }
 }
 
-header("Location: producto.php");
+header("Location: /Proyecto-Squad-Zero/views/producto.php");
 exit;

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "backend/config/database.php";
+require "../backend/config/database.php";
 
 // Verificar si hay ID en la URL
 if (!isset($_GET["id"])) {
@@ -27,7 +27,7 @@ if (!$producto) {
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($producto["nombre"]) ?> - Detalle</title>
-    <link rel="stylesheet" href="styles/producto_detalle.css"> <!-- Podés usar uno nuevo o el mismo -->
+    <link rel="stylesheet" href="../styles/producto_detalle.css"> <!-- Podés usar uno nuevo o el mismo -->
 </head>
 <body>
 
@@ -41,7 +41,7 @@ if (!$producto) {
         <li><a href="servicios.php">Servicios</a></li>
         <li><a href="contacto.php">Contacto</a></li> 
         <li><a href="carrito.php">Carrito 🛒</a></li>
-        <li><a href="logout.php">Cerrar Sesión</a></li>
+        <li><a href="../public/logout.php">Cerrar Sesión</a></li>
                 </ul>
             </nav>
         </div>
