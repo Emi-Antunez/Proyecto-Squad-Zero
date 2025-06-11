@@ -25,6 +25,11 @@
         </div>
     </nav>
 
+    <div class="topbar">
+        <button class="btn">Iniciar sesión</button>
+        <button class="btn">Registro</button>
+    </div>
+
     <div class="container">
         <h1 class="mb-4">Gestión de Productos</h1>
         <pre id="output"></pre>
@@ -62,7 +67,11 @@
         </div>
     </div>
 
-    <script src="./js/producto.js"></script>
+    <!-- Botón flotante para alternar la barra -->
+    <button id="toggle-navbar" class="toggle-navbar-btn hide-when-navbar">⇄</button>
+    <!-- Botón para abrir la barra (visible solo cuando la barra está oculta) -->
+    <button id="toggle-navbar-hidden" class="toggle-navbar-btn show-when-navbar-hidden" style="display:none;">⇄</button>
+    <script src="js/producto.js"></script>
     <script>
         listarProductos();
     </script>
