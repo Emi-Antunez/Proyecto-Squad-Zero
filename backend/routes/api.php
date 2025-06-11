@@ -1,26 +1,44 @@
 <?php
-require "../controllers/productos.php"; // Importar el controlador que maneja la lógica de negocio para productos
+
+require "../controllers/productos.php";
+require "../controllers/usuarios.php";
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-// Obtener el método de la solicitud HTTP (GET, POST, PUT, DELETE)
-$requestMethod = $_SERVER["REQUEST_METHOD"];
 
-if ($requestMethod == "GET") {
+$requestMethod = $_SERVER["REQUEST_METHOD"];
+$action = isset($_GET['action']) ? $_GET['action'] : null;
+
+if ($action === "login" && $requestMethod == "POST") {
+    $data = json_decode(file_get_contents("php://input"), true);
+    loginUsuario($data['usuario'], $data['contrasena']);
+}
+elseif ($action === "register" && $requestMethod == "POST") {
+    $data = json_decode(file_get_contents("php://input"), true);
+    agregarUsuario($data['nombre'], $data['apellido'], $data['gmail'], $data['usuario'], $data['contrasena']);
+}
+elseif ($action === "usuarios" && $requestMethod == "GET") {
+    listarUsuarios();
+}
+elseif ($action === "usuarios" && $requestMethod == "DELETE" && isset($_GET['id'])) {
+    eliminarUsuario($_GET['id']);
+}
+// Productos
+elseif ($requestMethod == "GET") {
     if (isset($_GET['id'])) {
-        mostrarProducto($_GET['id']); // Mostrar un producto específico
+        mostrarProducto($_GET['id']);
     } else {
-        listarProductos(); // Listar todos los productos
+        listarProductos();
     }
-} 
+}
 elseif ($requestMethod == "POST") {
     $data = json_decode(file_get_contents("php://input"), true);
-    agregarProducto($data['nombre'], $data['descripcion'], $data['precio'], $data['stock'], $data['imagen']); // Agregar un nuevo producto, stock es opcional
-} 
+    agregarProducto($data['nombre'], $data['descripcion'], $data['precio'], $data['stock'], $data['imagen']);
+}
 elseif ($requestMethod == "PUT") {
     $data = json_decode(file_get_contents("php://input"), true);
-    modificarProducto($data['id'], $data['nombre'], $data['descripcion'], $data['precio'], $data['stock'], $data['imagen']); // Modificar un producto existente, stock es opcional
+    modificarProducto($data['id'], $data['nombre'], $data['descripcion'], $data['precio'], $data['stock'], $data['imagen']);
 }
 elseif ($requestMethod == "DELETE") {
     if (isset($_GET['id'])) {
