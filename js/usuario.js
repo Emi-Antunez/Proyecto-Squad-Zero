@@ -71,12 +71,34 @@ function esContrasenaSegura(contrasena) {
 
 function loginUsuario() {
     const usuario = document.getElementById('username').value.trim();
-    const contrasena = document.getElementById('password').value;
+    const contrasena = document.getElementById('contrasena').value;
 
     if (!usuario || !contrasena) {
         mostrarMensaje("Completa todos los campos.", true);
         return;
     }
+
+    fetch('http://localhost/PROYECTO-SQUAD-ZERO/backend/routes/api.php?action=login', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ usuario, contrasena })
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        if (data.error) {
+            mostrarMensaje(data.error, true);
+        } else {
+            mostrarMensaje("Bienvenido " + data.usuario, false);
+            setTimeout(() => {
+                window.location.href = "../index.html";
+            }, 1500);
+        }
+    })
+    .catch(() => {
+        mostrarMensaje("Error de conexión con el servidor.", true);
+    });
+}
 
     fetch('http://localhost/PROYECTO-SQUAD-ZERO/backend/routes/api.php?action=login', {
         method: "POST",
@@ -98,4 +120,3 @@ function loginUsuario() {
     .catch(() => {
         mostrarMensaje("Error de conexión con el servidor.", true);
     });
-}
