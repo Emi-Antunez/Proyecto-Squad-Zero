@@ -1,36 +1,35 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
+require "../controllers/productos.php"; // Importar el controlador que maneja la lógica de negocio para productos
 
-require "../controllers/usuarios.php"; // Solo importamos el controlador de usuarios
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+// Obtener el método de la solicitud HTTP (GET, POST, PUT, DELETE)
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 if ($requestMethod == "GET") {
-    $solicitud = $_GET["url"];
-
-    if ($solicitud == "usuarios") {
-        if (isset($_GET["accion"]) && $_GET["accion"] == "eliminar") {
-            eliminarUsuarios(); // Eliminar un usuario
-        } else {
-            obtenerUsuarios(); // Obtener todos los usuarios
-        }
+    if (isset($_GET['id'])) {
+        mostrarProducto($_GET['id']); // Mostrar un producto específico
+    } else {
+        listarProductos(); // Listar todos los productos
     }
-}
-
+} 
 elseif ($requestMethod == "POST") {
-    if (isset($_POST["nombre"]) && isset($_POST["apellido"]) && isset($_POST["gmail"]) && isset($_POST["usuario"]) && isset($_POST["contrasena"])) {
-        // Agregar un usuario
-        $nombre = $_POST["nombre"];
-        $apellido = $_POST["apellido"];
-        $gmail = $_POST["gmail"];
-        $usuario = $_POST["usuario"];
-        $contrasena = $_POST["contrasena"];
-        agregarUsuario($nombre, $apellido, $gmail, $usuario, $contrasena);
+    $data = json_decode(file_get_contents("php://input"), true);
+    agregarProducto($data['nombre'], $data['descripcion'], $data['precio'], $data['stock'], $data['imagen']); // Agregar un nuevo producto, stock es opcional
+} 
+elseif ($requestMethod == "PUT") {
+    $data = json_decode(file_get_contents("php://input"), true);
+    modificarProducto($data['id'], $data['nombre'], $data['descripcion'], $data['precio'], $data['stock'], $data['imagen']); // Modificar un producto existente, stock es opcional
+}
+elseif ($requestMethod == "DELETE") {
+    if (isset($_GET['id'])) {
+        eliminarProducto($_GET['id']);
+    } else {
+        echo json_encode(["error" => "Falta el parámetro id para eliminar"]);
     }
 }
-
 else {
     echo json_encode(["error" => "Método no permitido"]);
 }
+?>
