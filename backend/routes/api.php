@@ -1,36 +1,53 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-require "../controllers/usuarios.php"; // Solo importamos el controlador de usuarios
+require "../controllers/productos.php";
+require "../controllers/usuarios.php";
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
+$action = isset($_GET['action']) ? $_GET['action'] : null;
 
-if ($requestMethod == "GET") {
-    $solicitud = $_GET["url"];
-
-    if ($solicitud == "usuarios") {
-        if (isset($_GET["accion"]) && $_GET["accion"] == "eliminar") {
-            eliminarUsuarios(); // Eliminar un usuario
-        } else {
-            obtenerUsuarios(); // Obtener todos los usuarios
-        }
+if ($action === "login" && $requestMethod == "POST") {
+    $data = json_decode(file_get_contents("php://input"), true);
+    loginUsuario($data['usuario'], $data['contrasena']);
+}
+elseif ($action === "register" && $requestMethod == "POST") {
+    $data = json_decode(file_get_contents("php://input"), true);
+    agregarUsuario($data['nombre'], $data['apellido'], $data['gmail'], $data['usuario'], $data['contrasena']);
+}
+elseif ($action === "usuarios" && $requestMethod == "GET") {
+    listarUsuarios();
+}
+elseif ($action === "usuarios" && $requestMethod == "DELETE" && isset($_GET['id'])) {
+    eliminarUsuario($_GET['id']);
+}
+// Productos
+elseif ($requestMethod == "GET") {
+    if (isset($_GET['id'])) {
+        mostrarProducto($_GET['id']);
+    } else {
+        listarProductos();
     }
 }
-
 elseif ($requestMethod == "POST") {
-    if (isset($_POST["nombre"]) && isset($_POST["apellido"]) && isset($_POST["gmail"]) && isset($_POST["usuario"]) && isset($_POST["contrasena"])) {
-        // Agregar un usuario
-        $nombre = $_POST["nombre"];
-        $apellido = $_POST["apellido"];
-        $gmail = $_POST["gmail"];
-        $usuario = $_POST["usuario"];
-        $contrasena = $_POST["contrasena"];
-        agregarUsuario($nombre, $apellido, $gmail, $usuario, $contrasena);
+    $data = json_decode(file_get_contents("php://input"), true);
+    agregarProducto($data['nombre'], $data['descripcion'], $data['precio'], $data['stock'], $data['imagen']);
+}
+elseif ($requestMethod == "PUT") {
+    $data = json_decode(file_get_contents("php://input"), true);
+    modificarProducto($data['id'], $data['nombre'], $data['descripcion'], $data['precio'], $data['stock'], $data['imagen']);
+}
+elseif ($requestMethod == "DELETE") {
+    if (isset($_GET['id'])) {
+        eliminarProducto($_GET['id']);
+    } else {
+        echo json_encode(["error" => "Falta el parámetro id para eliminar"]);
     }
 }
-
 else {
     echo json_encode(["error" => "Método no permitido"]);
 }
+?>

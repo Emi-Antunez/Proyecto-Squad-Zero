@@ -1,28 +1,57 @@
 <?php
-require "../models/Usuario.php";
-$usuarioModel = new Usuario($pdo);
+require_once __DIR__ . '/../models/usuario.php';
 
-function obtenerUsuarios() {
+$usuarioModel = new Usuario($conn); // Instancia del modelo
+
+function listarUsuarios() {
     global $usuarioModel;
     echo json_encode($usuarioModel->obtenerTodos());
+}
+
+function mostrarUsuario($id) {
+    global $usuarioModel;
+    $usuario = $usuarioModel->obtenerPorId($id);
+    if ($usuario) {
+        echo json_encode($usuario);
+    } else {
+        echo json_encode(["error" => "Usuario no encontrado"]);
+    }
+}
+
+function loginUsuario($usuario, $contrasena) {
+    global $usuarioModel;
+    $user = $usuarioModel->obtenerPorUsuario($usuario);
+    if ($user && password_verify($contrasena, $user['contrasena'])) {
+        echo json_encode(["mensaje" => "Login correcto", "usuario" => $user['usuario'], "id" => $user['id']]);
+    } else {
+        echo json_encode(["error" => "Usuario o contraseña incorrectos"]);
+    }
 }
 
 function agregarUsuario($nombre, $apellido, $gmail, $usuario, $contrasena) {
     global $usuarioModel;
     if ($usuarioModel->agregar($nombre, $apellido, $gmail, $usuario, $contrasena)) {
-        echo json_encode(["message" => "Usuario agregado"]);
+        echo json_encode(["mensaje" => "Usuario agregado"]);
     } else {
-        echo json_encode(["error" => "Error al agregar el usuario"]);
+        echo json_encode(["error" => "No se pudo agregar"]);
     }
 }
 
-function eliminarUsuarios() {
+function modificarUsuario($id, $nombre, $apellido, $gmail, $usuario, $contrasena) {
     global $usuarioModel;
-    if (!isset($_GET['id'])) {
-        echo json_encode(["success" => false, "error" => "Falta ID"]);
-        return;
+    if ($usuarioModel->modificar($id, $nombre, $apellido, $gmail, $usuario, $contrasena)) {
+        echo json_encode(["mensaje" => "Usuario modificado", "id" => $id]);
+    } else {
+        echo json_encode(["error" => "No se pudo modificar"]);
     }
-    $id = $_GET['id'];
-    echo json_encode(["success" => $usuarioModel->eliminar($id)]);
 }
 
+function eliminarUsuario($id) {
+    global $usuarioModel;
+    if ($usuarioModel->eliminar($id)) {
+        echo json_encode(["mensaje" => "Usuario eliminado", "id" => $id]);
+    } else {
+        echo json_encode(["error" => "No se pudo eliminar"]);
+    }
+}
+?>

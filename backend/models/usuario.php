@@ -1,36 +1,65 @@
 <?php
-require "../config/database.php"; // Conexión a la base de datos
+require_once __DIR__ . '/../database/conexion.php';
 
-// Función para registrar un nuevo usuario
-function registrarUsuario($nombre, $apellido, $gmail, $usuario, $contrasena, $confirmar) {
-    // Validar que las contraseñas coincidan
-    if ($contrasena !== $confirmar) {
-        return "Las contraseñas no coinciden.";
+class Usuario {
+    private $conn;
+
+    public function __construct($conn) {
+        $this->conn = $conn;
     }
 
-    // Verificar si el correo ya está registrado
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE gmail = ?");
-    $stmt->execute([$gmail]);
-    if ($stmt->rowCount() > 0) {
-        return "Este correo ya está registrado.";
+    public function obtenerTodos() {
+        $stmt = $this->conn->prepare("SELECT id, nombre, apellido, gmail, usuario FROM usuarios");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    // Verificar si el usuario ya está registrado
-    $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE usuario = ?");
-    $stmt->execute([$usuario]);
-    if ($stmt->rowCount() > 0) {
-        return "Este usuario ya está registrado.";
+    public function obtenerPorId($id) {
+        $stmt = $this->conn->prepare("SELECT id, nombre, apellido, gmail, usuario FROM usuarios WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
     }
 
-    // Encriptar la contraseña
-    $hash = password_hash($contrasena, PASSWORD_BCRYPT);
+    public function obtenerPorUsuario($usuario) {
+    $stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE usuario = ?");
+    $stmt->bind_param("s", $usuario);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
 
-    // Insertar el nuevo usuario en la base de datos
-    $stmt = $pdo->prepare("INSERT INTO usuarios (nombre, apellido, gmail, usuario, contrasena) VALUES (?, ?, ?, ?, ?)");
-    if ($stmt->execute([$nombre, $apellido, $gmail, $usuario, $hash])) {
-        return "Usuario registrado con éxito.";
-    } else {
-        return "Error al registrar el usuario.";
+public function existeUsuarioOGmail($usuario, $gmail) {
+    $stmt = $this->conn->prepare("SELECT id FROM usuarios WHERE usuario=? OR gmail=?");
+    $stmt->bind_param("ss", $usuario, $gmail);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->num_rows > 0;
+}
+
+public function agregar($nombre, $apellido, $gmail, $usuario, $contrasena) {
+    if ($this->existeUsuarioOGmail($usuario, $gmail)) {
+        return "EXISTE";
+    }
+    $hash = password_hash($contrasena, PASSWORD_DEFAULT);
+    $stmt = $this->conn->prepare("INSERT INTO usuarios (nombre, apellido, gmail, usuario, contrasena) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $nombre, $apellido, $gmail, $usuario, $hash);
+    return $stmt->execute() ? true : false;
+}
+
+    public function modificar($id, $nombre, $apellido, $gmail, $usuario, $contrasena) {
+        $hash = password_hash($contrasena, PASSWORD_DEFAULT);
+        $stmt = $this->conn->prepare("UPDATE usuarios SET nombre=?, apellido=?, gmail=?, usuario=?, contrasena=? WHERE id=?");
+        $stmt->bind_param("sssssi", $nombre, $apellido, $gmail, $usuario, $hash, $id);
+        return $stmt->execute();
+    }
+
+    public function eliminar($id) {
+        $stmt = $this->conn->prepare("DELETE FROM usuarios WHERE id=?");
+        $stmt->bind_param("i", $id);
+        return $stmt->execute();
     }
 }
+?>
