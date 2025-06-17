@@ -1,6 +1,7 @@
 <?php
+session_start();
 
-require "../controllers/productos.php";
+require "../controllers/reservas.php";
 require "../controllers/usuarios.php";
 
 ini_set('display_errors', 1);
@@ -24,25 +25,46 @@ elseif ($action === "usuarios" && $requestMethod == "GET") {
 elseif ($action === "usuarios" && $requestMethod == "DELETE" && isset($_GET['id'])) {
     eliminarUsuario($_GET['id']);
 }
-// Productos
+// Reservas
 elseif ($requestMethod == "GET") {
     if (isset($_GET['id'])) {
-        mostrarProducto($_GET['id']);
+        mostrarReserva($_GET['id']);
     } else {
-        listarProductos();
+        listarReservas();
     }
 }
 elseif ($requestMethod == "POST") {
+    if (!isset($_SESSION['id_usuario'])) {
+        echo json_encode(["error" => "Debes iniciar sesión para reservar"]);
+        exit;
+    }
     $data = json_decode(file_get_contents("php://input"), true);
-    agregarProducto($data['nombre'], $data['descripcion'], $data['precio'], $data['stock'], $data['imagen']);
+    agregarReserva(
+        $_SESSION['id_usuario'],
+        $data['tour'],
+        $data['fecha'],
+        $data['hora'],
+        $data['cantidad_personas']
+    );
 }
 elseif ($requestMethod == "PUT") {
+    if (!isset($_SESSION['id_usuario'])) {
+        echo json_encode(["error" => "Debes iniciar sesión para modificar reservas"]);
+        exit;
+    }
     $data = json_decode(file_get_contents("php://input"), true);
-    modificarProducto($data['id'], $data['nombre'], $data['descripcion'], $data['precio'], $data['stock'], $data['imagen']);
+    modificarReserva(
+        $data['id'],
+        $_SESSION['id_usuario'],
+        $data['tour'],
+        $data['fecha'],
+        $data['hora'],
+        $data['cantidad_personas']
+    );
 }
 elseif ($requestMethod == "DELETE") {
     if (isset($_GET['id'])) {
-        eliminarProducto($_GET['id']);
+        eliminarReserva($_GET['id']);
     } else {
         echo json_encode(["error" => "Falta el parámetro id para eliminar"]);
     }
