@@ -25,7 +25,7 @@ class Reserva {
     }
 
 // ...existing code...
-    public function agregar($id_usuario, $tour, $fecha, $hora, $cantidad_personas) {
+public function agregar($id_usuario, $tour, $fecha, $hora, $cantidad_personas) {
     $stmt = $this->conn->prepare("INSERT INTO reservas (id_usuario, tour, fecha, hora, cantidad_personas) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("isssi", $id_usuario, $tour, $fecha, $hora, $cantidad_personas);
     return $stmt->execute();

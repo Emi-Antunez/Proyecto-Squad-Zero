@@ -26,6 +26,7 @@ function mostrarTablaReservas(reservas) {
         <p><strong>Fecha:</strong> ${r.fecha}</p>
         <p><strong>Hora:</strong> ${r.hora}</p>
         <p><strong>Personas:</strong> ${r.cantidad_personas}</p>
+        <button class="btn btn-danger btn-sm" onclick="eliminarReserva(${r.id})">Eliminar</button>
       </div>
     `;
   });
@@ -40,8 +41,15 @@ function agregarReserva(tour, fecha, hora, cantidad_personas) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ tour, fecha, hora, cantidad_personas })
   })
-    .then(res => res.json())
-    .then(data => {
+    .then(res => res.text())
+    .then(text => {
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        mostrarError("Respuesta no válida del servidor: " + text);
+        return;
+      }
       if (data.error) {
         mostrarError("Error al agregar reserva: " + data.error);
       } else {
@@ -49,6 +57,23 @@ function agregarReserva(tour, fecha, hora, cantidad_personas) {
       }
     })
     .catch(err => mostrarError("Error al agregar reserva: " + err));
+}
+
+// Eliminar una reserva (DELETE)
+function eliminarReserva(id) {
+  if (!confirm("¿Seguro que deseas eliminar esta reserva?")) return;
+  fetch(`${API_URL}?id=${id}`, {
+    method: "DELETE"
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) {
+        mostrarError("Error al eliminar reserva: " + data.error);
+      } else {
+        listarReservas();
+      }
+    })
+    .catch(err => mostrarError("Error al eliminar reserva: " + err));
 }
 
 // Guardar reserva: solo agrega
