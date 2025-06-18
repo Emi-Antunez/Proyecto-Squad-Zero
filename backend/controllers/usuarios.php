@@ -20,17 +20,19 @@ function mostrarUsuario($id) {
 
 function loginUsuario($usuario, $contrasena) {
     global $conn;
-    $stmt = $conn->prepare("SELECT id, usuario, contrasena FROM usuarios WHERE usuario = ?");
+    $stmt = $conn->prepare("SELECT id, usuario, contrasena, rol FROM usuarios WHERE usuario = ?");
     $stmt->bind_param("s", $usuario);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
     if ($user && password_verify($contrasena, $user['contrasena'])) {
         $_SESSION['id_usuario'] = $user['id'];
+        $_SESSION['rol'] = $user['rol'];
         echo json_encode([
             "mensaje" => "Login exitoso",
             "id_usuario" => $user['id'],
-            "usuario" => $user['usuario']
+            "usuario" => $user['usuario'],
+            "rol" => $user['rol']
         ]);
     } else {
         echo json_encode(["error" => "Usuario o contraseña incorrectos"]);

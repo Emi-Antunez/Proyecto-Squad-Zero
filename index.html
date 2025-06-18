@@ -36,6 +36,10 @@
                             sesión</a></li>
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
                             href="page/register.html">Registrarse</a></li>
+                    <!-- Agrega esto en tu navbar o donde prefieras -->
+                    <li class="nav-item" id="logoutNav" style="display:none;">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -150,6 +154,69 @@
     <!-- Core theme JS-->
     <script src="js/reservas.js"></script>
     <script>
+        // Mostrar/ocultar según el rol
+        document.addEventListener('DOMContentLoaded', function () {
+            const rol = localStorage.getItem('rol');
+            const form = document.getElementById('formAgregarReserva').parentElement.parentElement;
+            const reservasSection = document.getElementById('reservasContainer').parentElement;
+
+            if (rol === 'admin') {
+                // Admin ve todo
+                form.style.display = '';
+                reservasSection.style.display = '';
+            } else if (rol === 'usuario') {
+                // Usuario solo ve el formulario
+                form.style.display = '';
+                reservasSection.style.display = 'none';
+            } else {
+                // No logueado: solo oculta reservas, muestra el form
+                form.style.display = '';
+                reservasSection.style.display = 'none';
+            }
+        });
+
+        function usuarioLogueado() {
+            return localStorage.getItem('usuario') && localStorage.getItem('rol');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const rol = localStorage.getItem('rol');
+            const form = document.getElementById('formAgregarReserva').parentElement.parentElement;
+            const reservasSection = document.getElementById('reservasContainer').parentElement;
+
+            if (rol === 'admin') {
+                form.style.display = '';
+                reservasSection.style.display = '';
+            } else if (rol === 'usuario') {
+                form.style.display = '';
+                reservasSection.style.display = 'none';
+            } else {
+                form.style.display = '';
+                reservasSection.style.display = 'none';
+            }
+
+            // Mostrar mensaje si está logueado
+            if (usuarioLogueado()) {
+                const nombreUsuario = localStorage.getItem('usuario');
+                let saludo = document.createElement('div');
+                saludo.className = 'alert alert-success mb-3';
+                saludo.textContent = 'Sesión iniciada como: ' + nombreUsuario;
+                form.parentElement.insertBefore(saludo, form.parentElement.firstChild);
+            }
+        });
+        
+        function cerrarSesion() {
+            localStorage.removeItem('usuario');
+            localStorage.removeItem('rol');
+            window.location.reload();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // ...código anterior...
+            if (usuarioLogueado()) {
+                document.getElementById('logoutNav').style.display = '';
+            }
+        });
         listarReservas();
     </script>
 </body>

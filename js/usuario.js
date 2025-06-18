@@ -72,6 +72,7 @@ function esContrasenaSegura(contrasena) {
     return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(contrasena);
 }
 
+// ...existing code...
 function loginUsuario() {
     const usuario = document.getElementById('username').value.trim();
     const contrasena = document.getElementById('contrasena').value;
@@ -86,12 +87,8 @@ function loginUsuario() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ usuario, contrasena })
     })
-    .then(res => {
-        console.log("Status:", res.status);
-        return res.text();
-    })
+    .then(res => res.text())
     .then(text => {
-        console.log("Respuesta del backend:", text);
         let data;
         try {
             data = JSON.parse(text);
@@ -102,6 +99,9 @@ function loginUsuario() {
         if (data.error) {
             mostrarMensaje(data.error, true);
         } else {
+            // Guardar rol en localStorage
+            localStorage.setItem('rol', data.rol);
+            localStorage.setItem('usuario', data.usuario);
             mostrarMensaje("Bienvenido " + data.usuario, false);
             setTimeout(() => {
                 window.location.href = "../index.html";
@@ -112,3 +112,4 @@ function loginUsuario() {
         mostrarMensaje("Error de conexión con el servidor.", true);
     });
 }
+// ...existing code...
