@@ -26,8 +26,6 @@ function mostrarTablaReservas(reservas) {
         <p><strong>Fecha:</strong> ${r.fecha}</p>
         <p><strong>Hora:</strong> ${r.hora}</p>
         <p><strong>Personas:</strong> ${r.cantidad_personas}</p>
-        <button onclick="cargarReservaEnFormulario(${r.id})">Modificar</button>
-        <button onclick="eliminarReserva(${r.id})">Eliminar</button>
       </div>
     `;
   });
@@ -53,54 +51,9 @@ function agregarReserva(tour, fecha, hora, cantidad_personas) {
     .catch(err => mostrarError("Error al agregar reserva: " + err));
 }
 
-// Modificar una reserva (PUT)
-function modificarReserva(id, tour, fecha, hora, cantidad_personas) {
-  fetch(API_URL, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id, tour, fecha, hora, cantidad_personas })
-  })
-    .then(res => res.json())
-    .then(data => {
-      if (data.error) {
-        mostrarError("Error al modificar reserva: " + data.error);
-      } else {
-        listarReservas();
-      }
-    })
-    .catch(err => mostrarError("Error al modificar reserva: " + err));
-}
-
-// Eliminar una reserva (DELETE)
-function eliminarReserva(id) {
-  fetch(`${API_URL}?id=${id}`, {
-    method: "DELETE"
-  })
-    .then(res => res.json())
-    .then(data => {
-      listarReservas();
-    })
-    .catch(err => mostrarError("Error al eliminar reserva: " + err));
-}
-
-// Cargar reserva en formulario para modificar
-function cargarReservaEnFormulario(id) {
-  fetch(`${API_URL}?id=${id}`)
-    .then(res => res.json())
-    .then(reserva => {
-      document.getElementById('reservaId').value = reserva.id;
-      document.getElementById('tour').value = reserva.tour;
-      document.getElementById('fecha').value = reserva.fecha;
-      document.getElementById('hora').value = reserva.hora;
-      document.getElementById('cantidadPersonas').value = reserva.cantidad_personas;
-    })
-    .catch(err => mostrarError("Error al cargar reserva: " + err));
-}
-
-// Guardar reserva: agrega o modifica según si hay ID
+// Guardar reserva: solo agrega
 function guardarReservaDesdeFormulario() {
   document.getElementById('output').textContent = "";
-  const id = document.getElementById('reservaId').value;
   const tour = document.getElementById('tour').value;
   const fecha = document.getElementById('fecha').value;
   const hora = document.getElementById('hora').value;
@@ -111,13 +64,8 @@ function guardarReservaDesdeFormulario() {
     return;
   }
 
-  if (id) {
-    modificarReserva(id, tour, fecha, hora, cantidad_personas);
-  } else {
-    agregarReserva(tour, fecha, hora, cantidad_personas);
-  }
+  agregarReserva(tour, fecha, hora, cantidad_personas);
   document.getElementById('formAgregarReserva').reset();
-  document.getElementById('reservaId').value = '';
 }
 
 function mostrarError(msg) {
