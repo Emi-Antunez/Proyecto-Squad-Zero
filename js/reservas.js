@@ -59,6 +59,7 @@ function agregarReserva(tour, fecha, hora, cantidad_personas) {
     .catch(err => mostrarError("Error al agregar reserva: " + err));
 }
 
+
 // Eliminar una reserva (DELETE)
 function eliminarReserva(id) {
   if (!confirm("¿Seguro que deseas eliminar esta reserva?")) return;
@@ -78,6 +79,12 @@ function eliminarReserva(id) {
 
 // Guardar reserva: solo agrega
 function guardarReservaDesdeFormulario() {
+    // Verifica si el usuario está logueado
+    if (!localStorage.getItem('usuario') || !localStorage.getItem('rol')) {
+        alert('Debes iniciar sesión para reservar.');
+        window.location.href = 'page/login.html';
+        return;
+    }
   document.getElementById('output').textContent = "";
   const tour = document.getElementById('tour').value;
   const fecha = document.getElementById('fecha').value;
