@@ -23,7 +23,7 @@ function registrarUsuario() {
         return;
     }
 
-    fetch('http://localhost/PROYECTO-SQUAD-ZERO/backend/routes/api.php?action=register', {
+    fetch('http://localhost/Proyecto-Squad-Zero/backend/routes/api.php?action=register', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nombre, apellido, gmail, usuario, contrasena })
@@ -38,6 +38,9 @@ function registrarUsuario() {
                 window.location.href = "login.html";
             }, 2000);
         }
+    })
+    .catch(() => {
+        mostrarMensaje("Error de conexión con el servidor.", true);
     });
 }
 
@@ -78,14 +81,24 @@ function loginUsuario() {
         return;
     }
 
-    fetch('http://localhost/PROYECTO-SQUAD-ZERO/backend/routes/api.php?action=login', {
+    fetch('http://localhost/Proyecto-Squad-Zero/backend/routes/api.php?action=login', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ usuario, contrasena })
     })
-    .then(res => res.json())
-    .then(data => {
-        console.log(data);
+    .then(res => {
+        console.log("Status:", res.status);
+        return res.text();
+    })
+    .then(text => {
+        console.log("Respuesta del backend:", text);
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            mostrarMensaje("Respuesta no válida del servidor.", true);
+            return;
+        }
         if (data.error) {
             mostrarMensaje(data.error, true);
         } else {
@@ -99,24 +112,3 @@ function loginUsuario() {
         mostrarMensaje("Error de conexión con el servidor.", true);
     });
 }
-
-    fetch('http://localhost/PROYECTO-SQUAD-ZERO/backend/routes/api.php?action=login', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ usuario, contrasena })
-    })
-    .then(res => res.json())
-    .then(data => {
-        console.log(data); // <-- Agrega esto para ver la respuesta
-        if (data.error) {
-            mostrarMensaje(data.error, true);
-        } else {
-            mostrarMensaje("Bienvenido " + data.usuario, false);
-            setTimeout(() => {
-                window.location.href = "../index.html";
-            }, 1500);
-        }
-    })
-    .catch(() => {
-        mostrarMensaje("Error de conexión con el servidor.", true);
-    });

@@ -41,12 +41,26 @@ public function existeUsuarioOGmail($usuario, $gmail) {
 
 public function agregar($nombre, $apellido, $gmail, $usuario, $contrasena) {
     if ($this->existeUsuarioOGmail($usuario, $gmail)) {
-        return "EXISTE";
+        return false;
     }
     $hash = password_hash($contrasena, PASSWORD_DEFAULT);
     $stmt = $this->conn->prepare("INSERT INTO usuarios (nombre, apellido, gmail, usuario, contrasena) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $nombre, $apellido, $gmail, $usuario, $hash);
-    return $stmt->execute() ? true : false;
+    if (!$stmt->execute()) {
+        // Para depuración, imprime el error de MySQL
+        error_log("Error MySQL: " . $stmt->error);
+        return false;
+    }
+    return true;
+}
+
+function agregarUsuario($nombre, $apellido, $gmail, $usuario, $contrasena) {
+    global $usuarioModel;
+    if ($usuarioModel->agregar($nombre, $apellido, $gmail, $usuario, $contrasena)) {
+        echo json_encode(["mensaje" => "Usuario agregado"]);
+    } else {
+        echo json_encode(["error" => "No se pudo agregar. El usuario o el correo ya existen, o hubo un error en la base de datos."]);
+    }
 }
 
     public function modificar($id, $nombre, $apellido, $gmail, $usuario, $contrasena) {
