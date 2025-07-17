@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2025 at 06:06 PM
+-- Generation Time: Jul 18, 2025 at 01:35 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,14 +37,6 @@ CREATE TABLE `reservas` (
   `creado_en` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `reservas`
---
-
-INSERT INTO `reservas` (`id`, `id_usuario`, `tour`, `fecha`, `hora`, `cantidad_personas`, `creado_en`) VALUES
-(1, 0, 'pene', '1222-12-12', '12:12:00', 12, '2025-06-17 20:08:26'),
-(2, 0, 'emilianoantunez@gmail.com', '0000-00-00', '00:01:23', 12313, '2025-06-17 20:36:34');
-
 -- --------------------------------------------------------
 
 --
@@ -61,15 +53,6 @@ CREATE TABLE `usuarios` (
   `rol` enum('usuario','admin') DEFAULT 'usuario',
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `gmail`, `usuario`, `contrasena`, `rol`, `fecha_registro`) VALUES
-(1, 'Emiliano', 'Antunez', 'emilianoantunez13@gmail.com', 'DName', '$2y$10$y3MSdU2/0ICwu22bcngswuO2tJeVUiYx7ixhkrUojC03KyPD3LY8a', 'admin', '2025-05-14 16:06:50'),
-(2, 'Emiliano', 'Antunez', 'emilianoantunez213@gmail.com', 'DName1', '$2y$10$lnyVFV2B9PXroOxmM2x87uYiSKiUJeP6kvdH4q8QWbtCp7QO6Fgqq', 'usuario', '2025-05-22 20:05:22'),
-(3, 'Emiliano', 'Antunez', 'emilianoantunez2213@gmail.com', 'Admin', '$2y$10$gGiC8iKk1.ml/pqBJ4MlpeK76A/XAQq9wkdz9Cjaoin7Gujsn0n1u', 'usuario', '2025-07-15 16:12:32');
 
 --
 -- Indexes for dumped tables
@@ -97,23 +80,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `reservas`
---
-ALTER TABLE `reservas`
-  ADD CONSTRAINT `fk_usuario_reserva` FOREIGN KEY (`id`) REFERENCES `usuarios` (`id`);
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
