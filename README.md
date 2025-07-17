@@ -112,8 +112,8 @@ La API está ubicada en `backend/routes/api.php` y expone las siguientes rutas:
 
 ## 🙌 Créditos
 
-- Proyecto desarrollado por **[Tu Nombre o Equipo]**
-- Tecnologías utilizadas: **PHP**, **MySQL**, **JavaScript**, **Bootstrap**, **FontAwesome**, **Google Fonts**
+- Proyecto desarrollado por **Squad Zero**
+- Tecnologías utilizadas: **PHP**, **MySQL**, **JavaScript**, **Bootstrap**
 
 ---
 
@@ -124,7 +124,7 @@ La API está ubicada en `backend/routes/api.php` y expone las siguientes rutas:
   - La configuración en `conexion.php`
 - La base de datos debe llamarse `registro_usuarios` (o edita el nombre en tu archivo de conexión)
 - Los datos de usuarios y reservas se almacenan en dicha base de datos
-- Para soporte o sugerencias, contacta a: **[tu_email@ejemplo.com]**
+- Para soporte o sugerencias, contacta a: **squadzero1234@gmail.com**
 
 ---
 
