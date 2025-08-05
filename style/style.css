@@ -79,6 +79,15 @@
   --bs-highlight-bg: #fff3cd;
 }
 
+
+
+.logo {
+    height: 50px;      /* Ajusta la altura según lo que prefieras */
+    width: auto;       /* Mantiene la proporción */
+    max-width: 150px;  /* Opcional: limita el ancho máximo */
+    object-fit: contain;
+}
+
 *,
 *::before,
 *::after {
