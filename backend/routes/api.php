@@ -10,7 +10,7 @@ require "../controllers/usuarios.php";
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
 ini_set('log_errors', 1);
-ini_set("error_log", "../errores.log"); 
+ini_set("error_log", "./errores.log"); 
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 $action = isset($_GET['action']) ? $_GET['action'] : null;
