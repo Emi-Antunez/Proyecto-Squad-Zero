@@ -79,7 +79,9 @@
   --bs-highlight-bg: #fff3cd;
 }
 
-
+.masthead{
+  margin-top: 84px;
+}
 
 .logo {
     height: 50px;      /* Ajusta la altura según lo que prefieras */
@@ -98,6 +100,18 @@
   :root {
     scroll-behavior: smooth;
   }
+}
+
+ .navbar, .nav-link {
+    color: #5981C2 !important;
+}
+
+button {
+    background-color: #5981C2 !important;
+}
+
+span{
+    color: #5981C2 !important;
 }
 
 body {
