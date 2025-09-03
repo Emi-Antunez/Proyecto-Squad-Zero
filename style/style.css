@@ -79,8 +79,19 @@
   --bs-highlight-bg: #fff3cd;
 }
 
-.masthead{
-  margin-top: 84px;
+.form-label span{
+    color: black !important;
+}
+
+nav{
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    background-color: #fff !important;
+}
+
+#mainNav {
+    position: sticky !important;
+    top: 0;
+    z-index: 1020;
 }
 
 .logo {
@@ -106,19 +117,21 @@
     color: #5981C2 !important;
 }
 
-img
-
-
-button {
-    background-color: #5981C2 !important;
+.btn-primary {
+  background-color: #5981C2 !important;
+  border-color: #5981C2 !important;
+}
+.btn-primary:hover {
+  background-color: #4769a5 !important;
+  border-color: #4769a5 !important;
 }
 
 span{
     color: #5981C2 !important;
 }
 
-body{
-  font-family:Arial, Helvetica, sans-serif !important;
+body, h1, h2, h3, h4, h5, h6, p, button {
+   font-family: 'Poppins', sans-serif !important;
 }
 
 body {
@@ -161,6 +174,7 @@ h1, .h1 {
 
 h2, .h2 {
   font-size: calc(1.325rem + 0.9vw);
+    color: #5981C2;
 }
 @media (min-width: 1200px) {
   h2, .h2 {

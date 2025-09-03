@@ -17,17 +17,28 @@
 
 <body>
     <!-- Header pequeño -->
-    <header class="border-bottom py-2 mb-4 bg-light">
-        <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand fw-bold" href="../index.html">
-                <img src="../img/tour nautico colonia logo (1).png" style="height:40px;">
-            </a>
-            <nav>
-                <a class="btn btn-link" href="login.html">Iniciar sesión</a>
-                <a class="btn btn-link" href="register.html">Registrarse</a>
-            </nav>
+<nav class="navbar navbar-expand-lg navbar-light sticky-top" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="../index.html"><img class="logo" src="../img/tour nautico colonia logo (1).png" alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menú
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="login.html">Iniciar
+                            sesión</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
+                            href="register.html">Registrarse</a></li>
+                    <!-- Agrega esto en tu navbar o donde prefieras -->
+                    <li class="nav-item" id="logoutNav" style="display:none;">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </header>
+    </nav>
     <!-- Main Content -->
     <div class="container px-4 px-lg-5 d-flex align-items-center justify-content-center" style="min-height: 80vh;">
         <div class="row w-100 justify-content-center">
