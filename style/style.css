@@ -211,6 +211,7 @@ h6, .h6 {
 p {
   margin-top: 0;
   margin-bottom: 1rem;
+  color: #555;
 }
 
 abbr[title] {
@@ -262,6 +263,7 @@ blockquote {
 b,
 strong {
   font-weight: bolder;
+  color: #333;
 }
 
 small, .small {
