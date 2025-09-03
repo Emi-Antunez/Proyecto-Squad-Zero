@@ -79,6 +79,12 @@
   --bs-highlight-bg: #fff3cd;
 }
 
+
+
+.contorno{
+    margin-top: 75px;
+}
+
 .form-label span{
     color: black !important;
 }

@@ -24,9 +24,10 @@
 
 <body>
     <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light sticky-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="index.html"><img class="logo" src="./img/tour nautico colonia logo (1).png" alt=""></a>
+            <a class="navbar-brand" href="index.html"><img class="logo" src="./img/tour nautico colonia logo (1).png"
+                    alt=""></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menú
@@ -69,151 +70,183 @@
     <!-- Main Content-->
     <div class="container px-4 px-lg-5">
         <div class="contorno">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <!-- Formulario de Reserva -->
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <form id="formAgregarReserva"
-                            onsubmit="event.preventDefault(); guardarReservaDesdeFormulario();">
-                            <h2 class="h5 mb-3">Agregar Reserva</h2>
-                            <div class="mb-2">
-                                <label class="form-label">Tour:</label>
-                                <select id="tour" class="form-control" required>
-                                    <option value="">Selecciona un tour</option>
-                                    <option value="Navegación Bahía">Navegación Bahía</option>
-                                    <option value="Riachuelo">Riachuelo</option>
-                                    <option value="Anchorena">Anchorena</option>
-                                </select>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">Fecha:</label>
-                                <input type="date" id="fecha" class="form-control" required>
- 
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">Hora:</label>
-                                <select id="hora" class="form-control" required>
-                                    <option value="">Selecciona una hora</option>
-                                    <option value="11:00">11:00</option>
-                                    <option value="13:30">13:30</option>
-                                    <option value="15:30">15:30</option>
-                                    <option value="17:00">17:00</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Cantidad de Personas:</label>
-                                <input type="number" id="cantidadPersonas" class="form-control" required min="1"
-                                    max="20">
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Guardar</button>
-                        </form>
-                        <pre id="output" style="color: red; margin-top: 10px;"></pre>
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- Formulario de Reserva -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <form id="formAgregarReserva"
+                                onsubmit="event.preventDefault(); guardarReservaDesdeFormulario();">
+                                <h2 class=" fw-bold mb-4 pb-2 "
+                                    style="font-family: 'Poppins', sans-serif; letter-spacing: 1px; color: #5981C2; background: linear-gradient(90deg, #ffffff 0%, #fdfcfc 100%); border-radius: 8px; font-size: 24px;">
+                                    Agregar reserva
+                                </h2>
+                                <div class="mb-2">
+                                    <label class="form-label">Tour:</label>
+                                    <select id="tour" class="form-control" required>
+                                        <option value="">Selecciona un tour</option>
+                                        <option value="Navegación Bahía">Navegación Bahía</option>
+                                        <option value="Riachuelo">Riachuelo</option>
+                                        <option value="Anchorena">Anchorena</option>
+                                    </select>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Fecha:</label>
+                                    <input type="date" id="fecha" class="form-control" required>
+
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Hora:</label>
+                                    <select id="hora" class="form-control" required>
+                                        <option value="">Selecciona una hora</option>
+                                        <option value="11:00">11:00</option>
+                                        <option value="13:30">13:30</option>
+                                        <option value="15:30">15:30</option>
+                                        <option value="17:00">17:00</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Cantidad de Personas:</label>
+                                    <input type="number" id="cantidadPersonas" class="form-control" required min="1"
+                                        max="20">
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Guardar</button>
+                            </form>
+                            <pre id="output" style="color: red; margin-top: 10px;"></pre>
+                        </div>
+                    </div>
+                    <!-- Contenedor de Reservas -->
+                    <div class="mb-4">
+                        <h2 class="h5 mb-3">Reservas registradas</h2>
+                        <div id="reservasContainer"></div>
                     </div>
                 </div>
-                <!-- Contenedor de Reservas -->
-                <div class="mb-4">
-                    <h2 class="h5 mb-3">Reservas registradas</h2>
-                    <div id="reservasContainer"></div>
-                </div>
             </div>
-        </div>
         </div>
     </div>
+
     <!-- SOBRE NOSOTROS -->
     <div class="container py-4" id="sobreNosotrosSection">
-       <div class="contorno"> 
-        <h2 class="mb-4">Sobre nosotros</h2>
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="card h-100">
-                    <img src="img/ad9e6160d0edd68e7f74762481972b76.jpg" class="card-img-top" alt="Colonia del Sacramento">
-                    <div class="card-body">
-                        <h5 class="card-title">Colonia del Sacramento</h5>
-                        <p class="card-text">
-                            Fundada en 1680 por portugueses, esta encantadora ciudad colonial invita a perderse en sus calles empedradas y admirar de su increíble historia.<br>
-                            Declarada Patrimonio de la Humanidad por la UNESCO, encontrarás sitios emblemáticos como la Puerta de la Ciudadela, el antiguo Faro y la Plaza Mayor, la Plaza de Toros, entre otros.<br>
-                            Colonia del Sacramento es perfecta para quienes buscan una escapada llena de historia, belleza y tranquilidad.
-                        </p>
+        <div class="contorno">
+            <section class="sobre-nosotros">
+                <h2 class=" fw-bold mb-4 pb-2 "
+                    style="font-family: 'Poppins', sans-serif; letter-spacing: 1px; color: #5981C2; background: linear-gradient(90deg, #ffffff 0%, #fdfcfc 100%); border-radius: 8px;">
+                    Sobre nosotros
+                </h2>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <img src="img/ad9e6160d0edd68e7f74762481972b76.jpg" class="card-img-top"
+                                alt="Colonia del Sacramento">
+                            <div class="card-body">
+                                <h5 class="card-title">Colonia del Sacramento</h5>
+                                <p class="card-text">
+                                    Fundada en 1680 por portugueses, esta encantadora ciudad colonial invita a perderse
+                                    en sus calles empedradas y admirar de su increíble historia.<br>
+                                    Declarada Patrimonio de la Humanidad por la UNESCO, encontrarás sitios emblemáticos
+                                    como la Puerta de la Ciudadela, el antiguo Faro y la Plaza Mayor, la Plaza de Toros,
+                                    entre otros.<br>
+                                    Colonia del Sacramento es perfecta para quienes buscan una escapada llena de
+                                    historia, belleza y tranquilidad.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <img src="img/anchoarena.PNG" class="card-img-top" alt="Malibú">
+                            <div class="card-body">
+                                <h5 class="card-title">Malibú</h5>
+                                <p class="card-text">
+                                    El malibú es un crucero de 12 metros de eslora por 4 de manga que nos acompaña desde
+                                    nuestra primer temporada en el año 2019, donde luego de un tiempo de inactividad se
+                                    acondicionó y puso a punto para cumplir todas las normas y brindar un servicio
+                                    seguro.<br>
+                                    La embarcación se encuentra habilitada para 23 pasajeros y podrás navegar tanto bajo
+                                    techo como en cubierta.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card h-100">
-                    <img src="img/anchoarena.PNG" class="card-img-top" alt="Malibú">
-                    <div class="card-body">
-                        <h5 class="card-title">Malibú</h5>
-                        <p class="card-text">
-                            El malibú es un crucero de 12 metros de eslora por 4 de manga que nos acompaña desde nuestra primer temporada en el año 2019, donde luego de un tiempo de inactividad se acondicionó y puso a punto para cumplir todas las normas y brindar un servicio seguro.<br>
-                            La embarcación se encuentra habilitada para 23 pasajeros y podrás navegar tanto bajo techo como en cubierta.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </section>
         </div>
     </div>
 
     <!-- NUESTROS VIAJES -->
     <div class="container py-4" id="nuestrosViajesSection">
-                <div class="contorno">
-        <h2 class="mb-4">Nuestros viajes</h2>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <img src="img/bahia.PNG" class="card-img-top" alt="Navegación Bahía">
-                    <div class="card-body">
-                        <h5 class="card-title">Navegación Bahía</h5>
-                        <p class="card-text">
-                            Paseo náutico por la bahía de Colonia, pasando por el casco antiguo rumbo a islas San Gabriel y Farallón, pasando por las islas López, el antiguo muelle Mihanovich, y regresando a puerto bordeando las playas.<br>
-                            <b>Duración:</b> 1 hora<br>
-                            <b>Horarios:</b> Feriados, sábados y domingos
-                        </p>
-                        <ul>
-                            <li><b>Abril a Octubre:</b> 11:00, 13:30, 15:30, 17:00 hs</li>
-                            <li><b>Octubre a Abril:</b> 11:00, 13:30, 15:30, 17:00, 18:30 hs</li>
-                            <li>O con previa reservación</li>
-                        </ul>
+        <div class="contorno">
+            <section class="nuestros-viajes">
+                <h2 class=" fw-bold mb-4 pb-2 "
+                    style="font-family: 'Poppins', sans-serif; letter-spacing: 1px; color: #5981C2; background: linear-gradient(90deg, #ffffff 0%, #fdfcfc 100%); border-radius: 8px;">
+                    Nustros viajes
+                </h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="img/bahia.PNG" class="card-img-top" alt="Navegación Bahía">
+                            <div class="card-body">
+                                <h5 class="card-title">Navegación Bahía</h5>
+                                <p class="card-text">
+                                    Paseo náutico por la bahía de Colonia, pasando por el casco antiguo rumbo a islas
+                                    San Gabriel y Farallón, pasando por las islas López, el antiguo muelle Mihanovich, y
+                                    regresando a puerto bordeando las playas.<br>
+                                    <b>Duración:</b> 1 hora<br>
+                                    <b>Horarios:</b> Feriados, sábados y domingos
+                                </p>
+                                <ul>
+                                    <li><b>Abril a Octubre:</b> 11:00, 13:30, 15:30, 17:00 hs</li>
+                                    <li><b>Octubre a Abril:</b> 11:00, 13:30, 15:30, 17:00, 18:30 hs</li>
+                                    <li>O con previa reservación</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="img/riachuelo.PNG" class="card-img-top" alt="Riachuelo">
+                            <div class="card-body">
+                                <h5 class="card-title">Riachuelo</h5>
+                                <p class="card-text">
+                                    Paseo náutico que va desde el puerto de yates de Colonia a el puerto de
+                                    Riachuelo.<br>
+                                    <b>Duración:</b> 4 a 5 horas<br>
+                                    <b>Horarios:</b> Consultar por salidas a nuestro whatsapp
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="img/anchoarena.PNG" class="card-img-top" alt="Anchorena">
+                            <div class="card-body">
+                                <h5 class="card-title">Anchorena</h5>
+                                <p class="card-text">
+                                    Paseo náutico que va desde el puerto de yates de Colonia a la estancia
+                                    Anchorena.<br>
+                                    <b>Duración:</b> 4 a 5 horas<br>
+                                    <b>Horarios:</b> Consultar por salidas a nuestro whatsapp
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <img src="img/riachuelo.PNG" class="card-img-top" alt="Riachuelo">
-                    <div class="card-body">
-                        <h5 class="card-title">Riachuelo</h5>
-                        <p class="card-text">
-                            Paseo náutico que va desde el puerto de yates de Colonia a el puerto de Riachuelo.<br>
-                            <b>Duración:</b> 4 a 5 horas<br>
-                            <b>Horarios:</b> Consultar por salidas a nuestro whatsapp
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <img src="img/anchoarena.PNG" class="card-img-top" alt="Anchorena">
-                    <div class="card-body">
-                        <h5 class="card-title">Anchorena</h5>
-                        <p class="card-text">
-                            Paseo náutico que va desde el puerto de yates de Colonia a la estancia Anchorena.<br>
-                            <b>Duración:</b> 4 a 5 horas<br>
-                            <b>Horarios:</b> Consultar por salidas a nuestro whatsapp
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </section>
         </div>
     </div>
+
     <!-- UBICACIÓN DEL BOTE (ahora debajo de nuestros viajes) -->
     <div class="container py-4" id="ubicacionBoteSection">
         <div class="contorno">
-        <h2 class="mt-5">Ubicación del bote</h2>
-        <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1160.7642505672018!2d-57.85374303919226!3d-34.46771986913865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a31385cf13b96b%3A0x9bacd0d08be3addc!2sTour%20N%C3%A1utico%20Colonia!5e0!3m2!1ses!2suy!4v1754414337467!5m2!1ses!2suy" 
-            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+            <h2 class=" fw-bold mb-4 pb-2 "
+                style="font-family: 'Poppins', sans-serif; letter-spacing: 1px; color: #5981C2; background: linear-gradient(90deg, #ffffff 0%, #fdfcfc 100%); border-radius: 8px;">
+                Ubicacion del bote
+            </h2>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1160.7642505672018!2d-57.85374303919226!3d-34.46771986913865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a31385cf13b96b%3A0x9bacd0d08be3addc!2sTour%20N%C3%A1utico%20Colonia!5e0!3m2!1ses!2suy!4v1754414337467!5m2!1ses!2suy"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
         </div>
     </div>
     <!-- Footer-->
@@ -227,11 +260,12 @@
                                 <span class="fa-stack fa-lg">
                                     <i class="fas fa-circle fa-stack-2x"></i>
                                     <i class="fab fa-whatsapp fa-stack-1x fa-inverse"></i>
-                            </span>
+                                </span>
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="https://www.instagram.com/tournauticocolonia?igsh=cWV6cnY5MXN0bmVs" target="_blank" rel="noopener">
+                            <a href="https://www.instagram.com/tournauticocolonia?igsh=cWV6cnY5MXN0bmVs" target="_blank"
+                                rel="noopener">
                                 <span class="fa-stack fa-lg">
                                     <i class="fas fa-circle fa-stack-2x"></i>
                                     <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
@@ -299,7 +333,7 @@
                 form.parentElement.insertBefore(saludo, form.parentElement.firstChild);
             }
         });
-        
+
         function cerrarSesion() {
             localStorage.removeItem('usuario');
             localStorage.removeItem('rol');
