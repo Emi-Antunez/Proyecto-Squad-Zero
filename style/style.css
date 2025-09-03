@@ -79,7 +79,10 @@
   --bs-highlight-bg: #fff3cd;
 }
 
-
+.dropdown-menu .dropdown-item.nav-link:hover {
+    background: linear-gradient(90deg, #fdfcfc 0%, #e3e3e3 100%);
+    color: #5981C2 !important;
+}
 
 .contorno{
     margin-top: 75px;

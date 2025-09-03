@@ -19,7 +19,7 @@ function registrarUsuario() {
         return;
     }
     if (!esContrasenaSegura(contrasena)) {
-        mostrarMensaje("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo.", true);
+        mostrarMensaje("La contraseña debe tener al menos 6 caracteres.", true);
         return;
     }
 
@@ -28,20 +28,20 @@ function registrarUsuario() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nombre, apellido, gmail, usuario, contrasena })
     })
-    .then(res => res.json())
-    .then(data => {
-        if (data.error) {
-            mostrarMensaje(data.error, true);
-        } else {
-            mostrarMensaje("Registro exitoso. Ahora puedes iniciar sesión.", false);
-            setTimeout(() => {
-                window.location.href = "login.html";
-            }, 2000);
-        }
-    })
-    .catch(() => {
-        mostrarMensaje("Error de conexión con el servidor.", true);
-    });
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                mostrarMensaje(data.error, true);
+            } else {
+                mostrarMensaje("Registro exitoso. Ahora puedes iniciar sesión.", false);
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 2000);
+            }
+        })
+        .catch(() => {
+            mostrarMensaje("Error de conexión con el servidor.", true);
+        });
 }
 
 function mostrarMensaje(msg, esError) {
@@ -68,8 +68,8 @@ function esGmailValido(email) {
 }
 
 function esContrasenaSegura(contrasena) {
-    // Al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo
-    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(contrasena);
+    // Al menos 6 caracteres
+    return /^.{6,}$/.test(contrasena);
 }
 
 // ...existing code...
@@ -87,29 +87,29 @@ function loginUsuario() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ usuario, contrasena })
     })
-    .then(res => res.text())
-    .then(text => {
-        let data;
-        try {
-            data = JSON.parse(text);
-        } catch (e) {
-            mostrarMensaje("Respuesta no válida del servidor.", true);
-            return;
-        }
-        if (data.error) {
-            mostrarMensaje(data.error, true);
-        } else {
-            // Guardar rol en localStorage
-            localStorage.setItem('rol', data.rol);
-            localStorage.setItem('usuario', data.usuario);
-            mostrarMensaje("Bienvenido " + data.usuario, false);
-            setTimeout(() => {
-                window.location.href = "../index.html";
-            }, 1500);
-        }
-    })
-    .catch(() => {
-        mostrarMensaje("Error de conexión con el servidor.", true);
-    });
+        .then(res => res.text())
+        .then(text => {
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                mostrarMensaje("Respuesta no válida del servidor.", true);
+                return;
+            }
+            if (data.error) {
+                mostrarMensaje(data.error, true);
+            } else {
+                // Guardar rol en localStorage
+                localStorage.setItem('rol', data.rol);
+                localStorage.setItem('usuario', data.usuario);
+                mostrarMensaje("Bienvenido " + data.usuario, false);
+                setTimeout(() => {
+                    window.location.href = "../index.html";
+                }, 1500);
+            }
+        })
+        .catch(() => {
+            mostrarMensaje("Error de conexión con el servidor.", true);
+        });
 }
 // ...existing code...

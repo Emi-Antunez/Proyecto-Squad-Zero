@@ -20,6 +20,8 @@
     <link href="style/style.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
 </head>
 
 <body>
@@ -44,15 +46,28 @@
                     <li class="nav-item">
                         <a class="nav-link px-lg-3 py-3 py-lg-4" href="#ubicacionBoteSection">Ubicación</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="page/login.html">Iniciar
-                            sesión</a></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
-                            href="page/register.html">Registrarse</a></li>
-                    <!-- Agrega esto en tu navbar o donde prefieras -->
-                    <li class="nav-item" id="logoutNav" style="display:none;">
-                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+                    <li class="nav-item" id="loginNav">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="page/login.html">Iniciar sesión</a>
                     </li>
-                </ul>
+                    <li class="nav-item" id="registerNav">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="page/register.html">Registrarse</a>
+                    </li>
+                    <li class="nav-item dropdown" id="userNav" style="display:none;">
+                        <a class="nav-link dropdown-toggle px-lg-3 py-3 py-lg-4" href="#" id="navbarUserDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span id="navbarUsername"></span>
+                            <i class="fas fa-user ms-2"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end animate__animated animate__fadeIn"
+                            aria-labelledby="navbarUserDropdown" style="min-width: 180px;">
+                            <li>
+                                <a class="dropdown-item text-danger" href="#" onclick="cerrarSesion()"
+                                    style="transition: background 0.2s;">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
             </div>
         </div>
     </nav>
@@ -311,32 +326,6 @@
             return localStorage.getItem('usuario') && localStorage.getItem('rol');
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const rol = localStorage.getItem('rol');
-            const form = document.getElementById('formAgregarReserva').parentElement.parentElement;
-            const reservasSection = document.getElementById('reservasContainer').parentElement;
-
-            if (rol === 'admin') {
-                form.style.display = '';
-                reservasSection.style.display = '';
-            } else if (rol === 'usuario') {
-                form.style.display = '';
-                reservasSection.style.display = 'none';
-            } else {
-                form.style.display = '';
-                reservasSection.style.display = 'none';
-            }
-
-            // Mostrar mensaje si está logueado
-            if (usuarioLogueado()) {
-                const nombreUsuario = localStorage.getItem('usuario');
-                let saludo = document.createElement('div');
-                saludo.className = 'alert alert-success mb-3';
-                saludo.textContent = 'Sesión iniciada como: ' + nombreUsuario;
-                form.parentElement.insertBefore(saludo, form.parentElement.firstChild);
-            }
-        });
-
         function cerrarSesion() {
             localStorage.removeItem('usuario');
             localStorage.removeItem('rol');
@@ -349,6 +338,20 @@
             }
         });
         listarReservas();
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const usuario = localStorage.getItem('usuario');
+            if (usuario) {
+                document.getElementById('loginNav').style.display = 'none';
+                document.getElementById('registerNav').style.display = 'none';
+                document.getElementById('userNav').style.display = '';
+                document.getElementById('navbarUsername').textContent = usuario;
+            } else {
+                document.getElementById('loginNav').style.display = '';
+                document.getElementById('registerNav').style.display = '';
+                document.getElementById('userNav').style.display = 'none';
+            }
+        });
     </script>
 </body>
 
