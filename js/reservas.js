@@ -1,13 +1,45 @@
 const API_URL = "http://localhost/PROYECTO-SQUAD-ZERO/backend/routes/api.php";
 
+let reservasOriginal = [];
+let ordenAscendente = true;
+
 // Obtener todas las reservas (GET)
 function listarReservas() {
   fetch(API_URL)
     .then(res => res.json())
     .then(data => {
-      mostrarTablaReservas(data);
+      reservasOriginal = Array.isArray(data) ? data : [];
+      mostrarTablaReservas(filtrarReservas());
     })
     .catch(err => mostrarError("Error al obtener reservas: " + err));
+}
+
+function filtrarReservas() {
+  let reservas = [...reservasOriginal];
+  const tour = document.getElementById('filtroTour')?.value || "";
+  const nombre = document.getElementById('buscadorNombre')?.value?.toLowerCase() || "";
+
+  // Filtrar por tour
+  if (tour) reservas = reservas.filter(r => r.tour === tour);
+
+  // Buscar por nombre
+  if (nombre) reservas = reservas.filter(r =>
+    (`${r.nombre} ${r.apellido}`.toLowerCase().includes(nombre))
+  );
+
+  // Ordenar por fecha
+  reservas.sort((a, b) => {
+    const fa = new Date(a.fecha), fb = new Date(b.fecha);
+    return ordenAscendente ? fa - fb : fb - fa;
+  });
+
+  return reservas;
+}
+
+// Actualiza la tabla cuando cambian los filtros
+function actualizarTablaReservas() {
+  mostrarTablaReservas(filtrarReservas());
+  actualizarIconoOrdenFecha(); // <-- Asegura que el icono se actualice SIEMPRE
 }
 
 // Mostrar reservas en el HTML
@@ -33,6 +65,31 @@ function mostrarTablaReservas(reservas) {
   html += '</div>';
   container.innerHTML = html;
 }
+
+function actualizarIconoOrdenFecha() {
+  const ordenFechaIcon = document.getElementById('ordenFechaIcon');
+  if (ordenFechaIcon) {
+    ordenFechaIcon.className = ordenAscendente ? "fas fa-arrow-down" : "fas fa-arrow-up";
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const filtroTour = document.getElementById('filtroTour');
+  const buscadorNombre = document.getElementById('buscadorNombre');
+  const ordenFechaBtn = document.getElementById('ordenFechaBtn');
+
+  if (filtroTour) filtroTour.addEventListener('change', actualizarTablaReservas);
+  if (buscadorNombre) buscadorNombre.addEventListener('input', actualizarTablaReservas);
+  if (ordenFechaBtn) ordenFechaBtn.addEventListener('click', function () {
+    ordenAscendente = !ordenAscendente;
+    actualizarTablaReservas();
+  });
+
+  // Inicializa el icono al cargar
+  actualizarIconoOrdenFecha();
+});
+
+
 
 // Agregar una reserva (POST)
 function agregarReserva(tour, fecha, hora, cantidad_personas) {
