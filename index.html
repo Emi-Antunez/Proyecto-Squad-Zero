@@ -134,9 +134,14 @@
                         </div>
                     </div>
                     <!-- Contenedor de Reservas -->
-                    <div class="mb-4">
-                        <h2 class="h5 mb-3">Reservas registradas</h2>
-                        <div id="reservasContainer"></div>
+                    <div class="row justify-content-center" id="reservasSection" style="display:none;">
+                        <div class="col-12 d-flex flex-column align-items-center">
+                            <h2 class="fw-bold mb-4 pb-2"
+                                style="font-family: 'Poppins', sans-serif; letter-spacing: 1px; color: #5981C2; background: linear-gradient(90deg, #ffffff 0%, #fdfcfc 100%); border-radius: 8px; font-size: 24px;">
+                                Reservas registradas
+                            </h2>
+                            <div id="reservasContainer" style="width:100%;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -302,36 +307,52 @@
     <script src="js/reservas.js"></script>
     <script>
         // Mostrar/ocultar según el rol
-        document.addEventListener('DOMContentLoaded', function () {
-            const rol = localStorage.getItem('rol');
-            const form = document.getElementById('formAgregarReserva').parentElement.parentElement;
-            const reservasSection = document.getElementById('reservasContainer').parentElement;
+    document.addEventListener('DOMContentLoaded', function () {
+        const rol = localStorage.getItem('rol');
+        const usuario = localStorage.getItem('usuario');
+        const reservasSection = document.getElementById('reservasSection');
+        const form = document.getElementById('formAgregarReserva').parentElement.parentElement;
 
+        // Mostrar/ocultar reservas según el rol
+        if (rol === 'admin') {
+            reservasSection.style.display = '';
+        } else {
+            reservasSection.style.display = 'none';
+        }
+
+        // Mostrar/ocultar formulario según el rol (si quieres ocultar para admin, cambia aquí)
+        form.style.display = '';
+
+        // Navbar
+        const usernameSpan = document.getElementById('navbarUsername');
+        if (usuario) {
+            document.getElementById('loginNav').style.display = 'none';
+            document.getElementById('registerNav').style.display = 'none';
+            document.getElementById('userNav').style.display = '';
+            usernameSpan.textContent = usuario;
             if (rol === 'admin') {
-                // Admin ve todo
-                form.style.display = '';
-                reservasSection.style.display = '';
-            } else if (rol === 'usuario') {
-                // Usuario solo ve el formulario
-                form.style.display = '';
-                reservasSection.style.display = 'none';
+                usernameSpan.classList.add('admin-username');
             } else {
-                // No logueado: solo oculta reservas, muestra el form
-                form.style.display = '';
-                reservasSection.style.display = 'none';
+                usernameSpan.classList.remove('admin-username');
             }
-        });
+        } else {
+            document.getElementById('loginNav').style.display = '';
+            document.getElementById('registerNav').style.display = '';
+            document.getElementById('userNav').style.display = 'none';
+        }
+    });
 
         function usuarioLogueado() {
             return localStorage.getItem('usuario') && localStorage.getItem('rol');
         }
 
-        function cerrarSesion() {
-            localStorage.removeItem('usuario');
-            localStorage.removeItem('rol');
-            window.location.reload();
-        }
-
+   function cerrarSesion() {
+        localStorage.removeItem('usuario');
+        localStorage.removeItem('rol');
+        const reservasSection = document.getElementById('reservasSection');
+        if (reservasSection) reservasSection.style.display = 'none';
+        window.location.reload();
+    }
         document.addEventListener('DOMContentLoaded', function () {
             if (usuarioLogueado()) {
                 document.getElementById('logoutNav').style.display = '';

@@ -79,6 +79,39 @@
   --bs-highlight-bg: #fff3cd;
 }
 
+#reservasContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente si hay altura */
+    width: 100%;
+    min-height: 200px;
+    padding: 20px;
+}
+
+.col-12 {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente si hay altura */
+    width: 100%;
+    min-height: 200px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+#reservasContainer button{
+    background-color: #5981C2 !important;
+    border: 0px !important;
+}
+
+.admin-username {
+    color: #000000 !important;
+    font-weight: bold;
+    text-shadow: 0 0 4px #fffbe6;
+}
+
 .dropdown-menu .dropdown-item.nav-link:hover {
     background: linear-gradient(90deg, #fdfcfc 0%, #e3e3e3 100%);
     color: #5981C2 !important;
