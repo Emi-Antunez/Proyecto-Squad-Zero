@@ -142,19 +142,30 @@ function guardarReservaDesdeFormulario() {
         window.location.href = 'page/login.html';
         return;
     }
-  document.getElementById('output').textContent = "";
-  const tour = document.getElementById('tour').value;
-  const fecha = document.getElementById('fecha').value;
-  const hora = document.getElementById('hora').value;
-  const cantidad_personas = parseInt(document.getElementById('cantidadPersonas').value);
+    document.getElementById('output').textContent = "";
+    const tour = document.getElementById('tour').value;
+    const fecha = document.getElementById('fecha').value;
+    const hora = document.getElementById('hora').value;
+    const cantidad_personas = parseInt(document.getElementById('cantidadPersonas').value);
 
-  if (!tour || !fecha || !hora || isNaN(cantidad_personas)) {
-    mostrarError("Completa todos los campos correctamente.");
-    return;
-  }
+    if (!tour || !fecha || !hora || isNaN(cantidad_personas)) {
+        mostrarError("Completa todos los campos correctamente.");
+        return;
+    }
 
-  agregarReserva(tour, fecha, hora, cantidad_personas);
-  document.getElementById('formAgregarReserva').reset();
+    // Validación
+    const existe = reservasOriginal.some(r =>
+        r.tour === tour &&
+        r.fecha === fecha &&
+        r.hora === hora
+    );
+    if (existe) {
+        mostrarError("Ya existe una reserva para ese tour, fecha y hora.");
+        return;
+    }
+
+    agregarReserva(tour, fecha, hora, cantidad_personas);
+    document.getElementById('formAgregarReserva').reset();
 }
 
 function mostrarError(msg) {

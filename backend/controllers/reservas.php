@@ -18,9 +18,13 @@ function mostrarReserva($id) {
         echo json_encode(["error" => "Reserva no encontrada"]);
     }
 }
-// ...existing code...
+
 function agregarReserva($id_usuario, $tour, $fecha, $hora, $cantidad_personas) {
     global $reservaModel;
+    if ($reservaModel->existeReserva($tour, $fecha, $hora)) {
+        echo json_encode(["error" => "Ya existe una reserva para ese tour, fecha y hora."]);
+        exit;
+    }
     if ($reservaModel->agregar($id_usuario, $tour, $fecha, $hora, $cantidad_personas)) {
         echo json_encode(["mensaje" => "Reserva agregada"]);
     } else {
@@ -36,7 +40,6 @@ function modificarReserva($id, $id_usuario, $tour, $fecha, $hora, $cantidad_pers
         echo json_encode(["error" => "No se pudo modificar"]);
     }
 }
-// ...existing code...
 
 function eliminarReserva($id) {
     global $reservaModel;

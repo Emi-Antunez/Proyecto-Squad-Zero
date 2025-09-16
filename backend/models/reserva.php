@@ -24,7 +24,6 @@ class Reserva {
         return $result->fetch_assoc();
     }
 
-// ...existing code...
 public function agregar($id_usuario, $tour, $fecha, $hora, $cantidad_personas) {
     $stmt = $this->conn->prepare("INSERT INTO reservas (id_usuario, tour, fecha, hora, cantidad_personas) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("isssi", $id_usuario, $tour, $fecha, $hora, $cantidad_personas);
@@ -36,12 +35,20 @@ public function agregar($id_usuario, $tour, $fecha, $hora, $cantidad_personas) {
     $stmt->bind_param("isssii", $id_usuario, $tour, $fecha, $hora, $cantidad_personas, $id);
     return $stmt->execute();
 }
-// ...existing code...
 
     public function eliminar($id) {
         $stmt = $this->conn->prepare("DELETE FROM reservas WHERE id=?");
         $stmt->bind_param("i", $id);
         return $stmt->execute();
+    }
+
+    public function existeReserva($tour, $fecha, $hora) {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM reservas WHERE tour = ? AND fecha = ? AND hora = ?");
+        $stmt->bind_param("sss", $tour, $fecha, $hora);
+        $stmt->execute();
+        $stmt->bind_result($count);
+        $stmt->fetch();
+        return $count > 0;
     }
 }
 ?>
