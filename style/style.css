@@ -423,6 +423,144 @@ figure {
   margin: 0 0 1rem;
 }
 
+/* ===== MODO CLARO ===== */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #fff;
+  color: #3F3D56;
+  transition: background 0.6s ease, color 0.6s ease;
+}
+
+/* Navbar */
+.navbar, nav {
+  background-color: #3F3D56;
+  color: #fff;
+  padding: 1rem 2rem;
+  transition: background 0.6s ease, color 0.6s ease;
+}
+
+.navbar a, nav a {
+  color: #FFD166;
+  text-decoration: none;
+  margin: 0 1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover, nav a:hover {
+  color: #EF476F;
+}
+
+/* FORUMS */
+.forum {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Botones */
+button, .btn, #themeButton {
+  background: #007BFF; /* azul por defecto */
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.7rem 1.2rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+button:hover, .btn:hover, #themeButton:hover {
+  opacity: 0.8;
+}
+
+/* Contenedor del mapa */
+.map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80vh;
+  margin: 2rem auto;
+}
+
+.map-container iframe {
+  width: 90%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.5s ease;
+}
+
+/* Títulos */
+h1, h2, h3, h4, h5, h6 {
+  color: #3F3D56;
+  transition: color 0.6s ease;
+}
+
+/* Botón modo oscuro */
+.mode-toggle {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+}
+
+/* ===== MODO OSCURO ===== */
+body.dark-mode {
+  background: #121212;
+  color: #EAEAEA;
+}
+
+/* Navbar oscuro */
+body.dark-mode .navbar,
+body.dark-mode nav {
+  background-color: #1E1E1E !important;
+  color: #FFD166 !important;
+}
+
+body.dark-mode .navbar a,
+body.dark-mode nav a {
+  color: #FFD166 !important;
+}
+
+body.dark-mode .navbar a:hover,
+body.dark-mode nav a:hover {
+  color: #EF476F !important;
+}
+
+/* FORUMS oscuro */
+body.dark-mode .forum {
+  background-color: #1E1E1E;
+  color: #FFD166;
+}
+
+/* Botones rojos en modo oscuro */
+body.dark-mode button, 
+body.dark-mode .btn, 
+body.dark-mode #themeButton {
+  background: #EF476F;
+  color: #fff;
+}
+
+/* Títulos oscuros */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+  color: #FFD166;
+}
+
+/* Mapa en modo oscuro */
+body.dark-mode .map-container iframe {
+  box-shadow: 0 10px 25px rgba(255, 209, 102, 0.25);
+}
+
+
 img,
 svg {
   vertical-align: middle;
