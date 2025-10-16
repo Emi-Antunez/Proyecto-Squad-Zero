@@ -113,15 +113,3 @@ function loginUsuario() {
         });
 }
 // ...existing code...
-
-if (usuario) {
-    document.getElementById('reservas').style.display = 'block';
-    document.getElementById('logoutNav').style.display = 'block';
-}
-
-if (usuario) {
-    document.getElementById('reservas').style.display = 'block';
-    document.getElementById('logoutNav').style.display = 'block';
-    document.querySelector('a[href="page/login.html"]').style.display = 'none';
-    document.querySelector('a[href="page/register.html"]').style.display = 'none';
-}
