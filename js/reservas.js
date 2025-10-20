@@ -171,3 +171,15 @@ function guardarReservaDesdeFormulario() {
 function mostrarError(msg) {
   document.getElementById('output').textContent = msg;
 }
+
+function reservarTour(tour) {
+    const usuario = localStorage.getItem('usuario');
+    if (!usuario) {
+        // No está logueado, redirige a login
+        window.location.href = 'page/login.html';
+        return;
+    }
+    // Sí está logueado, redirige o abre el formulario
+    window.location.href = '#reservasSection'; // o mostrar la sección de reservas
+    document.getElementById('tour').value = tour; // auto-selecciona el tour en el formulario
+}
