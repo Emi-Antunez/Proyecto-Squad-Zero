@@ -351,6 +351,14 @@
             </div>
         </section>
 
+        <!-- GESTIÓN DE USUARIOS (solo visible para admin) -->
+        <section id="adminUsuariosSection" class="py-5 bg-light" style="display:none;">
+            <div class="container px-4 px-lg-5">
+                <h2 class="text-center mb-4">Gestión de Usuarios</h2>
+                <div id="usuariosContainer" class="col-12"></div>
+            </div>
+        </section>
+
         <!-- UBICACIÓN DEL BOTE -->
         <section id="ubicacionBoteSection" class="py-5 bg-white">
             <div class="container px-4 px-lg-5">
@@ -554,6 +562,38 @@
                 a.click();
             });
     }
+
+    function listarUsuarios() {
+        fetch('http://localhost/Proyecto-squad-zero/backend/routes/api.php?action=getUsuarios')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('usuariosContainer');
+                let html = '<table class="table">';
+                html += '<thead><tr><th>Nombre</th><th>Correo</th><th>Rol</th><th>Acciones</th></tr></thead><tbody>';
+                data.forEach(usuario => {
+                    html += `
+                        <tr>
+                            <td>${usuario.nombre} ${usuario.apellido}</td>
+                            <td>${usuario.email}</td>
+                            <td>${usuario.rol}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="cambiarRol(${usuario.id})">Cambiar Rol</button>
+                                <button class="btn btn-danger btn-sm" onclick="eliminarUsuario(${usuario.id})">Eliminar</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const rol = localStorage.getItem('rol');
+        if (rol === 'admin') {
+            listarUsuarios(); // Llama a la función para cargar los usuarios
+        }
+    });
 </script>
 </body>
 </html>
