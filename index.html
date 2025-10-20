@@ -312,6 +312,45 @@
             </div>
         </section>
 
+        <!-- ADMINISTRACIÓN DE RESERVAS (solo visible para admin) -->
+        <section id="adminReservasSection" class="py-5 bg-light contorno" style="display:none;">
+            <div class="container px-4 px-lg-5">
+                <h2 class="text-center mb-4" style="border-bottom: 2px solid red; display: inline-block; padding-bottom: 5px;">
+                    Administración de Reservas
+                </h2>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="filtroTourAdmin" class="form-label">Filtrar por Tour</label>
+                                <select id="filtroTourAdmin" class="form-control">
+                                    <option value="">Todos los tours</option>
+                                    <option value="Navegación Bahía">Navegación Bahía</option>
+                                    <option value="Riachuelo">Riachuelo</option>
+                                    <option value="Anchorena">Anchorena</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="buscadorNombreAdmin" class="form-label">Buscar por Nombre</label>
+                                <input type="text" id="buscadorNombreAdmin" class="form-control" placeholder="Buscar por nombre...">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Ordenar por Fecha</label>
+                                <button id="ordenFechaAdminBtn" class="btn btn-outline-primary w-100">
+                                    <i id="ordenFechaAdminIcon" class="fas fa-arrow-down"></i> Fecha
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Botón para exportar reservas -->
+                <div class="text-end mb-3">
+                    <button class="btn btn-success" onclick="exportarReservas()">Exportar a CSV</button>
+                </div>
+                <div id="adminReservasContainer" class="col-12"></div>
+            </div>
+        </section>
+
         <!-- UBICACIÓN DEL BOTE -->
         <section id="ubicacionBoteSection" class="py-5 bg-white">
             <div class="container px-4 px-lg-5">
@@ -391,45 +430,134 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/reservas.js"></script>
     <script>
-        // Mostrar/ocultar según el rol
         document.addEventListener('DOMContentLoaded', function () {
-            const rol = localStorage.getItem('rol');
-            const usuario = localStorage.getItem('usuario');
-            const reservasSection = document.getElementById('reservasSection');
+        const rol = localStorage.getItem('rol');
+        const usuario = localStorage.getItem('usuario');
 
-            // Mostrar/ocultar reservas según el rol
-            if (rol === 'admin') {
-                reservasSection.style.display = '';
-            } else {
-                reservasSection.style.display = 'none';
-            }
+        // Secciones generales
+        const sobreNosotrosSection = document.getElementById('sobreNosotrosSection');
+        const nuestrosViajesSection = document.getElementById('nuestrosViajesSection');
+        const ubicacionBoteSection = document.getElementById('ubicacionBoteSection');
 
-            // Navbar
-            const usernameSpan = document.getElementById('navbarUsername');
-            if (usuario) {
-                document.getElementById('loginNav').style.display = 'none';
-                document.getElementById('registerNav').style.display = 'none';
-                document.getElementById('userNav').style.display = '';
-                usernameSpan.textContent = usuario;
-                if (rol === 'admin') {
-                    usernameSpan.classList.add('admin-username');
-                } else {
-                    usernameSpan.classList.remove('admin-username');
-                }
-            } else {
-                document.getElementById('loginNav').style.display = '';
-                document.getElementById('registerNav').style.display = '';
-                document.getElementById('userNav').style.display = 'none';
-            }
-        });
+        // Sección de administración
+        const adminReservasSection = document.getElementById('adminReservasSection');
 
-        function cerrarSesion() {
-            localStorage.removeItem('usuario');
-            localStorage.removeItem('rol');
-            window.location.reload();
+        // Navbar
+        const usernameSpan = document.getElementById('navbarUsername');
+        if (usuario) {
+            document.getElementById('loginNav').style.display = 'none';
+            document.getElementById('registerNav').style.display = 'none';
+            document.getElementById('userNav').style.display = '';
+            usernameSpan.textContent = usuario;
+        } else {
+            document.getElementById('loginNav').style.display = '';
+            document.getElementById('registerNav').style.display = '';
+            document.getElementById('userNav').style.display = 'none';
         }
 
-        listarReservas();
-    </script>
+        // Mostrar solo la sección de administración si el rol es admin
+        if (rol === 'admin') {
+            if (sobreNosotrosSection) sobreNosotrosSection.style.display = 'none';
+            if (nuestrosViajesSection) nuestrosViajesSection.style.display = 'none';
+            if (ubicacionBoteSection) ubicacionBoteSection.style.display = 'none';
+
+            adminReservasSection.style.display = 'block';
+            listarReservasAdmin(); // Llama a la función para listar reservas en la sección de administración
+        } else {
+            // Mostrar las secciones generales para usuarios comunes
+            if (sobreNosotrosSection) sobreNosotrosSection.style.display = 'block';
+            if (nuestrosViajesSection) nuestrosViajesSection.style.display = 'block';
+            if (ubicacionBoteSection) ubicacionBoteSection.style.display = 'block';
+
+            adminReservasSection.style.display = 'none';
+        }
+    });
+
+    // Función para listar reservas en la sección de administración
+    function listarReservasAdmin() {
+        fetch('http://localhost/Proyecto-squad-zero/backend/routes/api.php?action=getReservas')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('adminReservasContainer');
+                if (!Array.isArray(data) || data.length === 0) {
+                    container.innerHTML = '<p>No hay reservas registradas.</p>';
+                    return;
+                }
+                let html = '<div class="row g-4">';
+                data.forEach(reserva => {
+                    html += `
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">${reserva.tour}</h5>
+                                    <p class="card-text">
+                                        <b>Nombre:</b> ${reserva.nombre} ${reserva.apellido}<br>
+                                        <b>Fecha:</b> ${reserva.fecha}<br>
+                                        <b>Hora:</b> ${reserva.hora}<br>
+                                        <b>Personas:</b> ${reserva.cantidad_personas}
+                                    </p>
+                                    <button class="btn btn-danger w-100" onclick="eliminarReserva(${reserva.id})">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                container.innerHTML = html;
+            })
+            .catch(err => {
+                console.error('Error al obtener reservas:', err);
+                document.getElementById('adminReservasContainer').innerHTML = '<p>Error al cargar las reservas.</p>';
+            });
+    }
+
+    // Función para eliminar una reserva
+    function eliminarReserva(id) {
+        if (!confirm('¿Estás seguro de que deseas eliminar esta reserva?')) return;
+        fetch(`http://localhost/Proyecto-squad-zero/backend/routes/api.php?action=deleteReserva&id=${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Reserva eliminada con éxito.');
+                    listarReservasAdmin(); // Actualiza la lista después de eliminar
+                } else {
+                    alert('Error al eliminar la reserva.');
+                }
+            })
+            .catch(err => {
+                console.error('Error al eliminar la reserva:', err);
+                alert('Error al eliminar la reserva.');
+            });
+    }
+
+    function cerrarSesion() {
+        localStorage.removeItem('usuario');
+        localStorage.removeItem('rol');
+        window.location.reload();
+    }
+
+    function exportarReservas() {
+        fetch('http://localhost/Proyecto-squad-zero/backend/routes/api.php?action=getReservas')
+            .then(res => res.json())
+            .then(data => {
+                let csv = 'Tour,Nombre,Apellido,Fecha,Hora,Cantidad de Personas\n';
+                data.forEach(reserva => {
+                    csv += `${reserva.tour},${reserva.nombre},${reserva.apellido},${reserva.fecha},${reserva.hora},${reserva.cantidad_personas}\n`;
+                });
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.setAttribute('href', url);
+                a.setAttribute('download', 'reservas.csv');
+                a.click();
+            })
+            .catch(err => {
+                console.error('Error al exportar reservas:', err);
+                alert('Error al exportar reservas.');
+            });
+    }
+</script>
 </body>
 </html>
