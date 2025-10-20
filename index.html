@@ -345,7 +345,7 @@
                 </div>
                 <!-- Botón para exportar reservas -->
                 <div class="text-end mb-3">
-                    <button class="btn btn-success" onclick="exportarReservas()">Exportar a CSV</button>
+                    <button class="btn btn-success mb-3" onclick="exportarReservas()">Exportar a Excel</button>
                 </div>
                 <div id="adminReservasContainer" class="col-12"></div>
             </div>
@@ -552,10 +552,6 @@
                 a.setAttribute('href', url);
                 a.setAttribute('download', 'reservas.csv');
                 a.click();
-            })
-            .catch(err => {
-                console.error('Error al exportar reservas:', err);
-                alert('Error al exportar reservas.');
             });
     }
 </script>
