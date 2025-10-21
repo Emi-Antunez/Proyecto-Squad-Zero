@@ -359,12 +359,12 @@ function configurarCalendario() {
 
         case 'Riachuelo':
         case 'Anchorena':
-            fechaInput.disabled = true;
+            fechaInput.disabled = false;
             alert('Para este tour, por favor contacta por WhatsApp para confirmar disponibilidad');
             break;
 
         default:
-            fechaInput.disabled = true;
+            fechaInput.disabled = false; 
             break;
     }
 }
