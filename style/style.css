@@ -79,6 +79,25 @@
   --bs-highlight-bg: #fff3cd;
 }
 
+
+#adminReservasContainer .card {
+    min-height: 350px; /* Altura mínima */
+    max-height: 350px; /* Altura máxima */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Asegura que el contenido esté distribuido */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para un diseño limpio */
+}
+
+/* Botón de eliminar siempre al final */
+#adminReservasContainer .card .btn {
+    margin-top: auto; /* Empuja el botón hacia la parte inferior */
+    border-radius: 8px;
+}
+
+
+
 /* Estilo del botón de información */
 #infoPopover {
     cursor: pointer;
