@@ -79,6 +79,217 @@
   --bs-highlight-bg: #fff3cd;
 }
 
+/* Estilo del botón de información */
+#infoPopover {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #5981C2;
+    transition: transform 0.3s ease, color 0.3s ease, filter 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+#infoPopover:hover {
+    transform: scale(1.2) rotate(90deg);
+    color: #4769a5;
+    filter: drop-shadow(0 0 8px rgba(89, 129, 194, 0.5));
+}
+
+@keyframes popoverClick {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.4) rotate(180deg);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.popover-clicked {
+    animation: popoverClick 0.4s ease;
+}
+
+/* Estilos mejorados para el modal de información */
+#infoModal .modal-dialog {
+    animation: modalSlideIn 0.4s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+#infoModal .modal-content {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+#infoModal .modal-header {
+    background: linear-gradient(135deg, #5981C2 0%, #4769a5 100%);
+    color: white;
+    border: none;
+    padding: 1.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+#infoModal .modal-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-30px, -30px);
+    }
+}
+
+#infoModal .modal-title {
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+#infoModal .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+#infoModal .btn-close:hover {
+    opacity: 1;
+    transform: rotate(90deg) scale(1.1);
+}
+
+#infoModal .modal-body {
+    padding: 2rem;
+    position: relative;
+}
+
+#infoModal .modal-body h6 {
+    color: #5981C2;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #5981C2;
+    display: inline-block;
+    position: relative;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+#infoModal .modal-body h6:first-child {
+    margin-top: 0;
+}
+
+#infoModal .modal-body h6::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #5981C2, #4769a5);
+    transition: width 0.4s ease;
+}
+
+#infoModal .modal-body h6:hover::after {
+    width: 100%;
+}
+
+#infoModal .modal-body p {
+    color: #555;
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.8s ease-out;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+#infoModal .modal-body p::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: #5981C2;
+    font-size: 1.2rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.2);
+    }
+}
+
+/* Efecto de backdrop mejorado */
+.modal-backdrop.show {
+    backdrop-filter: blur(8px);
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Animación de entrada del modal */
+.modal.fade .modal-dialog {
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: none;
+}
+
+/* Decoración adicional */
+#infoModal .modal-body::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(89, 129, 194, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
 #reservasContainer {
     display: flex;
     flex-direction: row;

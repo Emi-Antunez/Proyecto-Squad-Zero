@@ -83,7 +83,7 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="img/Puerto.jpg" class="d-block w-100" alt="Puerto" style="height: 600px; object-fit: cover;">
+                    <img src="img/fbb4ae05-280c-462b-9768-b164fa229cdd.png" class="d-block w-100" alt="Puerto" style="height: 600px; object-fit: cover;">
                     <div class="carousel-caption">
                         <div class="site-heading">
                             <h1 class="text-white display-4 fw-bold">Descubre el Mar como Nunca Antes</h1>
@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="img/puerto2.png" class="d-block w-100" alt="Puerto 2" style="height: 600px; object-fit: cover;">
+                    <img src="img/ChatGPT Image 24 jun 2025, 14_12_56.png" class="d-block w-100" alt="Puerto 2" style="height: 600px; object-fit: cover;">
                     <div class="carousel-caption">
                         <div class="site-heading">
                             <h1 class="text-white display-4 fw-bold">Tours Inolvidables</h1>
@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="img/bahia.PNG" class="d-block w-100" alt="Bahía" style="height: 600px; object-fit: cover;">
+                    <img src="img/d241b597-ea22-4bbc-8eef-65210b729db7.png" class="d-block w-100" alt="Bahía" style="height: 600px; object-fit: cover;">
                     <div class="carousel-caption">
                         <div class="site-heading">
                             <h1 class="text-white display-4 fw-bold">Explora Nuestras Bahías</h1>
@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="img/riachuelo.PNG" class="d-block w-100" alt="Riachuelo" style="height: 600px; object-fit: cover;">
+                    <img src="img/puerto2.png" class="d-block w-100" alt="Riachuelo" style="height: 600px; object-fit: cover;">
                     <div class="carousel-caption">
                         <div class="site-heading">
                             <h1 class="text-white display-4 fw-bold">Naturaleza y Tranquilidad</h1>
@@ -119,7 +119,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="img/anchoarena.PNG" class="d-block w-100" alt="Ancho Arena" style="height: 600px; object-fit: cover;">
+                    <img src="img/90539589-944e-4fc3-8007-5663f438cb24.png" class="d-block w-100" alt="Ancho Arena" style="height: 600px; object-fit: cover;">
                     <div class="carousel-caption">
                         <div class="site-heading">
                             <h1 class="text-white display-4 fw-bold">Playas Paradisíacas</h1>
@@ -162,17 +162,24 @@
                             <div class="small text-muted">Barcos</div>
                         </div>
                     </div>
+                    <!-- Ícono de puntos con modal -->
+                    <div class="mt-4">
+                        <button class="btn btn-link p-0 border-0" data-bs-toggle="modal" data-bs-target="#infoModal" style="text-decoration: none;">
+                            <i class="fas fa-info-circle" id="infoPopover" style="cursor: pointer; font-size: 1.8rem;"></i>
+                            <span class="ms-2" style="color: #5981C2; font-weight: 600;">Más información</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="row g-3">
                         <div class="col-6">
-                            <img src="img/Puerto.jpg" class="img-fluid rounded shadow" alt="Puerto">
+                            <img src="img/ad9e6160d0edd68e7f74762481972b76.jpg" class="img-fluid rounded shadow" alt="Puerto">
                         </div>
                         <div class="col-6 mt-5">
-                            <img src="img/bahia.PNG" class="img-fluid rounded shadow" alt="Bahía">
+                            <img src="img/11393c39-f0e9-477d-881e-0b39cd7b1fca.png" class="img-fluid rounded shadow" alt="Bahía">
                         </div>
                         <div class="col-6">
-                            <img src="img/riachuelo.PNG" class="img-fluid rounded shadow" alt="Riachuelo">
+                            <img src="img/Estadio iluminado al atardecer.png" class="img-fluid rounded shadow" alt="Riachuelo">
                         </div>
                         <div class="col-6 mt-5">
                             <img src="img/anchoarena.PNG" class="img-fluid rounded shadow" alt="Arena">
@@ -225,7 +232,7 @@
                 <!-- Tour 3 -->
                 <div class="col-md-6 col-lg-4">
                     <div class="card h-100">
-                        <img src="img/anchoarena.PNG" class="card-img-top" alt="Anchorena" style="height: 250px; object-fit: cover;">
+                        <img src="img/73ceb707-fd43-47b0-b8f4-727419c7b4a3.png" class="card-img-top" alt="Anchorena" style="height: 250px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">Anchorena</h5>
                             <p class="card-text">
@@ -594,6 +601,55 @@
             listarUsuarios(); // Llama a la función para cargar los usuarios
         }
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const popoverTrigger = document.getElementById('infoPopover');
+
+        if (popoverTrigger) {
+            // Inicializar el popover
+            const popover = new bootstrap.Popover(popoverTrigger, {
+                html: true,
+                content: `
+                    <div style="max-width: 300px;">
+                        <h6>Colonia del Sacramento</h6>
+                        <p>Colonia del Sacramento es una ciudad histórica y pintoresca, famosa por su casco antiguo, declarado Patrimonio de la Humanidad por la UNESCO. Sus calles empedradas, arquitectura colonial y hermosas playas la convierten en un destino imperdible en Uruguay.</p>
+                        <h6>El Bote</h6>
+                        <p>El Malibú es un crucero de 12 metros de eslora por 4 de manga, habilitado para 23 pasajeros. Ofrece una experiencia segura y cómoda para explorar las aguas de Colonia.</p>
+                    </div>
+                `,
+                placement: 'right',
+            });
+
+            // Agregar la animación al hacer clic
+            popoverTrigger.addEventListener('click', function () {
+                popoverTrigger.classList.add('popover-clicked');
+                setTimeout(() => {
+                    popoverTrigger.classList.remove('popover-clicked');
+                }, 300); // Duración de la animación
+            });
+        }
+    });
 </script>
+
+<!-- Modal de Información -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true" data-bs-backdrop="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="infoModalLabel">
+                    <i class="fas fa-info-circle me-2"></i>Información
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6><i class="fas fa-map-marked-alt me-2"></i>Colonia del Sacramento</h6>
+                <p>Colonia del Sacramento es una ciudad histórica y pintoresca, famosa por su casco antiguo, declarado Patrimonio de la Humanidad por la UNESCO. Sus calles empedradas, arquitectura colonial y hermosas playas la convierten en un destino imperdible en Uruguay.</p>
+                <h6><i class="fas fa-ship me-2"></i>El Bote</h6>
+                <p>El Malibú es un crucero de 12 metros de eslora por 4 de manga, habilitado para 23 pasajeros. Ofrece una experiencia segura y cómoda para explorar las aguas de Colonia.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

@@ -87,6 +87,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Inicializa el icono al cargar
   actualizarIconoOrdenFecha();
+
+  const popoverTrigger = document.getElementById('infoPopover');
+  if (popoverTrigger) {
+    const popover = new bootstrap.Popover(popoverTrigger, {
+      html: true,
+      content: `
+                <div style="max-width: 300px;">
+                    <h6>Colonia del Sacramento</h6>
+                    <p>Colonia del Sacramento es una ciudad histórica y pintoresca, famosa por su casco antiguo, declarado Patrimonio de la Humanidad por la UNESCO. Sus calles empedradas, arquitectura colonial y hermosas playas la convierten en un destino imperdible en Uruguay.</p>
+                    <h6>El Bote</h6>
+                    <p>El Malibú es un crucero de 12 metros de eslora por 4 de manga, habilitado para 23 pasajeros. Ofrece una experiencia segura y cómoda para explorar las aguas de Colonia.</p>
+                </div>
+            `,
+      placement: 'right', // Posición del popover
+    });
+  } else {
+    console.error('El ícono con ID "infoPopover" no se encontró en el DOM.');
+  }
 });
 
 
