@@ -323,3 +323,70 @@ function reservarTour(tour) {
     window.location.href = '#reservasSection'; // o mostrar la sección de reservas
     document.getElementById('tour').value = tour; // auto-selecciona el tour en el formulario
 }
+
+// Función para configurar el calendario según el tour seleccionado
+function configurarCalendario() {
+    const tourSelect = document.getElementById('tour');
+    const fechaInput = document.getElementById('fecha');
+    
+    // Resetear el input de fecha
+    fechaInput.value = '';
+    
+    // Obtener fecha actual
+    const hoy = new Date();
+    // Establecer fecha mínima como hoy
+    fechaInput.min = hoy.toISOString().split('T')[0];
+    
+    // Configurar fecha máxima como 3 meses desde hoy
+    const maxDate = new Date();
+    maxDate.setMonth(maxDate.getMonth() + 3);
+    fechaInput.max = maxDate.toISOString().split('T')[0];
+
+    // Configurar disponibilidad según el tour seleccionado
+    const tour = tourSelect.value;
+    
+    switch(tour) {
+        case 'Navegación Bahía':
+            // Habilitar el campo de fecha
+            fechaInput.disabled = false;
+            
+            // Remover listener anterior si existe
+            fechaInput.removeEventListener('change', validateDate);
+            
+            // Agregar nuevo listener para validar fines de semana
+            fechaInput.addEventListener('change', validateDate);
+            break;
+
+        case 'Riachuelo':
+        case 'Anchorena':
+            fechaInput.disabled = true;
+            alert('Para este tour, por favor contacta por WhatsApp para confirmar disponibilidad');
+            break;
+
+        default:
+            fechaInput.disabled = true;
+            break;
+    }
+}
+
+// Función para validar la fecha seleccionada
+function validateDate(e) {
+    const fecha = new Date(this.value);
+    const dia = fecha.getDay();
+    
+    // Si no es sábado (6) ni domingo (0)
+    if (dia !== 0 && dia !== 6) {
+        alert('Este tour solo está disponible los fines de semana y feriados');
+        this.value = '';
+    }
+}
+
+// Agregar listener al select de tour
+document.addEventListener('DOMContentLoaded', function() {
+    const tourSelect = document.getElementById('tour');
+    if (tourSelect) {
+        tourSelect.addEventListener('change', configurarCalendario);
+        // Configurar calendario inicial
+        configurarCalendario();
+    }
+});

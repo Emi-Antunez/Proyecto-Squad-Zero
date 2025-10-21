@@ -1,0 +1,14 @@
+[21-Oct-2025 21:16:03 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`registro_usuarios`.`reservas`, CONSTRAINT `fk_usuario_reserva` FOREIGN KEY (`id`) REFERENCES `usuarios` (`id`)) in C:\xampp\htdocs\Proyecto-Squad-Zero\backend\models\reserva.php:30
+Stack trace:
+#0 C:\xampp\htdocs\Proyecto-Squad-Zero\backend\models\reserva.php(30): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\Proyecto-Squad-Zero\backend\controllers\reservas.php(28): Reserva->agregar(7, 'Navegaci\xC3\xB3n Bah...', '2025-10-16', '17:00', 5)
+#2 C:\xampp\htdocs\Proyecto-Squad-Zero\backend\routes\api.php(46): agregarReserva(7, 'Navegaci\xC3\xB3n Bah...', '2025-10-16', '17:00', 5)
+#3 {main}
+  thrown in C:\xampp\htdocs\Proyecto-Squad-Zero\backend\models\reserva.php on line 30
+[21-Oct-2025 21:32:29 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`registro_usuarios`.`reservas`, CONSTRAINT `fk_usuario_reserva` FOREIGN KEY (`id`) REFERENCES `usuarios` (`id`)) in C:\xampp\htdocs\Proyecto-Squad-Zero\backend\models\reserva.php:30
+Stack trace:
+#0 C:\xampp\htdocs\Proyecto-Squad-Zero\backend\models\reserva.php(30): mysqli_stmt->execute()
+#1 C:\xampp\htdocs\Proyecto-Squad-Zero\backend\controllers\reservas.php(28): Reserva->agregar(8, 'Riachuelo', '2025-10-08', '13:30', 12)
+#2 C:\xampp\htdocs\Proyecto-Squad-Zero\backend\routes\api.php(46): agregarReserva(8, 'Riachuelo', '2025-10-08', '13:30', 12)
+#3 {main}
+  thrown in C:\xampp\htdocs\Proyecto-Squad-Zero\backend\models\reserva.php on line 30
