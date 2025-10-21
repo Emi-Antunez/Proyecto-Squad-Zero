@@ -46,10 +46,12 @@
     </nav>
 
     <!-- Header -->
-    <header style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 3rem 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+    <header style="background: linear-gradient(135deg, #5981C2 0%, #4769a5 100%); padding: 3rem 0; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
         <div class="container text-center">
-            <h1 class="display-4 fw-bold" style="color: #5981C2; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">Formulario de Reserva</h1>
-            <p class="lead mb-0" style="color: #6c757d;">Selecciona tu tour, fecha y cantidad de personas</p>
+            <h1 class="display-4 fw-bold" style="color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                <i class="fas fa-ship me-3"></i>Reserva tu Tour
+            </h1>
+            <p class="lead mb-0" style="color: rgba(255,255,255,0.9);">Selecciona tu tour, fecha y cantidad de personas</p>
         </div>
     </header>
 
@@ -59,12 +61,14 @@
             <section id="reservasSection">
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-lg-6">
-                        <div class="card shadow">
-                            <div class="card-body">
+                        <div class="card shadow-lg" style="border-radius: 20px; border: none; overflow: hidden;">
+                            <div class="card-body" style="padding: 2rem;">
                                 <form id="formAgregarReserva" onsubmit="event.preventDefault(); guardarReservaDesdeFormulario();">
                                     <div class="mb-3">
-                                        <label for="tour" class="form-label">Tour</label>
-                                        <select id="tour" class="form-control" required>
+                                        <label for="tour" class="form-label" style="font-weight: 600; color: #333;">
+                                            <i class="fas fa-ship me-2" style="color: #5981C2;"></i>Tour
+                                        </label>
+                                        <select id="tour" class="form-control" required style="border-radius: 10px; padding: 0.75rem;">
                                             <option value="">Selecciona un tour</option>
                                             <option value="Navegación Bahía">Navegación Bahía</option>
                                             <option value="Riachuelo">Riachuelo</option>
@@ -72,12 +76,16 @@
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="fecha" class="form-label">Fecha</label>
-                                        <input type="date" id="fecha" class="form-control" required>
+                                        <label for="fecha" class="form-label" style="font-weight: 600; color: #333;">
+                                            <i class="fas fa-calendar-alt me-2" style="color: #5981C2;"></i>Fecha
+                                        </label>
+                                        <input type="date" id="fecha" class="form-control" required style="border-radius: 10px; padding: 0.75rem;">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="hora" class="form-label">Hora</label>
-                                        <select id="hora" class="form-control" required>
+                                        <label for="hora" class="form-label" style="font-weight: 600; color: #333;">
+                                            <i class="fas fa-clock me-2" style="color: #5981C2;"></i>Hora
+                                        </label>
+                                        <select id="hora" class="form-control" required style="border-radius: 10px; padding: 0.75rem;">
                                             <option value="">Selecciona una hora</option>
                                             <option value="11:00">11:00</option>
                                             <option value="13:30">13:30</option>
@@ -85,13 +93,18 @@
                                             <option value="17:00">17:00</option>
                                         </select>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="cantidadPersonas" class="form-label">Personas</label>
-                                        <input type="number" id="cantidadPersonas" class="form-control" min="1" max="20" required>
+                                    <div class="mb-4">
+                                        <label for="cantidadPersonas" class="form-label" style="font-weight: 600; color: #333;">
+                                            <i class="fas fa-users me-2" style="color: #5981C2;"></i>Cantidad de Personas
+                                        </label>
+                                        <input type="number" id="cantidadPersonas" class="form-control" min="1" max="20" required style="border-radius: 10px; padding: 0.75rem;">
+                                        <small class="text-muted">Máximo 20 personas</small>
                                     </div>
-                                    <button type="submit" class="btn btn-primary w-100">Reservar</button>
+                                    <button type="submit" class="btn btn-primary w-100" style="border-radius: 10px; padding: 0.75rem; font-weight: 600; font-size: 1.1rem;">
+                                        <i class="fas fa-check-circle me-2"></i>Confirmar Reserva
+                                    </button>
                                     <pre id="output" style="color:red; margin-top:10px;"></pre>
-                                    <div id="reservasContainer" class="col-12"></div>
+                                    <div id="reservasContainer" class="col-12 mt-4"></div>
                                 </form>
                             </div>
                         </div>

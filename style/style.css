@@ -312,7 +312,7 @@ header .carousel-caption {
     padding: 0 !important;
     margin: 0 !important;
     text-align: center !important;
-    background: none !important;
+    background: rgba(0, 0, 0, 0.3) !important;
     z-index: 2;
 }
 
@@ -791,7 +791,6 @@ caption {
 
 th {
   text-align: inherit;
-  text-align: -webkit-match-parent;
 }
 
 thead,
@@ -820,6 +819,19 @@ button:focus:not(:focus-visible) {
 .card {
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card .card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card .card-body .btn {
+  margin-top: auto;
 }
 
 
@@ -835,11 +847,11 @@ textarea {
 }
 
 .card {
-  transition: transform 0.4s ease, filter 0.4s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .card:hover {
-  transform: scale(1.03); /* zoom muy suave */
-  filter: brightness(1.05); /* apenas un poquito más de brillo */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
 button,
@@ -5468,7 +5480,6 @@ textarea.form-control-lg {
   --bs-toast-zindex: 1090;
   position: absolute;
   z-index: var(--bs-toast-zindex);
-  width: -moz-max-content;
   width: max-content;
   max-width: 100%;
   pointer-events: none;
@@ -5774,7 +5785,6 @@ textarea.form-control-lg {
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
-  text-align: left;
   text-align: start;
   text-decoration: none;
   text-shadow: none;
@@ -8441,7 +8451,6 @@ textarea.form-control-lg {
 
 .user-select-auto {
   -webkit-user-select: auto !important;
-     -moz-user-select: auto !important;
           user-select: auto !important;
 }
 

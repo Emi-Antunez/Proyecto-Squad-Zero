@@ -46,19 +46,39 @@ function actualizarTablaReservas() {
 function mostrarTablaReservas(reservas) {
   const container = document.getElementById('reservasContainer');
   if (!Array.isArray(reservas) || reservas.length === 0) {
-    container.innerHTML = '<p>No hay reservas para mostrar.</p>';
+    container.innerHTML = '<p class="text-center text-muted">No hay reservas para mostrar.</p>';
     return;
   }
-  let html = '<div style="display: flex; flex-wrap: wrap; gap: 16px;">';
+  let html = '<div class="row g-4">';
   reservas.forEach(r => {
     html += `
-      <div style="border:1px solid #ccc; border-radius:8px; padding:16px; width:240px; box-shadow:2px 2px 8px #eee;">
-        <h3>${r.tour}</h3>
-        <p><strong>Usuario:</strong> ${r.nombre} ${r.apellido}</p>
-        <p><strong>Fecha:</strong> ${r.fecha}</p>
-        <p><strong>Hora:</strong> ${r.hora}</p>
-        <p><strong>Personas:</strong> ${r.cantidad_personas}</p>
-        <button class="btn btn-danger btn-sm" onclick="eliminarReserva(${r.id})">Eliminar</button>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm" style="border-radius: 12px; border: 1px solid #e0e0e0; transition: all 0.3s ease;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title" style="color: #5981C2; font-weight: 700; border-bottom: 2px solid #5981C2; padding-bottom: 0.5rem; margin-bottom: 1rem;">
+              <i class="fas fa-ship me-2"></i>${r.tour}
+            </h5>
+            <div class="mb-2">
+              <i class="fas fa-user me-2" style="color: #6c757d; width: 20px;"></i>
+              <strong>Usuario:</strong> ${r.nombre} ${r.apellido}
+            </div>
+            <div class="mb-2">
+              <i class="fas fa-calendar-alt me-2" style="color: #6c757d; width: 20px;"></i>
+              <strong>Fecha:</strong> ${r.fecha}
+            </div>
+            <div class="mb-2">
+              <i class="fas fa-clock me-2" style="color: #6c757d; width: 20px;"></i>
+              <strong>Hora:</strong> ${r.hora}
+            </div>
+            <div class="mb-3">
+              <i class="fas fa-users me-2" style="color: #6c757d; width: 20px;"></i>
+              <strong>Personas:</strong> ${r.cantidad_personas}
+            </div>
+            <button class="btn btn-danger btn-sm mt-auto w-100" onclick="eliminarReserva(${r.id})" style="border-radius: 8px;">
+              <i class="fas fa-trash-alt me-2"></i>Eliminar
+            </button>
+          </div>
+        </div>
       </div>
     `;
   });
@@ -68,8 +88,14 @@ function mostrarTablaReservas(reservas) {
 
 function actualizarIconoOrdenFecha() {
   const ordenFechaIcon = document.getElementById('ordenFechaIcon');
+  const ordenFechaAdminIcon = document.getElementById('ordenFechaAdminIcon');
+  
   if (ordenFechaIcon) {
     ordenFechaIcon.className = ordenAscendente ? "fas fa-arrow-down" : "fas fa-arrow-up";
+  }
+  
+  if (ordenFechaAdminIcon) {
+    ordenFechaAdminIcon.className = ordenAscendente ? "fas fa-arrow-down" : "fas fa-arrow-up";
   }
 }
 
@@ -128,10 +154,106 @@ function agregarReserva(tour, fecha, hora, cantidad_personas) {
       if (data.error) {
         mostrarError("Error al agregar reserva: " + data.error);
       } else {
+        mostrarModalExito(tour, fecha, hora, cantidad_personas);
         listarReservas();
       }
     })
     .catch(err => mostrarError("Error al agregar reserva: " + err));
+}
+
+// Mostrar modal de éxito con detalles de la reserva
+function mostrarModalExito(tour, fecha, hora, cantidad_personas) {
+  const modalHTML = `
+    <div class="modal fade" id="modalExitoReserva" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; overflow: hidden; border: none; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);">
+          <div class="modal-header" style="background: linear-gradient(135deg, #198754 0%, #157347 100%); color: white; border: none; padding: 2rem;">
+            <h5 class="modal-title w-100 text-center" style="font-weight: 700; font-size: 1.5rem;">
+              <i class="fas fa-check-circle me-2" style="font-size: 2rem;"></i>
+              <br>¡Reserva Confirmada!
+            </h5>
+          </div>
+          <div class="modal-body" style="padding: 2rem; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);">
+            <div class="text-center mb-4">
+              <p class="lead mb-4" style="color: #555;">Tu reserva se ha realizado exitosamente</p>
+            </div>
+            <div class="card" style="border: 2px solid #198754; border-radius: 15px; background: white;">
+              <div class="card-body" style="padding: 1.5rem;">
+                <h6 style="color: #198754; font-weight: 700; margin-bottom: 1rem; border-bottom: 2px solid #198754; padding-bottom: 0.5rem;">
+                  <i class="fas fa-info-circle me-2"></i>Detalles de tu Reserva
+                </h6>
+                <div class="row g-3">
+                  <div class="col-12">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-ship me-3" style="color: #198754; font-size: 1.2rem;"></i>
+                      <div>
+                        <small class="text-muted d-block">Tour</small>
+                        <strong style="color: #333;">${tour}</strong>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-calendar-alt me-3" style="color: #198754; font-size: 1.2rem;"></i>
+                      <div>
+                        <small class="text-muted d-block">Fecha</small>
+                        <strong style="color: #333;">${fecha}</strong>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-clock me-3" style="color: #198754; font-size: 1.2rem;"></i>
+                      <div>
+                        <small class="text-muted d-block">Hora</small>
+                        <strong style="color: #333;">${hora}</strong>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="d-flex align-items-center">
+                      <i class="fas fa-users me-3" style="color: #198754; font-size: 1.2rem;"></i>
+                      <div>
+                        <small class="text-muted d-block">Cantidad de personas</small>
+                        <strong style="color: #333;">${cantidad_personas} ${cantidad_personas === 1 ? 'persona' : 'personas'}</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="alert alert-info mt-3 mb-0" style="border-radius: 10px; border-left: 4px solid #0dcaf0;">
+              <i class="fas fa-info-circle me-2"></i>
+              <small>Recibirás un correo de confirmación con todos los detalles de tu reserva.</small>
+            </div>
+          </div>
+          <div class="modal-footer" style="border: none; padding: 1.5rem 2rem; background: #f8f9fa;">
+            <button type="button" class="btn btn-success w-100" data-bs-dismiss="modal" style="border-radius: 10px; padding: 0.75rem; font-weight: 600;">
+              <i class="fas fa-check me-2"></i>Entendido
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  // Eliminar modal anterior si existe
+  const modalAnterior = document.getElementById('modalExitoReserva');
+  if (modalAnterior) {
+    modalAnterior.remove();
+  }
+  
+  // Agregar modal al body
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+  
+  // Mostrar modal
+  const modal = new bootstrap.Modal(document.getElementById('modalExitoReserva'));
+  modal.show();
+  
+  // Limpiar el modal del DOM cuando se cierre
+  document.getElementById('modalExitoReserva').addEventListener('hidden.bs.modal', function () {
+    this.remove();
+  });
 }
 
 
