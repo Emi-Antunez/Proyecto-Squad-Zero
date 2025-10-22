@@ -1,14 +1,13 @@
 <?php
-$host = "localhost";
-$dbname = "registro_usuarios";
-$username = "root";
-$password = "";
+$host = "tournauticocoloniasz.gamer.gd"; // reemplazá con el host real
+$username = "root";        // tu usuario de MySQL
+$password = "";   // la contraseña de tu cuenta
+$database = "if0_40224467_registro_usuarios"; // tu base exacta
 
-// Crear conexión MySQLi
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = mysqli_connect($host, $username, $password, $database);
 
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Error en la conexión: " . $conn->connect_error);
+if (!$conn) {
+    die("Error al conectar: " . mysqli_connect_error());
 }
+echo "Conexión exitosa!";
 ?>
