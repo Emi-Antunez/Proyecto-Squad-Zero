@@ -43,10 +43,23 @@ function modificarReserva($id, $id_usuario, $tour, $fecha, $hora, $cantidad_pers
 
 function eliminarReserva($id) {
     global $reservaModel;
+
+    // Asegurar cabecera JSON y código de estado apropiado
+    header('Content-Type: application/json; charset=utf-8');
+
     if ($reservaModel->eliminar($id)) {
-        echo json_encode(["mensaje" => "Reserva eliminada", "id" => $id]);
+        http_response_code(200);
+        echo json_encode([
+            "success" => true,
+            "mensaje" => "Reserva eliminada",
+            "id" => $id
+        ]);
     } else {
-        echo json_encode(["error" => "No se pudo eliminar"]);
+        http_response_code(500);
+        echo json_encode([
+            "success" => false,
+            "error" => "No se pudo eliminar"
+        ]);
     }
 }
 ?>

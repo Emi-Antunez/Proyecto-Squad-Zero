@@ -540,25 +540,6 @@
     }
 
     // Función para eliminar una reserva
-    function eliminarReserva(id) {
-        if (!confirm('¿Estás seguro de que deseas eliminar esta reserva?')) return;
-        fetch(`http://localhost/Proyecto-squad-zero/backend/routes/api.php?action=deleteReserva&id=${id}`, {
-            method: 'DELETE'
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Reserva eliminada con éxito.');
-                    listarReservasAdmin(); // Actualiza la lista después de eliminar
-                } else {
-                    alert('Error al eliminar la reserva.');
-                }
-            })
-            .catch(err => {
-                console.error('Error al eliminar la reserva:', err);
-                alert('Error al eliminar la reserva.');
-            });
-    }
 
     function cerrarSesion() {
         localStorage.removeItem('usuario');

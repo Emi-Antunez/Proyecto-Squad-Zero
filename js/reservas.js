@@ -1,4 +1,5 @@
-const API_URL = "http://localhost/PROYECTO-SQUAD-ZERO/backend/routes/api.php";
+const API_URL = "http://localhost/Proyecto-squad-zero/backend/routes/api.php";
+
 
 let reservasOriginal = [];
 let ordenAscendente = true;
@@ -256,24 +257,6 @@ function mostrarModalExito(tour, fecha, hora, cantidad_personas) {
   });
 }
 
-
-// Eliminar una reserva (DELETE)
-function eliminarReserva(id) {
-  if (!confirm("¿Seguro que deseas eliminar esta reserva?")) return;
-  fetch(`${API_URL}?id=${id}`, {
-    method: "DELETE"
-  })
-    .then(res => res.json())
-    .then(data => {
-      if (data.error) {
-        mostrarError("Error al eliminar reserva: " + data.error);
-      } else {
-        listarReservas();
-      }
-    })
-    .catch(err => mostrarError("Error al eliminar reserva: " + err));
-}
-
 // Guardar reserva: solo agrega
 function guardarReservaDesdeFormulario() {
     // Verifica si el usuario está logueado
@@ -390,3 +373,68 @@ document.addEventListener('DOMContentLoaded', function() {
         configurarCalendario();
     }
 });
+
+// ...existing code...
+function eliminarReserva(id) {
+    if (!confirm('¿Estás seguro de que deseas eliminar esta reserva?')) return;
+
+    const url = `${API_URL}?action=deleteReserva&id=${encodeURIComponent(id)}`;
+    fetch(url, {
+        method: 'DELETE',
+        headers: { 'Accept': 'application/json, text/plain, */*' }
+    })
+    .then(res => {
+        console.log('DELETE', url, 'status=', res.status, 'ok=', res.ok);
+        return res.text().then(text => ({ res, text }));
+    })
+    .then(({ res, text }) => {
+        console.log('DELETE response text:', text);
+        // Tratar cualquier 2xx como éxito (la API puede devolver 204 o "1" o "true")
+        if (res.ok) {
+            // intentar parsear JSON si viene
+            if (text) {
+                try {
+                    const data = JSON.parse(text);
+                    const success = (data && (data.success === true || data.success == 1)) || data === true || data === 'true' || data == 1;
+                    if (success) {
+                        alert('Reserva eliminada con éxito.');
+                        if (typeof listarReservasAdmin === 'function') listarReservasAdmin();
+                        return;
+                    } else {
+                        const msg = (data && data.message) ? data.message : text;
+                        alert('Error al eliminar la reserva. ' + msg);
+                        if (typeof listarReservasAdmin === 'function') listarReservasAdmin();
+                        return;
+                    }
+                } catch (e) {
+                    // body no JSON pero status OK -> considerarlo éxito si contiene "1", "true" o está vacío
+                    const trimmed = text.trim().toLowerCase();
+                    if (!trimmed || trimmed === '1' || trimmed === 'true' || trimmed === 'ok' || trimmed === 'success') {
+                        alert('Reserva eliminada con éxito.');
+                        if (typeof listarReservasAdmin === 'function') listarReservasAdmin();
+                        return;
+                    }
+                    alert('Error al eliminar la reserva. ' + text);
+                    if (typeof listarReservasAdmin === 'function') listarReservasAdmin();
+                    return;
+                }
+            } else {
+                // body vacío (204) -> éxito
+                alert('Reserva eliminada con éxito.');
+                if (typeof listarReservasAdmin === 'function') listarReservasAdmin();
+                return;
+            }
+        }
+
+        // Si no es ok, mostrar texto de error o status
+        const msg = text && text.trim() ? text.trim() : `Error en el servidor (status ${res.status})`;
+        alert('Error al eliminar la reserva. ' + msg);
+        if (typeof listarReservasAdmin === 'function') listarReservasAdmin();
+    })
+    .catch(err => {
+        console.error('Error al eliminar la reserva:', err);
+        alert('Error al eliminar la reserva. ' + (err.message || ''));
+        if (typeof listarReservasAdmin === 'function') listarReservasAdmin();
+    });
+}
+// ...existing code...
