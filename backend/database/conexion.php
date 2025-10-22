@@ -1,7 +1,7 @@
 <?php
-$host = "tournauticocoloniasz.gamer.gd"; // reemplazá con el host real
-$username = "root";        // tu usuario de MySQL
-$password = "";   // la contraseña de tu cuenta
+$host = "sql305.infinityfree.com"; // reemplazá con el host real
+$username = "if0_40224467";        // tu usuario de MySQL
+$password = "Emiemiemi524";   // la contraseña de tu cuenta
 $database = "if0_40224467_registro_usuarios"; // tu base exacta
 
 $conn = mysqli_connect($host, $username, $password, $database);
