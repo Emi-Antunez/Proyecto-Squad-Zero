@@ -2,7 +2,9 @@ const API_URL = "http://localhost/Proyecto-squad-zero/backend/routes/api.php";
 
 
 let reservasOriginal = [];
+let reservasAdminOriginal = [];
 let ordenAscendente = true;
+let ordenAscendenteAdmin = true;
 
 // Obtener todas las reservas (GET)
 function listarReservas() {
@@ -37,10 +39,38 @@ function filtrarReservas() {
   return reservas;
 }
 
+function filtrarReservasAdmin() {
+  let reservas = [...reservasAdminOriginal];
+  const tour = document.getElementById('filtroTourAdmin')?.value || "";
+  const nombre = document.getElementById('buscadorNombreAdmin')?.value?.toLowerCase() || "";
+
+  // Filtrar por tour
+  if (tour) reservas = reservas.filter(r => r.tour === tour);
+
+  // Buscar por nombre
+  if (nombre) reservas = reservas.filter(r =>
+    (`${r.nombre} ${r.apellido}`.toLowerCase().includes(nombre))
+  );
+
+  // Ordenar por fecha
+  reservas.sort((a, b) => {
+    const fa = new Date(a.fecha), fb = new Date(b.fecha);
+    return ordenAscendenteAdmin ? fa - fb : fb - fa;
+  });
+
+  return reservas;
+}
+
 // Actualiza la tabla cuando cambian los filtros
 function actualizarTablaReservas() {
   mostrarTablaReservas(filtrarReservas());
-  actualizarIconoOrdenFecha(); // <-- Asegura que el icono se actualice SIEMPRE
+  actualizarIconoOrdenFecha();
+}
+
+// Actualiza la tabla de admin cuando cambian los filtros
+function actualizarTablaReservasAdmin() {
+  mostrarTablaReservasAdmin(filtrarReservasAdmin());
+  actualizarIconoOrdenFecha();
 }
 
 // Mostrar reservas en el HTML
@@ -96,8 +126,52 @@ function actualizarIconoOrdenFecha() {
   }
   
   if (ordenFechaAdminIcon) {
-    ordenFechaAdminIcon.className = ordenAscendente ? "fas fa-arrow-down" : "fas fa-arrow-up";
+    ordenFechaAdminIcon.className = ordenAscendenteAdmin ? "fas fa-arrow-down" : "fas fa-arrow-up";
   }
+}
+
+// Mostrar reservas de admin en el HTML
+function mostrarTablaReservasAdmin(reservas) {
+  const container = document.getElementById('adminReservasContainer');
+  if (!Array.isArray(reservas) || reservas.length === 0) {
+    container.innerHTML = '<p class="text-center text-muted">No hay reservas para mostrar.</p>';
+    return;
+  }
+  let html = '<div class="row g-4">';
+  reservas.forEach(r => {
+    html += `
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm" style="border-radius: 12px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title" style="color: #5981C2; font-weight: 700; border-bottom: 2px solid #5981C2; padding-bottom: 0.5rem; margin-bottom: 1rem;">
+              <i class="fas fa-ship me-2"></i>${r.tour}
+            </h5>
+            <div class="mb-2">
+              <i class="fas fa-user me-2" style="color: #6c757d; width: 20px;"></i>
+              <strong>Nombre:</strong> ${r.nombre} ${r.apellido}
+            </div>
+            <div class="mb-2">
+              <i class="fas fa-calendar-alt me-2" style="color: #6c757d; width: 20px;"></i>
+              <strong>Fecha:</strong> ${r.fecha}
+            </div>
+            <div class="mb-2">
+              <i class="fas fa-clock me-2" style="color: #6c757d; width: 20px;"></i>
+              <strong>Hora:</strong> ${r.hora}
+            </div>
+            <div class="mb-3">
+              <i class="fas fa-users me-2" style="color: #6c757d; width: 20px;"></i>
+              <strong>Personas:</strong> ${r.cantidad_personas}
+            </div>
+            <button class="btn btn-danger w-100 mt-auto" onclick="eliminarReserva(${r.id})" style="border-radius: 8px;">
+              <i class="fas fa-trash-alt me-2"></i>Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+  html += '</div>';
+  container.innerHTML = html;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -110,6 +184,18 @@ document.addEventListener('DOMContentLoaded', function () {
   if (ordenFechaBtn) ordenFechaBtn.addEventListener('click', function () {
     ordenAscendente = !ordenAscendente;
     actualizarTablaReservas();
+  });
+
+  // Event listeners para filtros de admin
+  const filtroTourAdmin = document.getElementById('filtroTourAdmin');
+  const buscadorNombreAdmin = document.getElementById('buscadorNombreAdmin');
+  const ordenFechaAdminBtn = document.getElementById('ordenFechaAdminBtn');
+
+  if (filtroTourAdmin) filtroTourAdmin.addEventListener('change', actualizarTablaReservasAdmin);
+  if (buscadorNombreAdmin) buscadorNombreAdmin.addEventListener('input', actualizarTablaReservasAdmin);
+  if (ordenFechaAdminBtn) ordenFechaAdminBtn.addEventListener('click', function () {
+    ordenAscendenteAdmin = !ordenAscendenteAdmin;
+    actualizarTablaReservasAdmin();
   });
 
   // Inicializa el icono al cargar

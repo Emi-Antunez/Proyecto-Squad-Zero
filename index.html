@@ -522,46 +522,8 @@
             fetch('http://localhost/Proyecto-squad-zero/backend/routes/api.php?action=getReservas')
                 .then(res => res.json())
                 .then(data => {
-                    const container = document.getElementById('adminReservasContainer');
-                    if (!Array.isArray(data) || data.length === 0) {
-                        container.innerHTML = '<p>No hay reservas registradas.</p>';
-                        return;
-                    }
-                    let html = '<div class="row g-4">';
-                    data.forEach(reserva => {
-                        html += `
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card h-100 shadow-sm" style="border-radius: 12px;">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title" style="color: #5981C2; font-weight: 700; border-bottom: 2px solid #5981C2; padding-bottom: 0.5rem; margin-bottom: 1rem;">
-                                        <i class="fas fa-ship me-2"></i>${reserva.tour}
-                                    </h5>
-                                    <div class="mb-2">
-                                        <i class="fas fa-user me-2" style="color: #6c757d; width: 20px;"></i>
-                                        <strong>Nombre:</strong> ${reserva.nombre} ${reserva.apellido}
-                                    </div>
-                                    <div class="mb-2">
-                                        <i class="fas fa-calendar-alt me-2" style="color: #6c757d; width: 20px;"></i>
-                                        <strong>Fecha:</strong> ${reserva.fecha}
-                                    </div>
-                                    <div class="mb-2">
-                                        <i class="fas fa-clock me-2" style="color: #6c757d; width: 20px;"></i>
-                                        <strong>Hora:</strong> ${reserva.hora}
-                                    </div>
-                                    <div class="mb-3">
-                                        <i class="fas fa-users me-2" style="color: #6c757d; width: 20px;"></i>
-                                        <strong>Personas:</strong> ${reserva.cantidad_personas}
-                                    </div>
-                                    <button class="btn btn-danger w-100 mt-auto" onclick="eliminarReserva(${reserva.id})" style="border-radius: 8px;">
-                                        <i class="fas fa-trash-alt me-2"></i>Eliminar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    });
-                    html += '</div>';
-                    container.innerHTML = html;
+                    reservasAdminOriginal = Array.isArray(data) ? data : [];
+                    mostrarTablaReservasAdmin(filtrarReservasAdmin());
                 })
                 .catch(err => {
                     console.error('Error al obtener reservas:', err);
