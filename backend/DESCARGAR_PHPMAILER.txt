@@ -1,0 +1,105 @@
+═══════════════════════════════════════════════════════════════
+  INSTRUCCIONES RÁPIDAS: DESCARGAR E INSTALAR PHPMAILER
+═══════════════════════════════════════════════════════════════
+
+📥 PASO 1: DESCARGAR PHPMAILER
+────────────────────────────────────────────────────────────────
+
+1. Abre tu navegador y copia esta URL en la barra de direcciones:
+   
+   github.com/PHPMailer/PHPMailer/archive/refs/heads/master.zip
+   
+   (Agrega https:// al inicio)
+
+2. Se descargará un archivo llamado: PHPMailer-master.zip
+
+3. Guarda el archivo en tu carpeta de Descargas
+
+
+📂 PASO 2: EXTRAER Y COPIAR ARCHIVOS
+────────────────────────────────────────────────────────────────
+
+1. Descomprime el archivo PHPMailer-master.zip
+   (Clic derecho → Extraer aquí)
+
+2. Abre la carpeta extraída: PHPMailer-master
+
+3. Copia TODA la carpeta "PHPMailer-master"
+
+4. Pégala en:
+   C:\xampp\htdocs\Proyecto-Squad-Zero\backend\lib\
+
+5. Renombra la carpeta de "PHPMailer-master" a "PHPMailer"
+
+
+✅ VERIFICAR INSTALACIÓN
+────────────────────────────────────────────────────────────────
+
+La estructura final debe ser:
+
+C:\xampp\htdocs\Proyecto-Squad-Zero\backend\
+├── lib\
+│   ├── PHPMailer\
+│   │   ├── src\
+│   │   │   ├── PHPMailer.php      ← Debe existir
+│   │   │   ├── SMTP.php           ← Debe existir
+│   │   │   └── Exception.php      ← Debe existir
+│   │   ├── README.md
+│   │   └── ...otros archivos...
+│   └── EmailService.php
+
+
+🧪 PASO 3: PROBAR LA INSTALACIÓN
+────────────────────────────────────────────────────────────────
+
+1. Abre tu navegador
+
+2. Abre en tu navegador:
+   
+   localhost/Proyecto-Squad-Zero/backend/test_email.php
+   
+   (Agrega http:// al inicio)
+
+3. Verifica que todos los archivos aparezcan con ✅
+
+
+⚙️ PASO 4: CONFIGURAR TUS CREDENCIALES
+────────────────────────────────────────────────────────────────
+
+1. Abre el archivo:
+   backend\config\email_config.php
+
+2. Edita estas líneas con tus datos:
+
+   define('SMTP_USERNAME', 'tu-email@gmail.com');
+   define('SMTP_PASSWORD', 'tu-contraseña-de-aplicacion');
+   define('EMAIL_FROM', 'tu-email@gmail.com');
+
+3. Para Gmail, necesitas una "Contraseña de Aplicación":
+   
+   - Busca en Google: "google app passwords"
+   - O ve a: myaccount.google.com/apppasswords
+   - Genera una contraseña
+   - Úsala en SMTP_PASSWORD
+
+
+🚀 ¡LISTO PARA USAR!
+────────────────────────────────────────────────────────────────
+
+Ahora puedes:
+
+1. Crear una reserva desde tu aplicación
+2. El correo se enviará automáticamente
+3. Verificar en tu bandeja de entrada
+
+
+📞 ¿PROBLEMAS?
+────────────────────────────────────────────────────────────────
+
+1. Verifica que la carpeta PHPMailer esté en el lugar correcto
+2. Revisa que los archivos .php existan dentro de src/
+3. Ejecuta test_email.php para diagnóstico
+4. Lee INSTRUCCIONES_EMAIL.md para más ayuda
+
+
+═══════════════════════════════════════════════════════════════

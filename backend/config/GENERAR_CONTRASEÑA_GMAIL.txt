@@ -1,0 +1,130 @@
+═══════════════════════════════════════════════════════════════
+  🔐 GENERAR CONTRASEÑA DE APLICACIÓN PARA GMAIL
+═══════════════════════════════════════════════════════════════
+
+Tu email configurado: squadzero1234@gmail.com
+
+IMPORTANTE: Gmail NO permite usar tu contraseña normal para enviar
+correos desde aplicaciones. Necesitas una "Contraseña de Aplicación".
+
+═══════════════════════════════════════════════════════════════
+  PASO 1: ACTIVAR VERIFICACIÓN EN DOS PASOS
+═══════════════════════════════════════════════════════════════
+
+1. Inicia sesión en tu cuenta de Google: squadzero1234@gmail.com
+
+2. Ve a: https://myaccount.google.com/security
+
+3. Busca la sección "Verificación en dos pasos"
+
+4. Si NO está activada, haz clic en "Empezar" y sigue los pasos
+
+5. Configura tu teléfono para recibir códigos de verificación
+
+
+═══════════════════════════════════════════════════════════════
+  PASO 2: GENERAR CONTRASEÑA DE APLICACIÓN
+═══════════════════════════════════════════════════════════════
+
+1. Una vez activada la verificación en dos pasos, ve a:
+   https://myaccount.google.com/apppasswords
+
+2. Es posible que te pida iniciar sesión nuevamente
+
+3. En "Selecciona la app", elige: "Correo"
+
+4. En "Selecciona el dispositivo", elige: "Otro (nombre personalizado)"
+
+5. Escribe: "Squad Zero Reservas"
+
+6. Haz clic en "Generar"
+
+7. Google te mostrará una contraseña de 16 caracteres como:
+   
+   xxxx xxxx xxxx xxxx
+   
+   Por ejemplo: abcd efgh ijkl mnop
+
+8. COPIA esta contraseña (incluye los espacios o quítalos, ambos funcionan)
+
+
+═══════════════════════════════════════════════════════════════
+  PASO 3: CONFIGURAR EN TU PROYECTO
+═══════════════════════════════════════════════════════════════
+
+1. Abre el archivo: backend/config/email_config.php
+
+2. Busca esta línea:
+   define('SMTP_PASSWORD', 'PENDIENTE-GENERAR-CONTRASEÑA-APP');
+
+3. Reemplázala con tu contraseña generada:
+   define('SMTP_PASSWORD', 'abcd efgh ijkl mnop');
+   
+   O sin espacios:
+   define('SMTP_PASSWORD', 'abcdefghijklmnop');
+
+4. Guarda el archivo
+
+
+═══════════════════════════════════════════════════════════════
+  PASO 4: PROBAR QUE FUNCIONA
+═══════════════════════════════════════════════════════════════
+
+1. Abre en tu navegador:
+   http://localhost/Proyecto-Squad-Zero/backend/APIMails/test_email.php
+
+2. Verifica que ahora diga:
+   ✅ Configuración detectada
+   
+   En lugar de:
+   ⚠️ Configuración pendiente
+
+3. Crea una reserva de prueba desde tu aplicación
+
+4. Revisa tu bandeja de entrada en squadzero1234@gmail.com
+
+
+═══════════════════════════════════════════════════════════════
+  ❓ PROBLEMAS COMUNES
+═══════════════════════════════════════════════════════════════
+
+❌ "No puedo acceder a Contraseñas de aplicación"
+   → Asegúrate de haber activado la verificación en dos pasos primero
+
+❌ "Authentication failed"
+   → Verifica que copiaste bien la contraseña (sin espacios extra)
+   → Genera una nueva contraseña de aplicación
+
+❌ "SMTP connect() failed"
+   → Verifica tu conexión a internet
+   → Asegúrate de usar el puerto 587 con TLS
+
+
+═══════════════════════════════════════════════════════════════
+  🔒 SEGURIDAD
+═══════════════════════════════════════════════════════════════
+
+⚠️ IMPORTANTE:
+
+1. NUNCA compartas tu contraseña de aplicación
+2. NO subas el archivo email_config.php a GitHub con la contraseña
+3. Si crees que alguien tiene tu contraseña, revócala y genera una nueva
+4. Puedes revocar contraseñas en: https://myaccount.google.com/apppasswords
+
+
+═══════════════════════════════════════════════════════════════
+  ✅ RESUMEN
+═══════════════════════════════════════════════════════════════
+
+1. ✅ Email configurado: squadzero1234@gmail.com
+2. ⏳ Pendiente: Activar verificación en dos pasos
+3. ⏳ Pendiente: Generar contraseña de aplicación
+4. ⏳ Pendiente: Actualizar email_config.php con la contraseña
+5. ⏳ Pendiente: Probar enviando una reserva
+
+═══════════════════════════════════════════════════════════════
+
+Una vez completados estos pasos, tu sistema de correos estará
+100% funcional y listo para enviar confirmaciones automáticas. 🚀
+
+═══════════════════════════════════════════════════════════════

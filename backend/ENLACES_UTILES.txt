@@ -1,0 +1,86 @@
+═══════════════════════════════════════════════════════════════
+  📎 ENLACES ÚTILES - SISTEMA DE CORREOS SQUAD ZERO
+═══════════════════════════════════════════════════════════════
+
+📥 DESCARGAR PHPMAILER
+────────────────────────────────────────────────────────────────
+
+Descarga directa del ZIP:
+https://github.com/PHPMailer/PHPMailer/archive/refs/heads/master.zip
+
+Repositorio oficial:
+https://github.com/PHPMailer/PHPMailer
+
+
+🔐 CONFIGURACIÓN DE GMAIL
+────────────────────────────────────────────────────────────────
+
+Seguridad de Google (activar verificación en 2 pasos):
+https://myaccount.google.com/security
+
+Contraseñas de aplicación (generar contraseña para el correo):
+https://myaccount.google.com/apppasswords
+
+
+🧪 PROBAR TU INSTALACIÓN
+────────────────────────────────────────────────────────────────
+
+Página de diagnóstico (abre en tu navegador):
+http://localhost/Proyecto-Squad-Zero/backend/test_email.php
+
+
+📧 ENDPOINTS DE LA API
+────────────────────────────────────────────────────────────────
+
+Enviar correo de confirmación:
+http://localhost/Proyecto-Squad-Zero/backend/routes/apimail.php?action=enviar
+
+Probar configuración:
+http://localhost/Proyecto-Squad-Zero/backend/routes/apimail.php?action=test
+
+Crear reserva (envío automático):
+http://localhost/Proyecto-Squad-Zero/backend/routes/api.php
+
+
+📚 DOCUMENTACIÓN
+────────────────────────────────────────────────────────────────
+
+PHPMailer - Documentación oficial:
+https://github.com/PHPMailer/PHPMailer/wiki
+
+PHPMailer - Ejemplos de uso:
+https://github.com/PHPMailer/PHPMailer/tree/master/examples
+
+Tutorial de Gmail SMTP:
+https://support.google.com/mail/answer/7126229
+
+
+🔧 HERRAMIENTAS DE PRUEBA
+────────────────────────────────────────────────────────────────
+
+Mailtrap (para pruebas sin enviar correos reales):
+https://mailtrap.io
+
+Verificador de correos HTML:
+https://putsmail.com/tests/new
+
+
+📖 GUÍAS ADICIONALES
+────────────────────────────────────────────────────────────────
+
+Cómo crear contraseñas de aplicación en Gmail:
+https://support.google.com/accounts/answer/185833
+
+Solución de problemas SMTP Gmail:
+https://support.google.com/mail/answer/7126229
+
+Mejores prácticas para correos HTML:
+https://www.campaignmonitor.com/css/
+
+
+═══════════════════════════════════════════════════════════════
+
+💡 CONSEJO: Guarda este archivo para tener todos los enlaces
+   a mano cuando los necesites.
+
+═══════════════════════════════════════════════════════════════
