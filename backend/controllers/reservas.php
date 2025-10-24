@@ -86,24 +86,70 @@ function modificarReserva($id, $id_usuario, $tour, $fecha, $hora, $cantidad_pers
     }
 }
 
-function eliminarReserva($id) {
-    global $reservaModel;
+function eliminarReserva($id, $motivo_cancelacion = '') {
+    global $reservaModel, $conn;
 
     // Asegurar cabecera JSON y código de estado apropiado
     header('Content-Type: application/json; charset=utf-8');
 
-    if ($reservaModel->eliminar($id)) {
-        http_response_code(200);
-        echo json_encode([
-            "success" => true,
-            "mensaje" => "Reserva eliminada",
-            "id" => $id
-        ]);
-    } else {
+    try {
+        // Obtener datos de la reserva antes de eliminarla
+        $reserva = $reservaModel->obtenerPorId($id);
+        
+        if (!$reserva) {
+            http_response_code(404);
+            echo json_encode([
+                "success" => false,
+                "error" => "Reserva no encontrada"
+            ]);
+            return;
+        }
+        
+        // Obtener datos del usuario
+        require_once __DIR__ . '/../models/usuario.php';
+        $usuarioModel = new Usuario($conn);
+        $usuario = $usuarioModel->obtenerPorId($reserva['id_usuario']);
+        
+        // Eliminar la reserva
+        if ($reservaModel->eliminar($id)) {
+            // Intentar enviar correo de cancelación
+            $emailEnviado = false;
+            if ($usuario && !empty($usuario['gmail'])) {
+                try {
+                    require_once __DIR__ . '/../lib/EmailService.php';
+                    $emailService = new EmailService();
+                    
+                    // Si no hay motivo, usar uno por defecto
+                    if (empty($motivo_cancelacion)) {
+                        $motivo_cancelacion = 'La reserva ha sido cancelada por el administrador.';
+                    }
+                    
+                    $emailEnviado = $emailService->enviarCorreoCancelacion($reserva, $usuario, $motivo_cancelacion);
+                } catch (Exception $e) {
+                    error_log("Error enviando email de cancelación: " . $e->getMessage());
+                }
+            }
+            
+            http_response_code(200);
+            echo json_encode([
+                "success" => true,
+                "mensaje" => "Reserva eliminada",
+                "id" => $id,
+                "email_enviado" => $emailEnviado
+            ]);
+        } else {
+            http_response_code(500);
+            echo json_encode([
+                "success" => false,
+                "error" => "No se pudo eliminar"
+            ]);
+        }
+    } catch (Exception $e) {
+        error_log("Error en eliminarReserva: " . $e->getMessage());
         http_response_code(500);
         echo json_encode([
             "success" => false,
-            "error" => "No se pudo eliminar"
+            "error" => "Error al procesar la eliminación"
         ]);
     }
 }

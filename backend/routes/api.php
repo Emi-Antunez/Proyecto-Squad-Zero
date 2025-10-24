@@ -68,7 +68,11 @@ elseif ($requestMethod == "PUT") {
 }
 elseif ($requestMethod == "DELETE") {
     if (isset($_GET['id'])) {
-        eliminarReserva($_GET['id']);
+        // Obtener el motivo de cancelación del body si existe
+        $data = json_decode(file_get_contents("php://input"), true);
+        $motivo = isset($data['motivo_cancelacion']) ? $data['motivo_cancelacion'] : '';
+        
+        eliminarReserva($_GET['id'], $motivo);
     } else {
         echo json_encode(["error" => "Falta el parámetro id para eliminar"]);
     }

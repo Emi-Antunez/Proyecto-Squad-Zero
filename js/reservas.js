@@ -460,14 +460,102 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Función para mostrar modal de cancelación
+function mostrarModalCancelacion(id) {
+    const modalHTML = `
+        <div class="modal fade" id="modalCancelacion" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="border-radius: 20px; overflow: hidden; border: none; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);">
+                    <div class="modal-header" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white; border: none; padding: 2rem;">
+                        <h5 class="modal-title w-100 text-center" style="font-weight: 700; font-size: 1.5rem;">
+                            <i class="fas fa-exclamation-triangle me-2" style="font-size: 2rem;"></i>
+                            <br>Cancelar Reserva
+                        </h5>
+                    </div>
+                    <div class="modal-body" style="padding: 2rem; background: #ffffff;">
+                        <p class="text-center mb-4" style="color: #555; font-size: 1.1rem;">
+                            ¿Estás seguro de que deseas cancelar esta reserva?
+                        </p>
+                        <div class="alert alert-warning" style="border-radius: 10px; border-left: 4px solid #ffc107;">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <small>El usuario recibirá un correo electrónico con la notificación de cancelación.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="motivoCancelacion" class="form-label" style="font-weight: 600; color: #333;">
+                                <i class="fas fa-comment-alt me-2" style="color: #dc3545;"></i>Motivo de la cancelación:
+                            </label>
+                            <textarea 
+                                id="motivoCancelacion" 
+                                class="form-control" 
+                                rows="4" 
+                                placeholder="Escribe el motivo de la cancelación (opcional)..."
+                                style="border-radius: 10px; border: 2px solid #e0e0e0; resize: none;"
+                            ></textarea>
+                            <small class="text-muted">Este mensaje será enviado al usuario por correo electrónico.</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border: none; padding: 1.5rem 2rem; background: #f8f9fa; gap: 10px;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border-radius: 10px; padding: 0.75rem 1.5rem; font-weight: 600; flex: 1;">
+                            <i class="fas fa-times me-2"></i>Cancelar
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="confirmarEliminacion(${id})" style="border-radius: 10px; padding: 0.75rem 1.5rem; font-weight: 600; flex: 1;">
+                            <i class="fas fa-trash-alt me-2"></i>Eliminar Reserva
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Eliminar modal anterior si existe
+    const modalAnterior = document.getElementById('modalCancelacion');
+    if (modalAnterior) {
+        modalAnterior.remove();
+    }
+    
+    // Agregar modal al body
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Mostrar modal
+    const modal = new bootstrap.Modal(document.getElementById('modalCancelacion'));
+    modal.show();
+    
+    // Limpiar el modal del DOM cuando se cierre
+    document.getElementById('modalCancelacion').addEventListener('hidden.bs.modal', function () {
+        this.remove();
+    });
+}
+
+// Función para confirmar y ejecutar la eliminación
+function confirmarEliminacion(id) {
+    const motivo = document.getElementById('motivoCancelacion').value.trim();
+    
+    // Cerrar el modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('modalCancelacion'));
+    modal.hide();
+    
+    // Ejecutar la eliminación
+    eliminarReservaConMotivo(id, motivo);
+}
+
 // ...existing code...
 function eliminarReserva(id) {
-    if (!confirm('¿Estás seguro de que deseas eliminar esta reserva?')) return;
+    // Mostrar modal de cancelación en lugar de confirm
+    mostrarModalCancelacion(id);
+}
 
+function eliminarReservaConMotivo(id, motivo) {
     const url = `${API_URL}?action=deleteReserva&id=${encodeURIComponent(id)}`;
+    
+    const body = motivo ? JSON.stringify({ motivo_cancelacion: motivo }) : null;
+    
     fetch(url, {
         method: 'DELETE',
-        headers: { 'Accept': 'application/json, text/plain, */*' }
+        headers: { 
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        body: body
     })
     .then(res => {
         console.log('DELETE', url, 'status=', res.status, 'ok=', res.ok);
@@ -483,8 +571,16 @@ function eliminarReserva(id) {
                     const data = JSON.parse(text);
                     const success = (data && (data.success === true || data.success == 1)) || data === true || data === 'true' || data == 1;
                     if (success) {
-                        alert('Reserva eliminada con éxito.');
+                        // Mostrar mensaje de éxito con información del email
+                        let mensaje = 'Reserva eliminada con éxito.';
+                        if (data.email_enviado) {
+                            mensaje += '\n\nSe ha enviado un correo de notificación al usuario.';
+                        }
+                        alert(mensaje);
+                        
+                        // Recargar listas
                         if (typeof listarReservasAdmin === 'function') listarReservasAdmin();
+                        if (typeof listarReservas === 'function') listarReservas();
                         return;
                     } else {
                         const msg = (data && data.message) ? data.message : text;
@@ -498,6 +594,7 @@ function eliminarReserva(id) {
                     if (!trimmed || trimmed === '1' || trimmed === 'true' || trimmed === 'ok' || trimmed === 'success') {
                         alert('Reserva eliminada con éxito.');
                         if (typeof listarReservasAdmin === 'function') listarReservasAdmin();
+                        if (typeof listarReservas === 'function') listarReservas();
                         return;
                     }
                     alert('Error al eliminar la reserva. ' + text);
@@ -508,6 +605,7 @@ function eliminarReserva(id) {
                 // body vacío (204) -> éxito
                 alert('Reserva eliminada con éxito.');
                 if (typeof listarReservasAdmin === 'function') listarReservasAdmin();
+                if (typeof listarReservas === 'function') listarReservas();
                 return;
             }
         }
@@ -523,4 +621,3 @@ function eliminarReserva(id) {
         if (typeof listarReservasAdmin === 'function') listarReservasAdmin();
     });
 }
-// ...existing code...

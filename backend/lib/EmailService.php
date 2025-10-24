@@ -233,5 +233,195 @@ Si necesitas modificar o cancelar tu reserva, por favor contáctanos lo antes po
 Este es un correo automático, por favor no respondas a este mensaje.
 TEXT;
     }
+    
+    /**
+     * Envía un correo de cancelación de reserva
+     * 
+     * @param array $reservaData Datos de la reserva cancelada
+     * @param array $usuarioData Datos del usuario
+     * @param string $motivoCancelacion Motivo de la cancelación
+     * @return bool True si se envió correctamente
+     */
+    public function enviarCorreoCancelacion($reservaData, $usuarioData, $motivoCancelacion = '') {
+        try {
+            // Destinatario
+            $this->mailer->addAddress($usuarioData['gmail'], $usuarioData['nombre'] . ' ' . $usuarioData['apellido']);
+            
+            // Contenido del correo
+            $this->mailer->isHTML(true);
+            $this->mailer->Subject = '❌ Reserva Cancelada - Squad Zero';
+            $this->mailer->Body    = $this->generarHTMLCancelacion($reservaData, $usuarioData, $motivoCancelacion);
+            $this->mailer->AltBody = $this->generarTextoPlanoCancelacion($reservaData, $usuarioData, $motivoCancelacion);
+            
+            // Enviar
+            $resultado = $this->mailer->send();
+            
+            // Limpiar destinatarios para el próximo envío
+            $this->mailer->clearAddresses();
+            
+            return $resultado;
+            
+        } catch (Exception $e) {
+            error_log("Error enviando email de cancelación: " . $this->mailer->ErrorInfo);
+            return false;
+        }
+    }
+    
+    /**
+     * Genera el HTML del correo de cancelación
+     */
+    private function generarHTMLCancelacion($reserva, $usuario, $motivo) {
+        $nombreCompleto = htmlspecialchars($usuario['nombre'] . ' ' . $usuario['apellido']);
+        $tour = htmlspecialchars($reserva['tour']);
+        $fecha = htmlspecialchars($reserva['fecha']);
+        $hora = htmlspecialchars($reserva['hora']);
+        $personas = htmlspecialchars($reserva['cantidad_personas']);
+        $motivoHTML = htmlspecialchars($motivo);
+        
+        // Formatear fecha en español
+        $fechaObj = new DateTime($fecha);
+        $fechaFormateada = $fechaObj->format('d/m/Y');
+        
+        return <<<HTML
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancelación de Reserva</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+    <table role="presentation" style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td style="padding: 40px 0; text-align: center; background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);">
+                <h1 style="color: white; margin: 0; font-size: 28px;">Squad Zero</h1>
+                <p style="color: white; margin: 10px 0 0 0; font-size: 16px;">Reservas y Tours</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0;">
+                <table role="presentation" style="width: 600px; margin: 0 auto; background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <div style="text-align: center; margin-bottom: 30px;">
+                                <div style="display: inline-block; background-color: #dc3545; color: white; padding: 15px 30px; border-radius: 50px; font-size: 18px; font-weight: bold;">
+                                    ❌ Reserva Cancelada
+                                </div>
+                            </div>
+                            
+                            <h2 style="color: #333; margin-bottom: 20px;">Hola, {$nombreCompleto}</h2>
+                            
+                            <p style="color: #666; font-size: 16px; line-height: 1.6;">
+                                Lamentamos informarte que tu reserva ha sido cancelada. A continuación, encontrarás los detalles:
+                            </p>
+                            
+                            <div style="background-color: #f8f9fa; border-left: 4px solid #dc3545; padding: 20px; margin: 30px 0; border-radius: 4px;">
+                                <h3 style="color: #dc3545; margin-top: 0; margin-bottom: 15px;">Detalles de la Reserva Cancelada</h3>
+                                
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 10px 0; color: #666; font-weight: bold; width: 40%;">🎫 Tour:</td>
+                                        <td style="padding: 10px 0; color: #333;">{$tour}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px 0; color: #666; font-weight: bold;">📅 Fecha:</td>
+                                        <td style="padding: 10px 0; color: #333;">{$fechaFormateada}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px 0; color: #666; font-weight: bold;">🕐 Hora:</td>
+                                        <td style="padding: 10px 0; color: #333;">{$hora}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px 0; color: #666; font-weight: bold;">👥 Personas:</td>
+                                        <td style="padding: 10px 0; color: #333;">{$personas}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <div style="background-color: #fff3cd; border: 1px solid #ffc107; padding: 20px; border-radius: 4px; margin: 20px 0;">
+                                <h4 style="margin: 0 0 10px 0; color: #856404;">
+                                    <i style="margin-right: 8px;">ℹ️</i>Motivo de la Cancelación:
+                                </h4>
+                                <p style="margin: 0; color: #856404; font-size: 15px; line-height: 1.6;">
+                                    {$motivoHTML}
+                                </p>
+                            </div>
+                            
+                            <p style="color: #666; font-size: 14px; line-height: 1.6; margin-top: 30px;">
+                                Si tienes alguna pregunta o deseas hacer una nueva reserva, no dudes en contactarnos.
+                            </p>
+                            
+                            <div style="text-align: center; margin-top: 40px;">
+                                <p style="color: #999; font-size: 14px; margin: 0;">
+                                    ¿Necesitas ayuda? Contáctanos en:
+                                </p>
+                                <p style="color: #dc3545; font-size: 16px; font-weight: bold; margin: 10px 0;">
+                                    squadzero1234@gmail.com
+                                </p>
+                                <p style="color: #999; font-size: 14px; margin: 20px 0 0 0;">
+                                    O por WhatsApp: +598 96 018 202
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 30px; text-align: center;">
+                <p style="color: #999; font-size: 12px; margin: 0;">
+                    © 2025 Squad Zero. Todos los derechos reservados.
+                </p>
+                <p style="color: #999; font-size: 12px; margin: 10px 0 0 0;">
+                    Este es un correo automático, por favor no respondas a este mensaje.
+                </p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+HTML;
+    }
+    
+    /**
+     * Genera el texto plano del correo de cancelación
+     */
+    private function generarTextoPlanoCancelacion($reserva, $usuario, $motivo) {
+        $nombreCompleto = $usuario['nombre'] . ' ' . $usuario['apellido'];
+        $tour = $reserva['tour'];
+        $fecha = $reserva['fecha'];
+        $hora = $reserva['hora'];
+        $personas = $reserva['cantidad_personas'];
+        
+        $fechaObj = new DateTime($fecha);
+        $fechaFormateada = $fechaObj->format('d/m/Y');
+        
+        return <<<TEXT
+SQUAD ZERO - RESERVA CANCELADA
+
+Hola, {$nombreCompleto}
+
+Lamentamos informarte que tu reserva ha sido cancelada.
+
+DETALLES DE LA RESERVA CANCELADA:
+----------------------------------
+Tour: {$tour}
+Fecha: {$fechaFormateada}
+Hora: {$hora}
+Cantidad de personas: {$personas}
+
+MOTIVO DE LA CANCELACIÓN:
+{$motivo}
+
+Si tienes alguna pregunta o deseas hacer una nueva reserva, no dudes en contactarnos.
+
+¿Necesitas ayuda? Contáctanos en: squadzero1234@gmail.com
+O por WhatsApp: +598 96 018 202
+
+---
+© 2025 Squad Zero. Todos los derechos reservados.
+Este es un correo automático, por favor no respondas a este mensaje.
+TEXT;
+    }
 }
 ?>
