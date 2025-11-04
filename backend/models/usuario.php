@@ -9,14 +9,14 @@ class Usuario {
     }
 
     public function obtenerTodos() {
-        $stmt = $this->conn->prepare("SELECT id, nombre, apellido, gmail, usuario, rol FROM usuarios");
+        $stmt = $this->conn->prepare("SELECT id, nombre, apellido, gmail, usuario, rol, foto_perfil FROM usuarios");
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function obtenerPorId($id) {
-        $stmt = $this->conn->prepare("SELECT id, nombre, apellido, gmail, usuario FROM usuarios WHERE id = ?");
+        $stmt = $this->conn->prepare("SELECT id, nombre, apellido, gmail, usuario, foto_perfil FROM usuarios WHERE id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -39,13 +39,13 @@ public function existeUsuarioOGmail($usuario, $gmail) {
     return $result->num_rows > 0;
 }
 
-public function agregar($nombre, $apellido, $gmail, $usuario, $contrasena) {
+public function agregar($nombre, $apellido, $gmail, $usuario, $contrasena, $foto_perfil = null) {
     if ($this->existeUsuarioOGmail($usuario, $gmail)) {
         return false;
     }
     $hash = password_hash($contrasena, PASSWORD_DEFAULT);
-    $stmt = $this->conn->prepare("INSERT INTO usuarios (nombre, apellido, gmail, usuario, contrasena) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $nombre, $apellido, $gmail, $usuario, $hash);
+    $stmt = $this->conn->prepare("INSERT INTO usuarios (nombre, apellido, gmail, usuario, contrasena, foto_perfil) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $nombre, $apellido, $gmail, $usuario, $hash, $foto_perfil);
     if (!$stmt->execute()) {
         // Para depuración, imprime el error de MySQL
         error_log("Error MySQL: " . $stmt->error);

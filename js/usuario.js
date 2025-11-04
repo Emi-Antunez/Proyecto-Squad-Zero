@@ -5,6 +5,7 @@ function registrarUsuario() {
     const usuario = document.getElementById('usuario').value.trim();
     const contrasena = document.getElementById('contrasena').value;
     const confirmar = document.getElementById('confirmar').value;
+    const fotoPerfil = document.getElementById('fotoPerfil').files[0];
 
     if (!nombre || !apellido || !gmail || !usuario || !contrasena || !confirmar) {
         mostrarMensaje("Completa todos los campos.", true);
@@ -23,10 +24,20 @@ function registrarUsuario() {
         return;
     }
 
+    // Usar FormData para enviar archivos
+    const formData = new FormData();
+    formData.append('nombre', nombre);
+    formData.append('apellido', apellido);
+    formData.append('gmail', gmail);
+    formData.append('usuario', usuario);
+    formData.append('contrasena', contrasena);
+    if (fotoPerfil) {
+        formData.append('fotoPerfil', fotoPerfil);
+    }
+
     fetch('http://localhost/Proyecto-Squad-Zero/backend/routes/api.php?action=register', {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre, apellido, gmail, usuario, contrasena })
+        body: formData
     })
         .then(res => res.json())
         .then(data => {

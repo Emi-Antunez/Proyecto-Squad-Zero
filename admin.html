@@ -338,14 +338,30 @@
                     const rolBgColor = usuario.rol === 'admin' ? '#dc3545' : '#0d6efd';
                     const iniciales = `${usuario.nombre.charAt(0)}${usuario.apellido.charAt(0)}`.toUpperCase();
                     
+                    // Determinar si mostrar foto o iniciales
+                    let avatarHTML = '';
+                    if (usuario.foto_perfil) {
+                        avatarHTML = `
+                            <img src="${usuario.foto_perfil}" alt="${usuario.nombre}" 
+                                 style="width: 55px; height: 55px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);" 
+                                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'rounded-circle d-flex align-items-center justify-content-center\\' style=\\'width: 55px; height: 55px; background: ${rolBgColor}; color: white; font-weight: 700; font-size: 1.3rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\\'>${iniciales}</div>';">
+                        `;
+                    } else {
+                        avatarHTML = `
+                            <div class="rounded-circle d-flex align-items-center justify-content-center" 
+                                 style="width: 55px; height: 55px; background: ${rolBgColor}; color: white; font-weight: 700; font-size: 1.3rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);">
+                                ${iniciales}
+                            </div>
+                        `;
+                    }
+                    
                     html += `
                         <div class="col-md-6 col-lg-4">
                             <div class="card h-100 shadow-sm" style="border-radius: 10px; border: 2px solid #e8e8e8; transition: all 0.3s;">
                                 <div class="card-body" style="padding: 1.25rem;">
                                     <div class="d-flex align-items-center mb-3">
-                                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3" 
-                                             style="width: 55px; height: 55px; background: ${rolBgColor}; color: white; font-weight: 700; font-size: 1.3rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);">
-                                            ${iniciales}
+                                        <div class="me-3">
+                                            ${avatarHTML}
                                         </div>
                                         <div class="flex-grow-1">
                                             <h6 class="mb-1" style="font-weight: 700; color: #000000; font-size: 1rem;">${usuario.nombre} ${usuario.apellido}</h6>

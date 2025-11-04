@@ -21,8 +21,15 @@ if ($action === "login" && $requestMethod == "POST") {
     loginUsuario($data['usuario'], $data['contrasena']);
 }
 elseif ($action === "register" && $requestMethod == "POST") {
-    $data = json_decode(file_get_contents("php://input"), true);
-    agregarUsuario($data['nombre'], $data['apellido'], $data['gmail'], $data['usuario'], $data['contrasena']);
+    // Manejar FormData (con archivos) o JSON
+    if (isset($_POST['nombre'])) {
+        // FormData
+        agregarUsuario($_POST['nombre'], $_POST['apellido'], $_POST['gmail'], $_POST['usuario'], $_POST['contrasena']);
+    } else {
+        // JSON (para compatibilidad con versiones anteriores)
+        $data = json_decode(file_get_contents("php://input"), true);
+        agregarUsuario($data['nombre'], $data['apellido'], $data['gmail'], $data['usuario'], $data['contrasena']);
+    }
 }
 elseif ($action === "usuarios" && $requestMethod == "GET") {
     listarUsuarios();

@@ -41,7 +41,52 @@ function loginUsuario($usuario, $contrasena) {
 
 function agregarUsuario($nombre, $apellido, $gmail, $usuario, $contrasena) {
     global $usuarioModel;
-    if ($usuarioModel->agregar($nombre, $apellido, $gmail, $usuario, $contrasena)) {
+    
+    $foto_perfil = null;
+    
+    // Manejar subida de foto de perfil
+    if (isset($_FILES['fotoPerfil']) && $_FILES['fotoPerfil']['error'] === UPLOAD_ERR_OK) {
+        $file = $_FILES['fotoPerfil'];
+        
+        // Validar tipo de archivo
+        $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = finfo_file($finfo, $file['tmp_name']);
+        finfo_close($finfo);
+        
+        if (!in_array($mime_type, $allowed_types)) {
+            echo json_encode(["error" => "Tipo de archivo no permitido. Use JPG, PNG, GIF o WEBP"]);
+            return;
+        }
+        
+        // Validar tamaño (2MB)
+        if ($file['size'] > 2 * 1024 * 1024) {
+            echo json_encode(["error" => "La imagen es demasiado grande. Tamaño máximo: 2MB"]);
+            return;
+        }
+        
+        // Generar nombre único
+        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $filename = time() . '_' . uniqid() . '.' . $extension;
+        $upload_dir = __DIR__ . '/../../img/perfiles/';
+        
+        // Crear directorio si no existe
+        if (!file_exists($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
+        
+        $upload_path = $upload_dir . $filename;
+        
+        // Mover archivo
+        if (move_uploaded_file($file['tmp_name'], $upload_path)) {
+            $foto_perfil = 'img/perfiles/' . $filename;
+        } else {
+            echo json_encode(["error" => "Error al subir la imagen"]);
+            return;
+        }
+    }
+    
+    if ($usuarioModel->agregar($nombre, $apellido, $gmail, $usuario, $contrasena, $foto_perfil)) {
         echo json_encode(["mensaje" => "Usuario agregado"]);
     } else {
         echo json_encode(["error" => "No se pudo agregar"]);
