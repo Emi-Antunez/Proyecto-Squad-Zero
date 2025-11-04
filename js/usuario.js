@@ -72,6 +72,60 @@ function esContrasenaSegura(contrasena) {
     return /^.{6,}$/.test(contrasena);
 }
 
+// Función para cambiar el rol de un usuario
+window.cambiarRol = function(id) {
+    const nuevoRol = prompt('Ingresa el nuevo rol (admin o usuario):');
+    
+    if (!nuevoRol || (nuevoRol !== 'admin' && nuevoRol !== 'usuario')) {
+        alert('Rol inválido. Debe ser "admin" o "usuario".');
+        return;
+    }
+    
+    fetch('http://localhost/Proyecto-Squad-Zero/backend/routes/api.php?action=cambiarRol', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, rol: nuevoRol })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) {
+            alert('Error: ' + data.error);
+        } else {
+            alert('Rol actualizado exitosamente');
+            listarUsuarios(); // Recargar la lista de usuarios
+        }
+    })
+    .catch(err => {
+        console.error('Error al cambiar rol:', err);
+        alert('Error al cambiar el rol del usuario');
+    });
+}
+
+// Función para eliminar un usuario
+window.eliminarUsuario = function(id) {
+    if (!confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+        return;
+    }
+    
+    fetch(`http://localhost/Proyecto-Squad-Zero/backend/routes/api.php?action=eliminarUsuario&id=${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) {
+            alert('Error: ' + data.error);
+        } else {
+            alert('Usuario eliminado exitosamente');
+            listarUsuarios(); // Recargar la lista de usuarios
+        }
+    })
+    .catch(err => {
+        console.error('Error al eliminar usuario:', err);
+        alert('Error al eliminar el usuario');
+    });
+}
+
 // ...existing code...
 function loginUsuario() {
     const usuario = document.getElementById('username').value.trim();
@@ -109,7 +163,6 @@ function loginUsuario() {
             }
         })
         .catch(() => {
-            mostrarMensaje("Error de conexión con el servidor.", true);
-        });
+        mostrarMensaje("Error de conexión con el servidor.", true);
+    });
 }
-// ...existing code...

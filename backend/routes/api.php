@@ -6,6 +6,7 @@ session_start();
 
 require "../controllers/reservas.php";
 require "../controllers/usuarios.php";
+require "../controllers/publicaciones.php";
 
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
@@ -26,10 +27,50 @@ elseif ($action === "register" && $requestMethod == "POST") {
 elseif ($action === "usuarios" && $requestMethod == "GET") {
     listarUsuarios();
 }
+elseif ($action === "getUsuarios" && $requestMethod == "GET") {
+    listarUsuarios();
+}
+elseif ($action === "cambiarRol" && $requestMethod == "PUT") {
+    $data = json_decode(file_get_contents("php://input"), true);
+    cambiarRolUsuario($data['id'], $data['rol']);
+}
+elseif ($action === "eliminarUsuario" && $requestMethod == "DELETE" && isset($_GET['id'])) {
+    eliminarUsuario($_GET['id']);
+}
 elseif ($action === "usuarios" && $requestMethod == "DELETE" && isset($_GET['id'])) {
     eliminarUsuario($_GET['id']);
 }
+// Publicaciones
+elseif ($action === "publicaciones" && $requestMethod == "GET") {
+    if (isset($_GET['id'])) {
+        mostrarPublicacion($_GET['id']);
+    } else {
+        listarPublicaciones();
+    }
+}
+elseif ($action === "publicaciones" && $requestMethod == "POST") {
+    $data = json_decode(file_get_contents("php://input"), true);
+    agregarPublicacion($data['titulo'], $data['descripcion'], $data['imagen'], $data['fecha']);
+}
+elseif ($action === "publicaciones" && $requestMethod == "PUT") {
+    $data = json_decode(file_get_contents("php://input"), true);
+    modificarPublicacion($data['id'], $data['titulo'], $data['descripcion'], $data['imagen'], $data['fecha']);
+}
+elseif ($action === "publicaciones" && $requestMethod == "DELETE" && isset($_GET['id'])) {
+    eliminarPublicacion($_GET['id']);
+}
+elseif ($action === "upload-imagen" && $requestMethod == "POST") {
+    subirImagenPublicacion();
+}
 // Reservas
+elseif ($action === "getReservas" && $requestMethod == "GET") {
+    listarReservas();
+}
+elseif ($action === "deleteReserva" && $requestMethod == "DELETE" && isset($_GET['id'])) {
+    $data = json_decode(file_get_contents("php://input"), true);
+    $motivo = isset($data['motivo_cancelacion']) ? $data['motivo_cancelacion'] : '';
+    eliminarReserva($_GET['id'], $motivo);
+}
 elseif ($requestMethod == "GET") {
     if (isset($_GET['id'])) {
         mostrarReserva($_GET['id']);

@@ -1,4 +1,4 @@
-const API_URL = "http://localhost/Proyecto-squad-zero/backend/routes/api.php";
+const API_URL = "http://localhost/Proyecto-Squad-Zero/backend/routes/api.php";
 
 
 let reservasOriginal = [];

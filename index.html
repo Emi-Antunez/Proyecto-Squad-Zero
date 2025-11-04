@@ -395,6 +395,35 @@
             </div>
         </section>
 
+        <!-- GESTIÓN DE PUBLICACIONES (solo visible para admin) -->
+        <section id="adminPublicacionesSection" class="py-5 bg-white" style="display:none;">
+            <div class="container px-4 px-lg-5">
+                <h2 class="text-center mb-4"
+                    style="border-bottom: 2px solid red; display: inline-block; padding-bottom: 5px;">
+                    Gestión de Publicaciones
+                </h2>
+                <div class="text-end mb-3">
+                    <button class="btn btn-primary" onclick="mostrarModalPublicacion()">
+                        <i class="fas fa-plus"></i> Nueva Publicación
+                    </button>
+                </div>
+                <div id="adminPublicacionesContainer" class="col-12"></div>
+            </div>
+        </section>
+
+        <!-- PUBLICACIONES PÚBLICAS -->
+        <section id="publicacionesSection" class="py-5 bg-light">
+            <div class="container px-4 px-lg-5">
+                <div class="text-center mb-5">
+                    <h2>Noticias y Promociones</h2>
+                    <p class="text-muted">Mantente informado sobre nuestras últimas novedades y ofertas especiales</p>
+                </div>
+                <div class="row" id="publicacionesPublicasContainer">
+                    <!-- Las publicaciones se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+        </section>
+
         <!-- UBICACIÓN DEL BOTE -->
         <section id="ubicacionBoteSection" class="py-5 bg-white">
             <div class="container px-4 px-lg-5">
@@ -472,7 +501,9 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/reservas.js"></script>
+    <script src="js/usuario.js?v=2"></script>
+    <script src="js/reservas.js?v=2"></script>
+    <script src="js/publicaciones.js?v=2"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const rol = localStorage.getItem('rol');
@@ -485,6 +516,7 @@
 
             // Sección de administración
             const adminReservasSection = document.getElementById('adminReservasSection');
+            const adminPublicacionesSection = document.getElementById('adminPublicacionesSection');
 
             // Navbar
             const usernameSpan = document.getElementById('navbarUsername');
@@ -506,6 +538,8 @@
                 if (ubicacionBoteSection) ubicacionBoteSection.style.display = 'none';
 
                 adminReservasSection.style.display = 'block';
+                adminPublicacionesSection.style.display = 'block';
+                document.getElementById('adminUsuariosSection').style.display = 'block';
                 listarReservasAdmin(); // Llama a la función para listar reservas en la sección de administración
             } else {
                 // Mostrar las secciones generales para usuarios comunes
@@ -519,7 +553,7 @@
 
         // Función para listar reservas en la sección de administración
         function listarReservasAdmin() {
-            fetch('http://localhost/Proyecto-squad-zero/backend/routes/api.php?action=getReservas')
+            fetch('http://localhost/Proyecto-Squad-Zero/backend/routes/api.php?action=getReservas')
                 .then(res => res.json())
                 .then(data => {
                     reservasAdminOriginal = Array.isArray(data) ? data : [];
@@ -540,7 +574,7 @@
         }
 
         function exportarReservas() {
-            fetch('http://localhost/Proyecto-squad-zero/backend/routes/api.php?action=getReservas')
+            fetch('http://localhost/Proyecto-Squad-Zero/backend/routes/api.php?action=getReservas')
                 .then(res => res.json())
                 .then(data => {
                     let csv = 'Tour,Nombre,Apellido,Fecha,Hora,Cantidad de Personas\n';
@@ -557,7 +591,7 @@
         }
 
         function listarUsuarios() {
-            fetch('http://localhost/Proyecto-squad-zero/backend/routes/api.php?action=getUsuarios')
+            fetch('http://localhost/Proyecto-Squad-Zero/backend/routes/api.php?action=getUsuarios')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('usuariosContainer');
@@ -616,6 +650,55 @@
             }
         });
     </script>
+
+    <!-- Modal para Crear/Editar Publicación -->
+    <div class="modal fade" id="modalPublicacion" tabindex="-1" aria-labelledby="tituloModalPublicacion" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModalPublicacion">Nueva Publicación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formPublicacion">
+                        <input type="hidden" id="publicacionId">
+                        <input type="hidden" id="imagenActual">
+                        
+                        <div class="mb-3">
+                            <label for="tituloPublicacion" class="form-label">Título *</label>
+                            <input type="text" class="form-control" id="tituloPublicacion" required maxlength="255">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="descripcionPublicacion" class="form-label">Descripción *</label>
+                            <textarea class="form-control" id="descripcionPublicacion" rows="4" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="fechaPublicacion" class="form-label">Fecha *</label>
+                            <input type="date" class="form-control" id="fechaPublicacion" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="imagenPublicacion" class="form-label">Imagen (opcional)</label>
+                            <input type="file" class="form-control" id="imagenPublicacion" accept="image/*">
+                            <small class="text-muted">Formatos permitidos: JPG, PNG, GIF, WEBP</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <img id="previsualizacionImagen" src="" alt="Previsualización" 
+                                 class="img-fluid rounded" style="max-height: 200px; display: none;">
+                        </div>
+                        
+                        <div class="text-end">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal de Información -->
     <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true"

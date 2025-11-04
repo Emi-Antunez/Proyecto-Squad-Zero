@@ -65,4 +65,25 @@ function eliminarUsuario($id) {
         echo json_encode(["error" => "No se pudo eliminar"]);
     }
 }
+
+function cambiarRolUsuario($id, $nuevoRol) {
+    global $conn;
+    
+    // Validar que el rol sea válido
+    if ($nuevoRol !== 'admin' && $nuevoRol !== 'usuario') {
+        echo json_encode(["error" => "Rol inválido. Debe ser 'admin' o 'usuario'"]);
+        return;
+    }
+    
+    $stmt = $conn->prepare("UPDATE usuarios SET rol = ? WHERE id = ?");
+    $stmt->bind_param("si", $nuevoRol, $id);
+    
+    if ($stmt->execute()) {
+        echo json_encode(["mensaje" => "Rol actualizado exitosamente", "id" => $id, "rol" => $nuevoRol]);
+    } else {
+        echo json_encode(["error" => "No se pudo actualizar el rol"]);
+    }
+    
+    $stmt->close();
+}
 ?>
