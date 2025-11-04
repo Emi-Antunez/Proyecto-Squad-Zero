@@ -72,32 +72,47 @@ function esContrasenaSegura(contrasena) {
     return /^.{6,}$/.test(contrasena);
 }
 
-// Función para cambiar el rol de un usuario
+// Variable global para almacenar el ID del usuario cuyo rol se va a cambiar
+let usuarioIdCambioRol = null;
+
+// Función para cambiar el rol de un usuario (abre el modal)
 window.cambiarRol = function(id) {
-    const nuevoRol = prompt('Ingresa el nuevo rol (admin o usuario):');
-    
-    if (!nuevoRol || (nuevoRol !== 'admin' && nuevoRol !== 'usuario')) {
-        alert('Rol inválido. Debe ser "admin" o "usuario".');
+    usuarioIdCambioRol = id;
+    const modal = new bootstrap.Modal(document.getElementById('modalCambiarRol'));
+    modal.show();
+}
+
+// Función para confirmar el cambio de rol
+window.confirmarCambioRol = function(nuevoRol) {
+    if (!usuarioIdCambioRol) {
+        alert('Error: No se ha seleccionado ningún usuario');
         return;
     }
     
     fetch('http://localhost/Proyecto-Squad-Zero/backend/routes/api.php?action=cambiarRol', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, rol: nuevoRol })
+        body: JSON.stringify({ id: usuarioIdCambioRol, rol: nuevoRol })
     })
     .then(res => res.json())
     .then(data => {
         if (data.error) {
             alert('Error: ' + data.error);
         } else {
-            alert('Rol actualizado exitosamente');
-            listarUsuarios(); // Recargar la lista de usuarios
+            alert('Rol actualizado exitosamente a: ' + nuevoRol);
+            // Cerrar el modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalCambiarRol'));
+            modal.hide();
+            // Recargar la lista de usuarios
+            listarUsuarios();
         }
     })
     .catch(err => {
         console.error('Error al cambiar rol:', err);
         alert('Error al cambiar el rol del usuario');
+    })
+    .finally(() => {
+        usuarioIdCambioRol = null;
     });
 }
 
