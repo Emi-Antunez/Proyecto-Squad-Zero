@@ -9,7 +9,7 @@ class Usuario {
     }
 
     public function obtenerTodos() {
-        $stmt = $this->conn->prepare("SELECT id, nombre, apellido, gmail, usuario FROM usuarios");
+        $stmt = $this->conn->prepare("SELECT id, nombre, apellido, gmail, usuario, rol FROM usuarios");
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);

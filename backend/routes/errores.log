@@ -12,3 +12,17 @@ Stack trace:
 #2 C:\xampp\htdocs\Proyecto-Squad-Zero\backend\routes\api.php(46): agregarReserva(8, 'Riachuelo', '2025-10-08', '13:30', 12)
 #3 {main}
   thrown in C:\xampp\htdocs\Proyecto-Squad-Zero\backend\models\reserva.php on line 30
+[04-Nov-2025 17:31:50 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'registro_usuarios.publicaciones' doesn't exist in C:\xampp\htdocs\Proyecto-Squad-Zero\backend\models\publicacion.php:12
+Stack trace:
+#0 C:\xampp\htdocs\Proyecto-Squad-Zero\backend\models\publicacion.php(12): mysqli->prepare('SELECT * FROM p...')
+#1 C:\xampp\htdocs\Proyecto-Squad-Zero\backend\controllers\publicaciones.php(8): Publicacion->obtenerTodas()
+#2 C:\xampp\htdocs\Proyecto-Squad-Zero\backend\routes\api.php(48): listarPublicaciones()
+#3 {main}
+  thrown in C:\xampp\htdocs\Proyecto-Squad-Zero\backend\models\publicacion.php on line 12
+[04-Nov-2025 17:31:50 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'registro_usuarios.publicaciones' doesn't exist in C:\xampp\htdocs\Proyecto-Squad-Zero\backend\models\publicacion.php:12
+Stack trace:
+#0 C:\xampp\htdocs\Proyecto-Squad-Zero\backend\models\publicacion.php(12): mysqli->prepare('SELECT * FROM p...')
+#1 C:\xampp\htdocs\Proyecto-Squad-Zero\backend\controllers\publicaciones.php(8): Publicacion->obtenerTodas()
+#2 C:\xampp\htdocs\Proyecto-Squad-Zero\backend\routes\api.php(48): listarPublicaciones()
+#3 {main}
+  thrown in C:\xampp\htdocs\Proyecto-Squad-Zero\backend\models\publicacion.php on line 12
