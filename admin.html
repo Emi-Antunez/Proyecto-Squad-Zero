@@ -330,12 +330,13 @@
                         </h2>
                         <div id="${collapseId}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" 
                              aria-labelledby="${headingId}" data-bs-parent="#usuariosAccordion">
-                            <div class="accordion-body" style="padding: 1.5rem; background: #f8f9fa;">
+                            <div class="accordion-body" style="padding: 1.5rem; background: #2c3e50;">
                                 <div class="row g-3">
                 `;
                 
                 usuariosGrupo.forEach(usuario => {
-                    const rolBadgeClass = usuario.rol === 'admin' ? 'bg-danger' : 'bg-success';
+                    const rolBadgeClass = usuario.rol === 'admin' ? 'bg-danger' : 'bg-primary';
+                    const rolBgColor = usuario.rol === 'admin' ? '#dc3545' : '#0d6efd';
                     const iniciales = `${usuario.nombre.charAt(0)}${usuario.apellido.charAt(0)}`.toUpperCase();
                     
                     html += `
@@ -344,29 +345,29 @@
                                 <div class="card-body" style="padding: 1.25rem;">
                                     <div class="d-flex align-items-center mb-3">
                                         <div class="rounded-circle d-flex align-items-center justify-content-center me-3" 
-                                             style="width: 55px; height: 55px; background: linear-gradient(135deg, #2c5aa0 0%, #4a7bc8 100%); color: white; font-weight: 700; font-size: 1.3rem; box-shadow: 0 2px 8px rgba(44, 90, 160, 0.3);">
+                                             style="width: 55px; height: 55px; background: ${rolBgColor}; color: white; font-weight: 700; font-size: 1.3rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);">
                                             ${iniciales}
                                         </div>
                                         <div class="flex-grow-1">
-                                            <h6 class="mb-1" style="font-weight: 700; color: #1a1a1a; font-size: 1rem;">${usuario.nombre} ${usuario.apellido}</h6>
+                                            <h6 class="mb-1" style="font-weight: 700; color: white; font-size: 1rem;">${usuario.nombre} ${usuario.apellido}</h6>
                                             <span class="badge ${rolBadgeClass}" style="font-size: 0.75rem; font-weight: 600; padding: 0.35rem 0.65rem;">${usuario.rol.toUpperCase()}</span>
                                         </div>
                                     </div>
-                                    <div class="mb-2" style="background: #f0f4f8; padding: 0.5rem 0.75rem; border-radius: 6px;">
-                                        <small style="color: #2c5aa0; font-weight: 600;">
+                                    <div class="mb-2" style="background: rgba(255, 255, 255, 0.15); padding: 0.5rem 0.75rem; border-radius: 6px;">
+                                        <small style="color: white; font-weight: 600;">
                                             <i class="fas fa-envelope me-1"></i>${usuario.gmail}
                                         </small>
                                     </div>
-                                    <div class="mb-3" style="background: #f0f4f8; padding: 0.5rem 0.75rem; border-radius: 6px;">
-                                        <small style="color: #2c5aa0; font-weight: 600;">
+                                    <div class="mb-3" style="background: rgba(255, 255, 255, 0.15); padding: 0.5rem 0.75rem; border-radius: 6px;">
+                                        <small style="color: white; font-weight: 600;">
                                             <i class="fas fa-user me-1"></i>${usuario.usuario}
                                         </small>
                                     </div>
                                     <div class="d-grid gap-2">
-                                        <button class="btn btn-sm btn-outline-primary" onclick="cambiarRol(${usuario.id})" style="border-radius: 6px; font-weight: 600; border-width: 2px;">
+                                        <button class="btn btn-sm btn-light" onclick="cambiarRol(${usuario.id})" style="border-radius: 6px; font-weight: 600; border-width: 2px; color: #333;">
                                             <i class="fas fa-user-cog me-1"></i>Cambiar Rol
                                         </button>
-                                        <button class="btn btn-sm btn-outline-danger" onclick="eliminarUsuario(${usuario.id})" style="border-radius: 6px; font-weight: 600; border-width: 2px;">
+                                        <button class="btn btn-sm btn-outline-light" onclick="eliminarUsuario(${usuario.id})" style="border-radius: 6px; font-weight: 600; border-width: 2px;">
                                             <i class="fas fa-trash-alt me-1"></i>Eliminar
                                         </button>
                                     </div>

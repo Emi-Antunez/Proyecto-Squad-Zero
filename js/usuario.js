@@ -173,7 +173,12 @@ function loginUsuario() {
                 localStorage.setItem('usuario', data.usuario);
                 mostrarMensaje("Bienvenido " + data.usuario, false);
                 setTimeout(() => {
-                    window.location.href = "../index.html";
+                    // Redirigir según el rol
+                    if (data.rol === 'admin') {
+                        window.location.href = "../admin.html";
+                    } else {
+                        window.location.href = "../index.html";
+                    }
                 }, 1500);
             }
         })

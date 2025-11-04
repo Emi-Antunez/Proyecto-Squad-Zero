@@ -37,19 +37,29 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto py-4 py-lg-0" id="navbarPublicLinks">
                     <li class="nav-item">
-                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#sobreNosotrosSection">Sobre nosotros</a>
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#sobreNosotrosSection">
+                            <i class="fas fa-info-circle me-1"></i>Sobre nosotros
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#nuestrosViajesSection">Nuestros viajes</a>
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#nuestrosViajesSection">
+                            <i class="fas fa-ship me-1"></i>Nuestros viajes
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#ubicacionBoteSection">Ubicación</a>
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#ubicacionBoteSection">
+                            <i class="fas fa-map-marker-alt me-1"></i>Ubicación
+                        </a>
                     </li>
                     <li class="nav-item" id="loginNav">
-                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="page/login.html">Iniciar sesión</a>
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="page/login.html">
+                            <i class="fas fa-sign-in-alt me-1"></i>Iniciar sesión
+                        </a>
                     </li>
                     <li class="nav-item" id="registerNav">
-                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="page/register.html">Registrarse</a>
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="page/register.html">
+                            <i class="fas fa-user-plus me-1"></i>Registrarse
+                        </a>
                     </li>
                     <li class="nav-item dropdown" id="userNavPublic" style="display:none;">
                         <a class="nav-link dropdown-toggle px-lg-3 py-3 py-lg-4" href="#" id="navbarUserDropdownPublic"
@@ -59,39 +69,6 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end animate__animated animate__fadeIn"
                             aria-labelledby="navbarUserDropdownPublic" style="min-width: 180px;">
-                            <li>
-                                <a class="dropdown-item" href="#" onclick="cerrarSesion()"
-                                    style="transition: all 0.2s; color: #dc3545;">
-                                    <i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto py-4 py-lg-0" id="navbarAdminLinks" style="display:none;">
-                    <li class="nav-item">
-                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#adminReservasSection">
-                            <i class="fas fa-calendar-check me-1"></i>Reservas
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#adminUsuariosSection">
-                            <i class="fas fa-users-cog me-1"></i>Usuarios
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="#adminPublicacionesSection">
-                            <i class="fas fa-newspaper me-1"></i>Publicaciones
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown" id="userNav" style="display:none;">
-                        <a class="nav-link dropdown-toggle px-lg-3 py-3 py-lg-4" href="#" id="navbarUserDropdown"
-                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span id="navbarUsername"></span>
-                            <i class="fas fa-user ms-2"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end animate__animated animate__fadeIn"
-                            aria-labelledby="navbarUserDropdown" style="min-width: 180px;">
                             <li>
                                 <a class="dropdown-item" href="#" onclick="cerrarSesion()"
                                     style="transition: all 0.2s; color: #dc3545;">
@@ -182,12 +159,6 @@
         </div>
     </header>
 
-    <!-- Header Admin -->
-    <header id="headerAdmin" style="display:none;">
-        <div class="position-relative" style="height: 500px; overflow: hidden;">
-            <img src="img/admin.png" class="w-100 h-100" alt="Admin Panel" style="object-fit: cover;">
-        </div>
-    </header>
 
     <!-- Main Content -->
     <main>
@@ -313,7 +284,7 @@
             </div>
         </section>
 
-        <!-- Reservas (solo visible para admin) -->
+        <!-- Reservas (solo visible para usuarios logueados) -->
         <section id="reservasSection" class="py-5 bg-light contorno" style="display:none;">
             <div class="container px-4 px-lg-5">
                 <div class="text-center mb-4">
@@ -406,100 +377,6 @@
             </div>
         </section>
 
-        <!-- ADMINISTRACIÓN DE RESERVAS (solo visible para admin) -->
-        <section id="adminReservasSection" class="py-5 bg-light contorno" style="display:none;">
-            <div class="container px-4 px-lg-5">
-                <div class="text-center mb-4">
-                    <h2 class="d-inline-block" style="border-bottom: 3px solid #5981C2; padding-bottom: 10px; font-weight: 700; color: #333;">
-                        <i class="fas fa-tasks me-2" style="color: #5981C2;"></i>Administración de Reservas
-                    </h2>
-                </div>
-                <div class="card mb-4 shadow-sm" style="border-radius: 15px; border: none;">
-                    <div class="card-body" style="padding: 1.5rem;">
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label for="filtroTourAdmin" class="form-label" style="font-weight: 600; color: #333;">
-                                    <i class="fas fa-filter me-1" style="color: #5981C2;"></i>Filtrar por Tour
-                                </label>
-                                <select id="filtroTourAdmin" class="form-control" style="border-radius: 10px; padding: 0.75rem;">
-                                    <option value="">Todos los tours</option>
-                                    <option value="Navegación Bahía">Navegación Bahía</option>
-                                    <option value="Riachuelo">Riachuelo</option>
-                                    <option value="Anchorena">Anchorena</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="buscadorNombreAdmin" class="form-label" style="font-weight: 600; color: #333;">
-                                    <i class="fas fa-search me-1" style="color: #5981C2;"></i>Buscar por Nombre
-                                </label>
-                                <input type="text" id="buscadorNombreAdmin" class="form-control"
-                                    placeholder="Buscar por nombre..." style="border-radius: 10px; padding: 0.75rem;">
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label" style="font-weight: 600; color: #333;">
-                                    <i class="fas fa-sort me-1" style="color: #5981C2;"></i>Ordenar por Fecha
-                                </label>
-                                <button id="ordenFechaAdminBtn" class="btn btn-outline-primary w-100" style="border-radius: 10px; padding: 0.75rem; font-weight: 600;">
-                                    <i id="ordenFechaAdminIcon" class="fas fa-arrow-down me-1"></i>Fecha
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Botón para exportar reservas -->
-                <div class="text-end mb-3">
-                    <button class="btn btn-success mb-3" onclick="exportarReservas()" style="border-radius: 10px; padding: 0.75rem 1.5rem; font-weight: 600;">
-                        <i class="fas fa-file-excel me-2"></i>Exportar a Excel
-                    </button>
-                </div>
-                <div id="adminReservasContainer" class="col-12"></div>
-            </div>
-        </section>
-
-        <!-- GESTIÓN DE USUARIOS (solo visible para admin) -->
-        <section id="adminUsuariosSection" class="py-5 bg-white" style="display:none;">
-            <div class="container px-4 px-lg-5">
-                <div class="text-center mb-4">
-                    <h2 class="d-inline-block" style="border-bottom: 2px solid #5981C2; padding-bottom: 10px; font-weight: 600; color: #333;">
-                        <i class="fas fa-users-cog me-2" style="color: #5981C2;"></i>Gestión de Usuarios
-                    </h2>
-                </div>
-                <!-- Filtro de búsqueda de usuarios -->
-                <div class="card mb-4 shadow-sm" style="border-radius: 8px; border: none;">
-                    <div class="card-body" style="padding: 1.5rem;">
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <label for="buscadorUsuarios" class="form-label" style="font-weight: 600; color: #333;">
-                                    <i class="fas fa-search me-1" style="color: #5981C2;"></i>Buscar Usuario
-                                </label>
-                                <input type="text" id="buscadorUsuarios" class="form-control"
-                                    placeholder="Buscar por nombre, apellido, email o usuario..." 
-                                    style="border-radius: 6px; padding: 0.75rem;">
-                                <small class="text-muted">Puedes buscar por nombre, apellido, correo electrónico o nombre de usuario</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="usuariosContainer" class="col-12"></div>
-            </div>
-        </section>
-
-        <!-- GESTIÓN DE PUBLICACIONES (solo visible para admin) -->
-        <section id="adminPublicacionesSection" class="py-5 bg-light" style="display:none;">
-            <div class="container px-4 px-lg-5">
-                <div class="text-center mb-4">
-                    <h2 class="d-inline-block" style="border-bottom: 2px solid #5981C2; padding-bottom: 10px; font-weight: 600; color: #333;">
-                        <i class="fas fa-newspaper me-2" style="color: #5981C2;"></i>Gestión de Publicaciones
-                    </h2>
-                </div>
-                <div class="text-end mb-3">
-                    <button class="btn btn-primary" onclick="mostrarModalPublicacion()" style="border-radius: 6px; padding: 0.75rem 1.5rem; font-weight: 600;">
-                        <i class="fas fa-plus me-2"></i>Nueva Publicación
-                    </button>
-                </div>
-                <div id="adminPublicacionesContainer" class="col-12"></div>
-            </div>
-        </section>
 
         <!-- PUBLICACIONES PÚBLICAS -->
         <section id="publicacionesSection" class="py-5 bg-light">
@@ -599,275 +476,38 @@
             const rol = localStorage.getItem('rol');
             const usuario = localStorage.getItem('usuario');
 
-            // Secciones generales
-            const sobreNosotrosSection = document.getElementById('sobreNosotrosSection');
-            const nuestrosViajesSection = document.getElementById('nuestrosViajesSection');
-            const ubicacionBoteSection = document.getElementById('ubicacionBoteSection');
+            // Redirigir a admin.html si el usuario es admin
+            if (rol === 'admin') {
+                window.location.href = 'admin.html';
+                return;
+            }
 
-            // Sección de administración
-            const adminReservasSection = document.getElementById('adminReservasSection');
-            const adminPublicacionesSection = document.getElementById('adminPublicacionesSection');
-
-            // Navbar
-            const usernameSpan = document.getElementById('navbarUsername');
-            const navbarPublicLinks = document.getElementById('navbarPublicLinks');
-            const navbarAdminLinks = document.getElementById('navbarAdminLinks');
-            const headerPublic = document.getElementById('headerPublic');
-            const headerAdmin = document.getElementById('headerAdmin');
-            const publicacionesSection = document.getElementById('publicacionesSection');
-            
+            // Mostrar/ocultar elementos según estado de login
             if (usuario) {
                 document.getElementById('loginNav').style.display = 'none';
                 document.getElementById('registerNav').style.display = 'none';
                 
-                // Mostrar dropdown de usuario en ambos navbars
                 const userNavPublic = document.getElementById('userNavPublic');
-                const userNavAdmin = document.getElementById('userNav');
                 const usernameSpanPublic = document.getElementById('navbarUsernamePublic');
-                const usernameSpanAdmin = document.getElementById('navbarUsername');
                 
                 if (userNavPublic) {
                     userNavPublic.style.display = '';
                     if (usernameSpanPublic) usernameSpanPublic.textContent = usuario;
-                }
-                if (userNavAdmin) {
-                    userNavAdmin.style.display = '';
-                    if (usernameSpanAdmin) usernameSpanAdmin.textContent = usuario;
                 }
             } else {
                 document.getElementById('loginNav').style.display = '';
                 document.getElementById('registerNav').style.display = '';
                 
                 const userNavPublic = document.getElementById('userNavPublic');
-                const userNavAdmin = document.getElementById('userNav');
                 if (userNavPublic) userNavPublic.style.display = 'none';
-                if (userNavAdmin) userNavAdmin.style.display = 'none';
-            }
-
-            // Mostrar solo la sección de administración si el rol es admin
-            if (rol === 'admin') {
-                // Ocultar navbar público y mostrar navbar admin
-                navbarPublicLinks.style.display = 'none';
-                navbarAdminLinks.style.display = 'flex';
-                
-                // Ocultar header público y mostrar header admin
-                headerPublic.style.display = 'none';
-                headerAdmin.style.display = 'block';
-                
-                // Ocultar secciones públicas
-                if (sobreNosotrosSection) sobreNosotrosSection.style.display = 'none';
-                if (nuestrosViajesSection) nuestrosViajesSection.style.display = 'none';
-                if (ubicacionBoteSection) ubicacionBoteSection.style.display = 'none';
-                if (publicacionesSection) publicacionesSection.style.display = 'none';
-
-                // Mostrar secciones admin
-                adminReservasSection.style.display = 'block';
-                adminPublicacionesSection.style.display = 'block';
-                document.getElementById('adminUsuariosSection').style.display = 'block';
-                listarReservasAdmin(); // Llama a la función para listar reservas en la sección de administración
-            } else {
-                // Mostrar navbar público y ocultar navbar admin
-                navbarPublicLinks.style.display = 'flex';
-                navbarAdminLinks.style.display = 'none';
-                
-                // Mostrar header público y ocultar header admin
-                headerPublic.style.display = 'block';
-                headerAdmin.style.display = 'none';
-                
-                // Mostrar las secciones generales para usuarios comunes
-                if (sobreNosotrosSection) sobreNosotrosSection.style.display = 'block';
-                if (nuestrosViajesSection) nuestrosViajesSection.style.display = 'block';
-                if (ubicacionBoteSection) ubicacionBoteSection.style.display = 'block';
-                if (publicacionesSection) publicacionesSection.style.display = 'block';
-
-                // Ocultar secciones admin
-                adminReservasSection.style.display = 'none';
             }
         });
-
-        // Función para listar reservas en la sección de administración
-        function listarReservasAdmin() {
-            fetch('http://localhost/Proyecto-Squad-Zero/backend/routes/api.php?action=getReservas')
-                .then(res => res.json())
-                .then(data => {
-                    reservasAdminOriginal = Array.isArray(data) ? data : [];
-                    mostrarTablaReservasAdmin(filtrarReservasAdmin());
-                })
-                .catch(err => {
-                    console.error('Error al obtener reservas:', err);
-                    document.getElementById('adminReservasContainer').innerHTML = '<p>Error al cargar las reservas.</p>';
-                });
-        }
-
-        // Función para eliminar una reserva
 
         function cerrarSesion() {
             localStorage.removeItem('usuario');
             localStorage.removeItem('rol');
             window.location.reload();
         }
-
-        function exportarReservas() {
-            fetch('http://localhost/Proyecto-Squad-Zero/backend/routes/api.php?action=getReservas')
-                .then(res => res.json())
-                .then(data => {
-                    let csv = 'Tour,Nombre,Apellido,Fecha,Hora,Cantidad de Personas\n';
-                    data.forEach(reserva => {
-                        csv += `${reserva.tour},${reserva.nombre},${reserva.apellido},${reserva.fecha},${reserva.hora},${reserva.cantidad_personas}\n`;
-                    });
-                    const blob = new Blob([csv], { type: 'text/csv' });
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.setAttribute('href', url);
-                    a.setAttribute('download', 'reservas.csv');
-                    a.click();
-                });
-        }
-
-        // Variable global para almacenar todos los usuarios
-        let todosLosUsuarios = [];
-
-        function listarUsuarios() {
-            fetch('http://localhost/Proyecto-Squad-Zero/backend/routes/api.php?action=getUsuarios')
-                .then(res => res.json())
-                .then(data => {
-                    todosLosUsuarios = data;
-                    mostrarUsuarios(todosLosUsuarios);
-                });
-        }
-
-        function mostrarUsuarios(usuarios) {
-            const container = document.getElementById('usuariosContainer');
-            
-            if (usuarios.length === 0) {
-                container.innerHTML = '<div class="alert alert-info text-center">No se encontraron usuarios</div>';
-                return;
-            }
-            
-            // Agrupar usuarios por primera letra del nombre
-            const grouped = {};
-            usuarios.forEach(usuario => {
-                const firstLetter = usuario.nombre.charAt(0).toUpperCase();
-                if (!grouped[firstLetter]) {
-                    grouped[firstLetter] = [];
-                }
-                grouped[firstLetter].push(usuario);
-            });
-            
-            // Ordenar las letras
-            const sortedLetters = Object.keys(grouped).sort();
-            
-            let html = '<div class="accordion" id="usuariosAccordion">';
-            
-            sortedLetters.forEach((letter, index) => {
-                const usuariosGrupo = grouped[letter];
-                const collapseId = `collapse${letter}`;
-                const headingId = `heading${letter}`;
-                
-                html += `
-                    <div class="accordion-item" style="border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 10px; overflow: hidden;">
-                        <h2 class="accordion-header" id="${headingId}">
-                            <button class="accordion-button ${index !== 0 ? 'collapsed' : ''}" type="button" 
-                                    data-bs-toggle="collapse" data-bs-target="#${collapseId}" 
-                                    aria-expanded="${index === 0 ? 'true' : 'false'}" aria-controls="${collapseId}"
-                                    style="background: #5981C2; color: white; font-weight: 600;">
-                                <i class="fas fa-users me-2"></i>
-                                ${letter} <span class="badge bg-light text-dark ms-2">${usuariosGrupo.length}</span>
-                            </button>
-                        </h2>
-                        <div id="${collapseId}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" 
-                             aria-labelledby="${headingId}" data-bs-parent="#usuariosAccordion">
-                            <div class="accordion-body" style="padding: 1rem;">
-                                <div class="row g-3">
-                `;
-                
-                usuariosGrupo.forEach(usuario => {
-                    const rolBadgeClass = usuario.rol === 'admin' ? 'bg-danger' : 'bg-primary';
-                    const iniciales = `${usuario.nombre.charAt(0)}${usuario.apellido.charAt(0)}`.toUpperCase();
-                    
-                    html += `
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card h-100 shadow-sm" style="border-radius: 8px; border: 1px solid #e0e0e0;">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center mb-3">
-                                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3" 
-                                             style="width: 50px; height: 50px; background: #5981C2; color: white; font-weight: 600; font-size: 1.2rem;">
-                                            ${iniciales}
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <h6 class="mb-0" style="font-weight: 600; color: #333;">${usuario.nombre} ${usuario.apellido}</h6>
-                                            <span class="badge ${rolBadgeClass} mt-1">${usuario.rol}</span>
-                                        </div>
-                                    </div>
-                                    <div class="mb-2">
-                                        <small class="text-muted">
-                                            <i class="fas fa-envelope me-1" style="color: #5981C2;"></i>${usuario.gmail}
-                                        </small>
-                                    </div>
-                                    <div class="mb-3">
-                                        <small class="text-muted">
-                                            <i class="fas fa-user me-1" style="color: #5981C2;"></i>${usuario.usuario}
-                                        </small>
-                                    </div>
-                                    <div class="d-grid gap-2">
-                                        <button class="btn btn-sm btn-outline-primary" onclick="cambiarRol(${usuario.id})" style="border-radius: 6px;">
-                                            <i class="fas fa-user-cog me-1"></i>Cambiar Rol
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-danger" onclick="eliminarUsuario(${usuario.id})" style="border-radius: 6px;">
-                                            <i class="fas fa-trash-alt me-1"></i>Eliminar
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += `
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        // Función para filtrar usuarios
-        function filtrarUsuarios() {
-            const busqueda = document.getElementById('buscadorUsuarios').value.toLowerCase().trim();
-            
-            if (busqueda === '') {
-                mostrarUsuarios(todosLosUsuarios);
-                return;
-            }
-            
-            const usuariosFiltrados = todosLosUsuarios.filter(usuario => {
-                return usuario.nombre.toLowerCase().includes(busqueda) ||
-                       usuario.apellido.toLowerCase().includes(busqueda) ||
-                       usuario.email.toLowerCase().includes(busqueda) ||
-                       usuario.usuario.toLowerCase().includes(busqueda);
-            });
-            
-            mostrarUsuarios(usuariosFiltrados);
-        }
-
-        // Event listener para el buscador
-        document.addEventListener('DOMContentLoaded', function() {
-            const buscador = document.getElementById('buscadorUsuarios');
-            if (buscador) {
-                buscador.addEventListener('input', filtrarUsuarios);
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const rol = localStorage.getItem('rol');
-            if (rol === 'admin') {
-                listarUsuarios(); // Llama a la función para cargar los usuarios
-            }
-        });
 
         document.addEventListener('DOMContentLoaded', function () {
             const popoverTrigger = document.getElementById('infoPopover');
@@ -961,36 +601,6 @@
         </div>
     </div>
 
-    <!-- Modal para Cambiar Rol -->
-    <div class="modal fade" id="modalCambiarRol" tabindex="-1" aria-labelledby="modalCambiarRolLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="border-radius: 8px; border: none; overflow: hidden;">
-                <div class="modal-header" style="background: #5981C2; color: white; border: none;">
-                    <h5 class="modal-title" id="modalCambiarRolLabel">
-                        <i class="fas fa-user-cog me-2"></i>Cambiar Rol de Usuario
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="padding: 2rem;">
-                    <p class="text-center mb-4" style="color: #555;">Selecciona el nuevo rol para este usuario:</p>
-                    <div class="d-grid gap-3">
-                        <button type="button" class="btn btn-lg" onclick="confirmarCambioRol('admin')" 
-                                style="background: #dc3545; color: white; border: none; border-radius: 6px; padding: 1rem; font-weight: 600;">
-                            <i class="fas fa-user-shield me-2"></i>Administrador
-                        </button>
-                        <button type="button" class="btn btn-lg" onclick="confirmarCambioRol('usuario')" 
-                                style="background: #5981C2; color: white; border: none; border-radius: 6px; padding: 1rem; font-weight: 600;">
-                            <i class="fas fa-user me-2"></i>Usuario
-                        </button>
-                        <button type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal" 
-                                style="border-radius: 6px; padding: 1rem; font-weight: 600;">
-                            <i class="fas fa-times me-2"></i>Cancelar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Modal de Información -->
     <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true"
