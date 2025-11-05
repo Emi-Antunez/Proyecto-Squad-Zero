@@ -240,8 +240,18 @@ function cancelarReserva(idReserva) {
 
 // Función para descargar calendario
 function descargarCalendario(idReserva) {
-    // Aquí iría la generación del archivo .ics
-    alert('Funcionalidad de calendario en desarrollo');
+    // Crear un enlace temporal para descargar el archivo ICS
+    const link = document.createElement('a');
+    link.href = `${API_URL}?action=descargarCalendario&id=${idReserva}`;
+    link.download = `tour-nautico-${idReserva}.ics`;
+    link.style.display = 'none';
+
+    // Agregar al DOM y hacer clic
+    document.body.appendChild(link);
+    link.click();
+
+    // Remover del DOM
+    document.body.removeChild(link);
 }
 
 // Función para guardar cambios del perfil

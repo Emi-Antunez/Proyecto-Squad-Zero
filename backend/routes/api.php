@@ -7,6 +7,7 @@ session_start();
 require "../controllers/reservas.php";
 require "../controllers/usuarios.php";
 require "../controllers/publicaciones.php";
+require "../controllers/calendario.php";
 
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
@@ -79,6 +80,9 @@ elseif ($action === "modificarPerfil" && $requestMethod == "POST") {
 elseif ($action === "reprogramarReserva" && $requestMethod == "PUT") {
     $data = json_decode(file_get_contents("php://input"), true);
     reprogramarReserva($data['id'], $data['fecha'], $data['hora']);
+}
+elseif ($action === "descargarCalendario" && $requestMethod == "GET" && isset($_GET['id'])) {
+    generarICS($_GET['id']);
 }
 // Reservas
 elseif ($action === "getReservas" && $requestMethod == "GET") {
