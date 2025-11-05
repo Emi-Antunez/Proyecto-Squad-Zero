@@ -31,6 +31,20 @@ class Usuario {
     return $result->fetch_assoc();
 }
 
+    public function obtenerReservasPorUsuario($id_usuario) {
+        $stmt = $this->conn->prepare("
+            SELECT r.*, u.nombre, u.apellido, u.gmail
+            FROM reservas r
+            JOIN usuarios u ON r.id_usuario = u.id
+            WHERE r.id_usuario = ?
+            ORDER BY r.fecha DESC, r.hora DESC
+        ");
+        $stmt->bind_param("i", $id_usuario);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 public function existeUsuarioOGmail($usuario, $gmail) {
     $stmt = $this->conn->prepare("SELECT id FROM usuarios WHERE usuario=? OR gmail=?");
     $stmt->bind_param("ss", $usuario, $gmail);

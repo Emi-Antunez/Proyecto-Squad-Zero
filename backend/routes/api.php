@@ -69,6 +69,17 @@ elseif ($action === "publicaciones" && $requestMethod == "DELETE" && isset($_GET
 elseif ($action === "upload-imagen" && $requestMethod == "POST") {
     subirImagenPublicacion();
 }
+// Panel de Usuario - Reservas del usuario
+elseif ($action === "misReservas" && $requestMethod == "GET") {
+    obtenerReservasUsuario();
+}
+elseif ($action === "modificarPerfil" && $requestMethod == "POST") {
+    modificarPerfilUsuario();
+}
+elseif ($action === "reprogramarReserva" && $requestMethod == "PUT") {
+    $data = json_decode(file_get_contents("php://input"), true);
+    reprogramarReserva($data['id'], $data['fecha'], $data['hora']);
+}
 // Reservas
 elseif ($action === "getReservas" && $requestMethod == "GET") {
     listarReservas();
@@ -119,7 +130,7 @@ elseif ($requestMethod == "DELETE") {
         // Obtener el motivo de cancelación del body si existe
         $data = json_decode(file_get_contents("php://input"), true);
         $motivo = isset($data['motivo_cancelacion']) ? $data['motivo_cancelacion'] : '';
-        
+
         eliminarReserva($_GET['id'], $motivo);
     } else {
         echo json_encode(["error" => "Falta el parámetro id para eliminar"]);

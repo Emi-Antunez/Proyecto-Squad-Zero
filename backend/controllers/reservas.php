@@ -95,7 +95,7 @@ function eliminarReserva($id, $motivo_cancelacion = '') {
     try {
         // Obtener datos de la reserva antes de eliminarla
         $reserva = $reservaModel->obtenerPorId($id);
-        
+
         if (!$reserva) {
             http_response_code(404);
             echo json_encode([
@@ -104,12 +104,24 @@ function eliminarReserva($id, $motivo_cancelacion = '') {
             ]);
             return;
         }
-        
+
+        // Verificar que el usuario solo pueda cancelar sus propias reservas
+        if (!isset($_SESSION['id_usuario']) || $_SESSION['id_usuario'] != $reserva['id_usuario']) {
+            if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
+                http_response_code(403);
+                echo json_encode([
+                    "success" => false,
+                    "error" => "No tienes permisos para cancelar esta reserva"
+                ]);
+                return;
+            }
+        }
+
         // Obtener datos del usuario
         require_once __DIR__ . '/../models/usuario.php';
         $usuarioModel = new Usuario($conn);
         $usuario = $usuarioModel->obtenerPorId($reserva['id_usuario']);
-        
+
         // Eliminar la reserva
         if ($reservaModel->eliminar($id)) {
             // Intentar enviar correo de cancelación
@@ -118,18 +130,20 @@ function eliminarReserva($id, $motivo_cancelacion = '') {
                 try {
                     require_once __DIR__ . '/../lib/EmailService.php';
                     $emailService = new EmailService();
-                    
+
                     // Si no hay motivo, usar uno por defecto
                     if (empty($motivo_cancelacion)) {
-                        $motivo_cancelacion = 'La reserva ha sido cancelada por el administrador.';
+                        $motivo_cancelacion = isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'
+                            ? 'La reserva ha sido cancelada por el administrador.'
+                            : 'La reserva ha sido cancelada por el usuario.';
                     }
-                    
+
                     $emailEnviado = $emailService->enviarCorreoCancelacion($reserva, $usuario, $motivo_cancelacion);
                 } catch (Exception $e) {
                     error_log("Error enviando email de cancelación: " . $e->getMessage());
                 }
             }
-            
+
             http_response_code(200);
             echo json_encode([
                 "success" => true,
@@ -151,6 +165,72 @@ function eliminarReserva($id, $motivo_cancelacion = '') {
             "success" => false,
             "error" => "Error al procesar la eliminación"
         ]);
+    }
+}
+
+function reprogramarReserva($id, $nueva_fecha, $nueva_hora) {
+    global $reservaModel, $conn;
+
+    if (!isset($_SESSION['id_usuario'])) {
+        echo json_encode(["error" => "Debes iniciar sesión"]);
+        return;
+    }
+
+    // Obtener la reserva actual
+    $reserva = $reservaModel->obtenerPorId($id);
+    if (!$reserva) {
+        echo json_encode(["error" => "Reserva no encontrada"]);
+        return;
+    }
+
+    // Verificar que la reserva pertenece al usuario
+    if ($reserva['id_usuario'] != $_SESSION['id_usuario']) {
+        echo json_encode(["error" => "No tienes permisos para modificar esta reserva"]);
+        return;
+    }
+
+    // Verificar que no haya otra reserva en el mismo tour, fecha y hora
+    if ($reservaModel->existeReserva($reserva['tour'], $nueva_fecha, $nueva_hora)) {
+        echo json_encode(["error" => "Ya existe una reserva para ese tour, fecha y hora"]);
+        return;
+    }
+
+    // Actualizar la reserva
+    if ($reservaModel->modificar($id, $reserva['id_usuario'], $reserva['tour'], $nueva_fecha, $nueva_hora, $reserva['cantidad_personas'])) {
+        // Obtener datos del usuario para enviar email
+        require_once __DIR__ . '/../models/usuario.php';
+        $usuarioModel = new Usuario($conn);
+        $usuario = $usuarioModel->obtenerPorId($reserva['id_usuario']);
+
+        // Intentar enviar email de confirmación de reprogramación
+        $emailEnviado = false;
+        if ($usuario && !empty($usuario['gmail'])) {
+            try {
+                require_once __DIR__ . '/../lib/EmailService.php';
+                $emailService = new EmailService();
+
+                $reservaActualizada = [
+                    'id' => $id,
+                    'id_usuario' => $reserva['id_usuario'],
+                    'tour' => $reserva['tour'],
+                    'fecha' => $nueva_fecha,
+                    'hora' => $nueva_hora,
+                    'cantidad_personas' => $reserva['cantidad_personas']
+                ];
+
+                $emailEnviado = $emailService->enviarConfirmacionReserva($reservaActualizada, $usuario);
+            } catch (Exception $e) {
+                error_log("Error enviando email de reprogramación: " . $e->getMessage());
+            }
+        }
+
+        echo json_encode([
+            "mensaje" => "Reserva reprogramada exitosamente",
+            "id" => $id,
+            "email_enviado" => $emailEnviado
+        ]);
+    } else {
+        echo json_encode(["error" => "No se pudo reprogramar la reserva"]);
     }
 }
 ?>

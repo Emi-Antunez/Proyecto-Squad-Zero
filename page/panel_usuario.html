@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Mi Panel - Tours en Barco</title>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+        rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../style/style.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="../index.html"><img class="logo" src="../img/tour nautico colonia logo (1).png"
+                    alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menú
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto py-4 py-lg-0" id="navbarPublicLinks">
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="../index.html#sobreNosotrosSection">
+                            <i class="fas fa-info-circle me-1"></i>Sobre nosotros
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="../index.html#nuestrosViajesSection">
+                            <i class="fas fa-ship me-1"></i>Nuestros viajes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="../index.html#ubicacionBoteSection">
+                            <i class="fas fa-map-marker-alt me-1"></i>Ubicación
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown" id="userNavPanel" style="display:none;">
+                        <a class="nav-link dropdown-toggle px-lg-3 py-3 py-lg-4" href="#" id="navbarUserDropdownPanel"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span id="navbarUsernamePanel"></span>
+                            <i class="fas fa-user ms-2"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end animate__animated animate__fadeIn"
+                            aria-labelledby="navbarUserDropdownPanel" style="min-width: 180px;">
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="cerrarSesion()"
+                                    style="transition: all 0.2s; color: #dc3545;">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="masthead" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../img/fbb4ae05-280c-462b-9768-b164fa229cdd.png'); background-size: cover; background-position: center; min-height: 40vh;">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center justify-content-center text-center">
+                <div class="col-lg-10 align-self-end">
+                    <h1 class="text-white font-weight-bold display-4">Mi Panel</h1>
+                    <hr class="divider my-4" />
+                </div>
+                <div class="col-lg-8 align-self-baseline">
+                    <h4 class="text-white-75 font-weight-light mb-5">Gestiona tus reservas, modifica tu perfil y accede a todas tus funcionalidades</h4>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Tabs de navegación -->
+        <ul class="nav nav-tabs" id="panelTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="reservas-tab" data-bs-toggle="tab" data-bs-target="#reservas" type="button" role="tab" aria-controls="reservas" aria-selected="true">
+                    <i class="fas fa-calendar-check me-2"></i>Mis Reservas
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="perfil-tab" data-bs-toggle="tab" data-bs-target="#perfil" type="button" role="tab" aria-controls="perfil" aria-selected="false">
+                    <i class="fas fa-user-edit me-2"></i>Mi Perfil
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="panelTabContent">
+            <!-- Tab Mis Reservas -->
+            <div class="tab-pane fade show active" id="reservas" role="tabpanel" aria-labelledby="reservas-tab">
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h3 class="mb-4">
+                            <i class="fas fa-calendar-check me-2" style="color: #5981C2;"></i>Mis Reservas
+                        </h3>
+                        <div id="reservasUsuarioContainer" class="row g-4">
+                            <!-- Las reservas se cargarán aquí dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Mi Perfil -->
+            <div class="tab-pane fade" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
+                <div class="row mt-4">
+                    <div class="col-lg-8 mx-auto">
+                        <h3 class="mb-4">
+                            <i class="fas fa-user-edit me-2" style="color: #5981C2;"></i>Mi Perfil
+                        </h3>
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <form id="formPerfil">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="nombrePerfil" class="form-label">
+                                                <i class="fas fa-user me-1"></i>Nombre
+                                            </label>
+                                            <input type="text" class="form-control" id="nombrePerfil" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="apellidoPerfil" class="form-label">
+                                                <i class="fas fa-user me-1"></i>Apellido
+                                            </label>
+                                            <input type="text" class="form-control" id="apellidoPerfil" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="emailPerfil" class="form-label">
+                                            <i class="fas fa-envelope me-1"></i>Email
+                                        </label>
+                                        <input type="email" class="form-control" id="emailPerfil" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="usuarioPerfil" class="form-label">
+                                            <i class="fas fa-at me-1"></i>Usuario
+                                        </label>
+                                        <input type="text" class="form-control" id="usuarioPerfil" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fotoPerfil" class="form-label">
+                                            <i class="fas fa-camera me-1"></i>Foto de Perfil
+                                        </label>
+                                        <input type="file" class="form-control" id="fotoPerfil" accept="image/*">
+                                        <small class="text-muted">Formatos permitidos: JPG, PNG, GIF, WEBP (máx. 2MB)</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <img id="previewFotoPerfil" src="" alt="Foto actual" class="img-thumbnail" style="max-width: 150px; display: none;">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-2"></i>Guardar Cambios
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-top py-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <ul class="list-inline text-center mb-3">
+                        <li class="list-inline-item">
+                            <a href="https://api.whatsapp.com/send/?phone=59896018202" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-whatsapp fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.instagram.com/tournauticocolonia" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="small text-center text-muted">Copyright &copy; Tour Náutico Colonia 2025</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/usuario.js?v=2"></script>
+    <script src="../js/panel_usuario.js?v=1"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const rol = localStorage.getItem('rol');
+            const usuario = localStorage.getItem('usuario');
+
+            // Redirigir a admin.html si el usuario es admin
+            if (rol === 'admin') {
+                window.location.href = '../admin.html';
+                return;
+            }
+
+            // Redirigir a login si no está logueado
+            if (!usuario) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Mostrar/ocultar elementos según estado de login
+            if (usuario) {
+                const userNavPanel = document.getElementById('userNavPanel');
+                const usernameSpanPanel = document.getElementById('navbarUsernamePanel');
+
+                if (userNavPanel) {
+                    userNavPanel.style.display = '';
+                    if (usernameSpanPanel) usernameSpanPanel.textContent = usuario;
+                }
+            }
+        });
+
+        function cerrarSesion() {
+            localStorage.removeItem('usuario');
+            localStorage.removeItem('rol');
+            window.location.reload();
+        }
+    </script>
+</body>
+
+</html>
