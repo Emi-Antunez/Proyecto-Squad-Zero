@@ -14,7 +14,7 @@ define('SMTP_PASSWORD', 'urrc obhi cykg imyc');  // Contraseña de aplicación d
 
 // Configuración del remitente
 define('EMAIL_FROM', 'squadzero1234@gmail.com');
-define('EMAIL_FROM_NAME', 'Squad Zero - Reservas');
+define('EMAIL_FROM_NAME', 'Tour Náutico Colonia - Reservas');
 
 // Configuración general
 define('EMAIL_CHARSET', 'UTF-8');

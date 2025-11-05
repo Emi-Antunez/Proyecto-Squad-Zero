@@ -68,7 +68,7 @@ class EmailService {
             
             // Contenido del correo
             $this->mailer->isHTML(true);
-            $this->mailer->Subject = '✅ Confirmación de Reserva - Squad Zero';
+            $this->mailer->Subject = '✅ Confirmación de Reserva - Tour Náutico Colonia';
             $this->mailer->Body    = $this->generarHTMLConfirmacion($reservaData, $usuarioData);
             $this->mailer->AltBody = $this->generarTextoPlanoConfirmacion($reservaData, $usuarioData);
             
@@ -112,7 +112,7 @@ class EmailService {
     <table role="presentation" style="width: 100%; border-collapse: collapse;">
         <tr>
             <td style="padding: 40px 0; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                <h1 style="color: white; margin: 0; font-size: 28px;">Squad Zero</h1>
+                <h1 style="color: white; margin: 0; font-size: 28px;">Tour Náutico Colonia</h1>
                 <p style="color: white; margin: 10px 0 0 0; font-size: 16px;">Reservas y Tours</p>
             </td>
         </tr>
@@ -182,7 +182,7 @@ class EmailService {
         <tr>
             <td style="padding: 30px; text-align: center;">
                 <p style="color: #999; font-size: 12px; margin: 0;">
-                    © 2025 Squad Zero. Todos los derechos reservados.
+                    © 2025 Tour Náutico Colonia. Todos los derechos reservados.
                 </p>
                 <p style="color: #999; font-size: 12px; margin: 10px 0 0 0;">
                     Este es un correo automático, por favor no respondas a este mensaje.
@@ -209,7 +209,7 @@ HTML;
         $fechaFormateada = $fechaObj->format('d/m/Y');
         
         return <<<TEXT
-SQUAD ZERO - CONFIRMACIÓN DE RESERVA
+TOUR NÁUTICO COLONIA - CONFIRMACIÓN DE RESERVA
 
 ¡Hola, {$nombreCompleto}!
 
@@ -229,7 +229,7 @@ Si necesitas modificar o cancelar tu reserva, por favor contáctanos lo antes po
 ¿Tienes preguntas? Contáctanos en: squadzero1234@gmail.com
 
 ---
-© 2025 Squad Zero. Todos los derechos reservados.
+© 2025 Tour Náutico Colonia. Todos los derechos reservados.
 Este es un correo automático, por favor no respondas a este mensaje.
 TEXT;
     }
@@ -249,7 +249,7 @@ TEXT;
             
             // Contenido del correo
             $this->mailer->isHTML(true);
-            $this->mailer->Subject = '❌ Reserva Cancelada - Squad Zero';
+            $this->mailer->Subject = '❌ Reserva Cancelada - Tour Náutico Colonia';
             $this->mailer->Body    = $this->generarHTMLCancelacion($reservaData, $usuarioData, $motivoCancelacion);
             $this->mailer->AltBody = $this->generarTextoPlanoCancelacion($reservaData, $usuarioData, $motivoCancelacion);
             
@@ -294,7 +294,7 @@ TEXT;
     <table role="presentation" style="width: 100%; border-collapse: collapse;">
         <tr>
             <td style="padding: 40px 0; text-align: center; background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);">
-                <h1 style="color: white; margin: 0; font-size: 28px;">Squad Zero</h1>
+                <h1 style="color: white; margin: 0; font-size: 28px;">Tour Náutico Colonia</h1>
                 <p style="color: white; margin: 10px 0 0 0; font-size: 16px;">Reservas y Tours</p>
             </td>
         </tr>
@@ -370,7 +370,7 @@ TEXT;
         <tr>
             <td style="padding: 30px; text-align: center;">
                 <p style="color: #999; font-size: 12px; margin: 0;">
-                    © 2025 Squad Zero. Todos los derechos reservados.
+                    © 2025 Tour Náutico Colonia. Todos los derechos reservados.
                 </p>
                 <p style="color: #999; font-size: 12px; margin: 10px 0 0 0;">
                     Este es un correo automático, por favor no respondas a este mensaje.
@@ -397,7 +397,7 @@ HTML;
         $fechaFormateada = $fechaObj->format('d/m/Y');
         
         return <<<TEXT
-SQUAD ZERO - RESERVA CANCELADA
+TOUR NÁUTICO COLONIA - RESERVA CANCELADA
 
 Hola, {$nombreCompleto}
 
@@ -419,7 +419,7 @@ Si tienes alguna pregunta o deseas hacer una nueva reserva, no dudes en contacta
 O por WhatsApp: +598 96 018 202
 
 ---
-© 2025 Squad Zero. Todos los derechos reservados.
+© 2025 Tour Náutico Colonia. Todos los derechos reservados.
 Este es un correo automático, por favor no respondas a este mensaje.
 TEXT;
     }
