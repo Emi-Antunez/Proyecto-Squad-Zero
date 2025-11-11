@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Manual de Usuario - Tour Náutico Colonia" />
+    <meta name="author" content="Tour Náutico Colonia" />
+    <title>Manual de Usuario - Tour Náutico Colonia</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1, h2, h3, h4 {
+            color: #2c5aa0;
+            font-weight: 700;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #28a745;
+            font-size: 2.5rem;
+        }
+        .section-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #28a745;
+        }
+        .subsection {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e9ecef;
+        }
+        .highlight {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        .warning {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            color: #721c24;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            color: #155724;
+        }
+        .code {
+            background: #f1f3f4;
+            border: 1px solid #dadce0;
+            border-radius: 3px;
+            padding: 0.25rem 0.5rem;
+            font-family: 'Courier New', monospace;
+            color: #202124;
+        }
+        .btn-custom {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.25rem 0;
+        }
+        .btn-custom:hover {
+            background: linear-gradient(45deg, #20c997, #28a745);
+            color: white;
+            text-decoration: none;
+        }
+        .table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .table th {
+            background: #28a745;
+            color: white;
+        }
+        .accordion-button {
+            background: #28a745;
+            color: white;
+        }
+        .accordion-button:not(.collapsed) {
+            background: #20c997;
+            color: white;
+        }
+        .list-group-item {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #dee2e6;
+        }
+        .badge-user {
+            background: #28a745;
+        }
+        .footer-manual {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #28a745;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container animate__animated animate__fadeIn">
+        <h1><i class="fas fa-user me-2"></i>Manual de Usuario</h1>
+        <p class="text-center mb-4" style="font-size: 1.1rem; color: #666;">Guía completa para usar Tour Náutico Colonia</p>
+
+        <!-- Índice -->
+        <div class="section-card">
+            <h2><i class="fas fa-list me-2"></i>Índice</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="#registro" class="text-decoration-none">Registro de Usuario</a></li>
+                        <li class="list-group-item"><a href="#login" class="text-decoration-none">Inicio de Sesión</a></li>
+                        <li class="list-group-item"><a href="#reservas" class="text-decoration-none">Hacer Reservas</a></li>
+                        <li class="list-group-item"><a href="#gestion" class="text-decoration-none">Gestionar Reservas</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="#perfil" class="text-decoration-none">Editar Perfil</a></li>
+                        <li class="list-group-item"><a href="#contacto" class="text-decoration-none">Contacto y Soporte</a></li>
+                        <li class="list-group-item"><a href="#faq" class="text-decoration-none">Preguntas Frecuentes</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registro -->
+        <div id="registro" class="section-card">
+            <h2><i class="fas fa-user-plus me-2"></i>Registro de Usuario</h2>
+            <div class="subsection">
+                <h4>¿Por qué registrarse?</h4>
+                <p>Crear una cuenta te permite:</p>
+                <ul>
+                    <li><i class="fas fa-check text-success me-2"></i>Hacer reservas en línea</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Ver tu historial de reservas</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Recibir confirmaciones por email</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Cancelar o modificar reservas</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <h4>Pasos para registrarse:</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><span class="step-number">1</span>Ir a la página de registro</h5>
+                        <p>Desde la página principal, haz click en "Registrarse" en el menú superior.</p>
+
+                        <h5><span class="step-number">2</span>Completar información</h5>
+                        <p>Llena todos los campos obligatorios:</p>
+                        <ul>
+                            <li>Nombre y apellido</li>
+                            <li>Correo electrónico válido</li>
+                            <li>Nombre de usuario único</li>
+                            <li>Contraseña segura</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><span class="step-number">3</span>Foto de perfil (opcional)</h5>
+                        <p>Haz click en el círculo para seleccionar una foto. Formatos permitidos: JPG, PNG, GIF, WEBP (máx. 2MB).</p>
+
+                        <h5><span class="step-number">4</span>Confirmar registro</h5>
+                        <p>Haz click en "Registrarse". Recibirás un email de confirmación.</p>
+                        <div class="success">
+                            <strong>¡Listo!</strong> Tu cuenta está creada y puedes iniciar sesión.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="subsection">
+                <h4>Consejos para una buena contraseña:</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>✅ Recomendado:</h5>
+                        <ul>
+                            <li>Mínimo 8 caracteres</li>
+                            <li>Combinar letras y números</li>
+                            <li>Incluir mayúsculas y minúsculas</li>
+                            <li>Usar símbolos especiales</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>❌ Evitar:</h5>
+                        <ul>
+                            <li>Contraseñas obvias (123456, password)</li>
+                            <li>Información personal (fecha nacimiento)</li>
+                            <li>Secuencias simples (abcdef)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inicio de Sesión -->
+        <div id="login" class="section-card">
+            <h2><i class="fas fa-sign-in-alt me-2"></i>Inicio de Sesión</h2>
+            <div class="subsection">
+                <h4>¿Cómo iniciar sesión?</h4>
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5>Pasos:</h5>
+                        <ol>
+                            <li>Haz click en "Iniciar sesión" en el menú</li>
+                            <li>Ingresa tu usuario o email</li>
+                            <li>Escribe tu contraseña</li>
+                            <li>Haz click en "Iniciar sesión"</li>
+                        </ol>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-key fa-3x text-primary mb-3"></i>
+                            <p class="small">¿Olvidaste tu contraseña? Contacta al soporte.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight">
+                    <strong>Recuerda:</strong> Mantén tu sesión iniciada para un acceso rápido en futuras visitas.
+                </div>
+            </div>
+        </div>
+
+        <!-- Hacer Reservas -->
+        <div id="reservas" class="section-card">
+            <h2><i class="fas fa-calendar-plus me-2"></i>Hacer Reservas</h2>
+            <div class="subsection">
+                <h4>Tours Disponibles</h4>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card text-center mb-3">
+                            <div class="card-body">
+                                <i class="fas fa-water fa-2x text-info mb-2"></i>
+                                <h6>Navegación Bahía</h6>
+                                <p class="small">Tour por la bahía de Colonia</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-center mb-3">
+                            <div class="card-body">
+                                <i class="fas fa-ship fa-2x text-primary mb-2"></i>
+                                <h6>Riachuelo</h6>
+                                <p class="small">Navegación por el río Riachuelo</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-center mb-3">
+                            <div class="card-body">
+                                <i class="fas fa-anchor fa-2x text-warning mb-2"></i>
+                                <h6>Anchorena</h6>
+                                <p class="small">Tour especial Anchorena</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="subsection">
+                <h4>Proceso de Reserva</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><span class="step-number">1</span>Seleccionar Tour</h5>
+                        <p>Elige el tour que deseas en la página principal.</p>
+
+                        <h5><span class="step-number">2</span>Elegir Fecha y Hora</h5>
+                        <p>Selecciona fecha disponible y horario preferido.</p>
+
+                        <h5><span class="step-number">3</span>Cantidad de Personas</h5>
+                        <p>Indica cuántas personas viajarán (mínimo 1, máximo según capacidad).</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><span class="step-number">4</span>Confirmar Datos</h5>
+                        <p>Verifica nombre, apellido y datos de contacto.</p>
+
+                        <h5><span class="step-number">5</span>Confirmar Reserva</h5>
+                        <p>Haz click en "Reservar". Recibirás confirmación por email.</p>
+
+                        <div class="success">
+                            <strong>¡Reserva completada!</strong> Guarda el email de confirmación.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="subsection">
+                <h4>Políticas Importantes</h4>
+                <div class="warning">
+                    <strong>Cancelaciones:</strong> Se pueden cancelar hasta 24 horas antes sin costo. Después, se cobra el 50%.
+                </div>
+                <div class="highlight">
+                    <strong>Confirmación:</strong> Todas las reservas requieren confirmación por email antes de ser válidas.
+                </div>
+            </div>
+        </div>
+
+        <!-- Gestionar Reservas -->
+        <div id="gestion" class="section-card">
+            <h2><i class="fas fa-tasks me-2"></i>Gestionar Reservas</h2>
+            <div class="subsection">
+                <h4>Ver Mis Reservas</h4>
+                <p>Desde tu panel de usuario puedes:</p>
+                <ul>
+                    <li><i class="fas fa-eye text-info me-2"></i>Ver todas tus reservas activas</li>
+                    <li><i class="fas fa-history text-secondary me-2"></i>Revisar historial de reservas pasadas</li>
+                    <li><i class="fas fa-calendar-alt text-primary me-2"></i>Ver fechas y horarios</li>
+                    <li><i class="fas fa-users text-success me-2"></i>Confirmar cantidad de personas</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <h4>Cancelar Reserva</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>¿Cuándo puedo cancelar?</h5>
+                        <ul>
+                            <li>Hasta 24 horas antes: Sin costo</li>
+                            <li>Entre 24-12 horas: 50% de penalización</li>
+                            <li>Menos de 12 horas: No reembolsable</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Cómo cancelar:</h5>
+                        <ol>
+                            <li>Ve a tu panel de usuario</li>
+                            <li>Busca la reserva</li>
+                            <li>Haz click en "Cancelar"</li>
+                            <li>Confirma la cancelación</li>
+                        </ol>
+                        <div class="highlight">
+                            <strong>Nota:</strong> Recibirás email confirmando la cancelación.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editar Perfil -->
+        <div id="perfil" class="section-card">
+            <h2><i class="fas fa-user-edit me-2"></i>Editar Perfil</h2>
+            <div class="subsection">
+                <h4>¿Qué puedo modificar?</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Información Personal:</h5>
+                        <ul>
+                            <li>Nombre y apellido</li>
+                            <li>Foto de perfil</li>
+                            <li>Correo electrónico</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Seguridad:</h5>
+                        <ul>
+                            <li>Cambiar contraseña</li>
+                            <li>Actualizar nombre de usuario</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="subsection">
+                <h4>Cambiar Foto de Perfil</h4>
+                <p>Sigue estos pasos:</p>
+                <ol>
+                    <li>Ve a tu panel de usuario</li>
+                    <li>Haz click en "Editar Perfil"</li>
+                    <li>Selecciona nueva foto (JPG, PNG, GIF, WEBP, máx. 2MB)</li>
+                    <li>Guarda los cambios</li>
+                </ol>
+                <div class="success">
+                    <strong>Tip:</strong> Una foto clara ayuda al personal a identificarte en el puerto.
+                </div>
+            </div>
+        </div>
+
+        <!-- Contacto -->
+        <div id="contacto" class="section-card">
+            <h2><i class="fas fa-headset me-2"></i>Contacto y Soporte</h2>
+            <div class="subsection">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <i class="fab fa-whatsapp fa-2x text-success mb-2"></i>
+                        <h5>WhatsApp</h5>
+                        <p>+598 96 018 202</p>
+                        <small class="text-muted">Respuesta inmediata</small>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fas fa-envelope fa-2x text-primary mb-2"></i>
+                        <h5>Email</h5>
+                        <p>info@tournauticocolonia.com</p>
+                        <small class="text-muted">Respuesta en 24hs</small>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fab fa-instagram fa-2x text-warning mb-2"></i>
+                        <h5>Instagram</h5>
+                        <p>@tournauticocolonia</p>
+                        <small class="text-muted">Mensajes directos</small>
+                    </div>
+                </div>
+            </div>
+            <div class="subsection">
+                <h4>Horarios de Atención</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Teléfono/WhatsApp:</h5>
+                        <ul>
+                            <li>Lunes a Viernes: 9:00 - 18:00</li>
+                            <li>Sábados: 10:00 - 16:00</li>
+                            <li>Domingos: Cerrado</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Email:</h5>
+                        <ul>
+                            <li>Lunes a Viernes: 24/7</li>
+                            <li>Respuesta en horario laboral</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div id="faq" class="section-card">
+            <h2><i class="fas fa-question-circle me-2"></i>Preguntas Frecuentes</h2>
+            <div class="subsection">
+                <h4>Reservas</h4>
+                <div class="accordion" id="faqReservasAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                ¿Cuánto tiempo dura cada tour?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqReservasAccordion">
+                            <div class="accordion-body">
+                                Los tours duran aproximadamente 1 hora y 30 minutos, incluyendo navegación y explicaciones.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                ¿Qué incluye el precio?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqReservasAccordion">
+                            <div class="accordion-body">
+                                Incluye navegación en barco, guía turístico, chalecos salvavidas y seguro de responsabilidad civil.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                ¿Puedo cambiar la fecha de mi reserva?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqReservasAccordion">
+                            <div class="accordion-body">
+                                Sí, puedes cambiar la fecha contactándonos con al menos 24 horas de anticipación, sujeto a disponibilidad.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="subsection">
+                <h4>Cuenta y Perfil</h4>
+                <div class="accordion" id="faqCuentaAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                ¿Cómo recupero mi contraseña?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqCuentaAccordion">
+                            <div class="accordion-body">
+                                Contacta al soporte por WhatsApp o email indicando tu usuario. Te ayudaremos a restablecerla.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                ¿Puedo tener múltiples reservas activas?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqCuentaAccordion">
+                            <div class="accordion-body">
+                                Sí, puedes tener tantas reservas como desees, siempre que no se superpongan en fecha y hora.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-manual">
+            <p><strong>Versión:</strong> 1.0 | <strong>Fecha:</strong> Enero 2025</p>
+            <p><strong>© 2025 Tour Náutico Colonia.</strong> Todos los derechos reservados.</p>
+            <p>Para soporte técnico: <a href="mailto:soporte@tournauticocolonia.com" class="text-decoration-none">soporte@tournauticocolonia.com</a></p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
