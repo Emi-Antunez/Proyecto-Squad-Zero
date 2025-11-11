@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2025 a las 20:15:50
+-- Tiempo de generación: 11-11-2025 a las 21:50:47
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -43,7 +43,7 @@ CREATE TABLE `publicaciones` (
 
 INSERT INTO `publicaciones` (`id`, `titulo`, `descripcion`, `imagen`, `fecha`, `created_at`, `updated_at`) VALUES
 (2, 'Descuento especial para grupos', 'Reserva para grupos de 6 o más personas y obtén un 15% de descuento en cualquiera de nuestros tours. ¡No te lo pierdas!', NULL, '2026-01-16', '2025-11-04 15:55:26', '2025-11-04 15:57:29'),
-(5, 'Descuento especial para grupos', 'Reserva para grupos de 6 o más personas y obtén un 15% de descuento en cualquiera de nuestros tours. ¡No te lo pierdas!', NULL, '2026-07-24', '2025-11-04 15:55:39', '2025-11-04 15:58:08'),
+(5, 'Descuento especial para grupos', 'Reserva para grupos de 6 o más personas y obtén un 15% de descuento en cualquiera de nuestros tours. ¡No te lo pierdas!', 'img/publicaciones/pub_1762893197_69139d8d669c6.png', '2026-07-24', '2025-11-04 15:55:39', '2025-11-11 20:33:17'),
 (6, 'Nuevo tour: En Anchorena', 'Presentamos nuestro nuevo tour al atardecer. Disfruta de las vistas más espectaculares mientras navegas por el río. Incluye bebidas y snacks.', NULL, '2025-12-31', '2025-11-04 15:55:39', '2025-11-04 15:57:53');
 
 -- --------------------------------------------------------
@@ -94,7 +94,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `apellido`, `gmail`, `usuario`, `contrasena`, `rol`, `fecha_registro`, `foto_perfil`) VALUES
-(5, 'Bauty', 'Diaz', 'diazbautista95@gmail.com', 'bauty123', '$2y$10$RnaltxVbe9tpuD/BHaRz7OPZLNeXG.SYJ6Z2wds2nV7EIKzgQXTIG', 'usuario', '2025-09-02 17:25:09', NULL),
+(5, 'Bauty', 'Diaz', 'diazbautista95@gmail.com', 'bauty123', '$2y$10$RnaltxVbe9tpuD/BHaRz7OPZLNeXG.SYJ6Z2wds2nV7EIKzgQXTIG', 'admin', '2025-09-02 17:25:09', NULL),
 (6, 'Bauty', 'Mmm', 'msaoafbadcna@gmail.com', 'Nobody', '$2y$10$KE084BbBHgMIGvqjjoTg6e0HC9TFvH7TWZ23GuCxkflDAHIwEtova', 'admin', '2025-09-04 16:12:15', NULL),
 (7, 'kevin bastos', 'el chupa pene', 'kevinbastoschupapenesprofesional@gmail.com', 'kavin el chupa pene', '$2y$10$XsNA/mOk8SbvPhYOvcqu4unsi3xL2YIRyg8atN/9.AI6dnh52JtK.', 'usuario', '2025-09-05 21:04:47', NULL),
 (8, 'sajdasjidsji', 'jbjasdjdas', 'lkjhg@gmail.com', 'dsada', '$2y$10$Vuzs/fohyETR2pd45EzJsusa3i8.80fVz14aRGOQKcCNwzhdUih/K', 'usuario', '2025-10-09 20:04:36', NULL),
@@ -147,7 +147,7 @@ ALTER TABLE `publicaciones`
 -- AUTO_INCREMENT de la tabla `reservas`
 --
 ALTER TABLE `reservas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
