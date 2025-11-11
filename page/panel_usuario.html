@@ -51,6 +51,11 @@
                             <i class="fas fa-map-marker-alt me-1"></i>Ubicación
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="../manual_usuario.html" target="_blank" style="color: #28a745; font-weight: 600;">
+                            <i class="fas fa-book me-1"></i>Manual de Usuario
+                        </a>
+                    </li>
                     <li class="nav-item dropdown" id="userNavPanel" style="display:none;">
                         <a class="nav-link dropdown-toggle px-lg-3 py-3 py-lg-4" href="#" id="navbarUserDropdownPanel"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -88,6 +93,20 @@
 
     <!-- Main Content -->
     <main class="container my-5">
+        <!-- Botón de ayuda flotante -->
+        <div class="alert alert-success d-flex align-items-center justify-content-between mb-4 shadow-sm" role="alert" style="border-left: 5px solid #28a745;">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-question-circle fa-2x me-3" style="color: #28a745;"></i>
+                <div>
+                    <h5 class="mb-1" style="color: #28a745;">¿Necesitas ayuda?</h5>
+                    <p class="mb-0">Consulta nuestro manual de usuario para aprender a usar todas las funcionalidades</p>
+                </div>
+            </div>
+            <a href="../manual_usuario.html" target="_blank" class="btn btn-success ms-3" style="white-space: nowrap;">
+                <i class="fas fa-book me-2"></i>Ver Manual
+            </a>
+        </div>
+
         <!-- Tabs de navegación -->
         <ul class="nav nav-tabs" id="panelTabs" role="tablist">
             <li class="nav-item" role="presentation">

@@ -27,6 +27,12 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" id="mainNav">
         <div class="container px-4 px-lg-5">
+            <!-- Manual icon -->
+            <a id="manualIcon" href="http://localhost/Proyecto-squad-zero/manual_usuario.html" target="_blank" class="btn btn-sm btn-outline-success me-2"
+               style="padding:.35rem .5rem; border-radius:6px; align-items:center;">
+                <i class="fas fa-book"></i>
+            </a>
+
             <a class="navbar-brand" href="index.html"><img class="logo" src="./img/tour nautico colonia logo (1).png"
                     alt=""></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
@@ -51,6 +57,7 @@
                             <i class="fas fa-map-marker-alt me-1"></i>Ubicación
                         </a>
                     </li>
+
                     <li class="nav-item" id="loginNav">
                         <a class="nav-link px-lg-3 py-3 py-lg-4" href="page/login.html">
                             <i class="fas fa-sign-in-alt me-1"></i>Iniciar sesión
@@ -67,15 +74,7 @@
                             <span id="navbarUsernamePublic"></span>
                             <i class="fas fa-user ms-2"></i>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end animate__animated animate__fadeIn"
-                            aria-labelledby="navbarUserDropdownPublic" style="min-width: 180px;">
-                            <li>
-                                <a class="dropdown-item" href="page/panel_usuario.html"
-                                    style="transition: all 0.2s;">
-                                    <i class="fas fa-user-circle me-2"></i>Mi Panel
-                                </a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
+                        <ul class="dropdown-menu dropdown-menu-end animate__animated animate__fadeIn" aria-labelledby="navbarUserDropdownPublic" style="min-width: 180px;">
                             <li>
                                 <a class="dropdown-item" href="#" onclick="cerrarSesion()"
                                     style="transition: all 0.2s; color: #dc3545;">
@@ -490,6 +489,8 @@
             }
 
             // Mostrar/ocultar elementos según estado de login
+            const manualIcon = document.getElementById('manualIcon');
+            const manualNavItem = document.getElementById('manualNavItem');
             if (usuario) {
                 document.getElementById('loginNav').style.display = 'none';
                 document.getElementById('registerNav').style.display = 'none';
@@ -501,12 +502,18 @@
                     userNavPublic.style.display = '';
                     if (usernameSpanPublic) usernameSpanPublic.textContent = usuario;
                 }
+
+                if (manualIcon) manualIcon.style.display = ''; // mostrar manual
+                if (manualNavItem) manualNavItem.style.display = ''; // mostrar manual en menú
             } else {
                 document.getElementById('loginNav').style.display = '';
                 document.getElementById('registerNav').style.display = '';
                 
                 const userNavPublic = document.getElementById('userNavPublic');
                 if (userNavPublic) userNavPublic.style.display = 'none';
+
+                if (manualIcon) manualIcon.style.display = 'none'; // ocultar manual
+                if (manualNavItem) manualNavItem.style.display = 'none'; // ocultar manual en menú
             }
         });
 
